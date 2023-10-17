@@ -12,10 +12,9 @@
     };
 </script>
 
-<!-- HAVENT DONE CSS YET -->
 <style scoped>
     @import "../src/assets/sass/style.scss";
     .v-application {
-        background-color: #11161d;
+        background-color: #ffc2d1;
     }
 </style>

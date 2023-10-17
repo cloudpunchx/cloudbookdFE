@@ -1,32 +1,32 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import AccessPage from "../views/AccessPage";
 Vue.use(VueRouter);
 
 const routes = [
-    // {
-    //     path: "/",
-    //     name: "HomePage",
-    //     component: HomePage,
-    //     meta: [
-    //         {
-    //             title: "Cloudpunchd | Watch, Track, Share",
-    //         },
-    //         {
-    //             name: "description",
-    //             content: "Cloudpunchd, track your love for movies.",
-    //         },
-    //         {
-    //             name: "keywords",
-    //             content:
-    //                 "cloudpunchd, movies, movie, social, track, watchlist, watched, film, films",
-    //         },
-    //         {
-    //             name: "author",
-    //             content: "Siobhan Bonardi",
-    //         },
-    //     ],
-    // },
+    {
+        path: "/",
+        name: "AccessPage",
+        component: AccessPage,
+        meta: [
+            {
+                title: "CloudBookd | Read | Rate | Track",
+            },
+            {
+                name: "description",
+                content: "CloudBookd, track all your books!",
+            },
+            {
+                name: "keywords",
+                content:
+                    "cloudbookd, books, read, rate, track, tracker, series",
+            },
+            {
+                name: "author",
+                content: "Siobhan Bonardi",
+            },
+        ],
+    },
 ];
 
 const router = new VueRouter({
