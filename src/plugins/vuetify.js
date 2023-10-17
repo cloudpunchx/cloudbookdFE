@@ -9,13 +9,10 @@ const vuetify = new Vuetify({
             light: {
                 // background is light pink
                 background: "#ffc2d1",
-                // primary is red
-                primary: "#DD1C1A",
+                // primary is dark purple
+                primary: "#2e294e",
                 // secondary is purple-white
                 secondary: "#f8f7ff",
-                // accent is purple
-                accent: "#A2A3BB",
-                error: "#b71c1c",
             },
         },
     },

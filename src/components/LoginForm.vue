@@ -5,7 +5,7 @@
             ref="form"
             v-model="valid"
             lazy-validation
-            class="secondary text-center rounded-tl-xl"
+            class="secondary text-center"
         >
             <v-container>
                 <v-row>
