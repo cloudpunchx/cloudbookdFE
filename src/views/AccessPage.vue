@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <v-container class="text-center">
+        <v-img src="../assets/cloudbookdLogo.png" width="250" class="mx-auto">
+        </v-img>
         <LoginForm />
-    </div>
+    </v-container>
 </template>
 
 <script>
