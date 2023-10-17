@@ -1,27 +1,67 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    // {
+    //     path: "/",
+    //     name: "HomePage",
+    //     component: HomePage,
+    //     meta: [
+    //         {
+    //             title: "Cloudpunchd | Watch, Track, Share",
+    //         },
+    //         {
+    //             name: "description",
+    //             content: "Cloudpunchd, track your love for movies.",
+    //         },
+    //         {
+    //             name: "keywords",
+    //             content:
+    //                 "cloudpunchd, movies, movie, social, track, watchlist, watched, film, films",
+    //         },
+    //         {
+    //             name: "author",
+    //             content: "Siobhan Bonardi",
+    //         },
+    //     ],
+    // },
+];
 
 const router = new VueRouter({
-  routes
-})
+    routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+    // Get all meta tags
+    let metaTags = document.querySelectorAll("meta");
+    // Loop through the tags and remove each
+    // for OF is vanilla Javascript so that's what we have to use (vue is for in loops) and this page is PURE JAVASCRIPT
+    for (let tag of metaTags) {
+        tag.remove();
+    }
+    // to.meta (navigating TO.meta.title)
+    let newTags = to.meta;
+    document.querySelector("title").innerText = newTags[0].title;
+
+    // i zero is the title obj that we don't need here
+    for (let i = 1; i < newTags.length; i++) {
+        document
+            .querySelector(`head`)
+            .insertAdjacentHTML(
+                `afterbegin`,
+                `<meta name:"${newTags[i].name}" description="${newTags[i].content}">`
+            );
+    }
+    document.querySelector(`head`).insertAdjacentHTML(
+        `afterbegin`,
+        `<meta charset="utf-8">
+                                                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                                    <meta name="viewport" content="width=device-width,initial-scale=1.0">`
+    );
+    next();
+    from;
+});
+
+export default router;
