@@ -2,15 +2,21 @@
     <v-container class="pageContainer">
         <v-row>
             <v-col>
+                <!-- Should move this Logo to it's own Component -->
                 <v-img
-                    src="../assets/cloudbookdLogo.png"
-                    width="250"
-                    class="mx-auto"
+                    src="../assets/cloudbookdBlk.png"
+                    width="200"
+                    class="siteLogo mx-auto"
                 >
                 </v-img>
 
+                <!-- Tabs for Log In / Sign Up components -->
                 <v-tabs fixed-tabs v-model="tab" class="tabContainer">
+                    <!-- Tab 1 - Log In -->
                     <v-tab>Log In</v-tab>
+
+                    <!-- Tab 2 Sign Up -->
+                    <v-tab>Sign Up</v-tab>
 
                     <v-tabs-items v-model="tab">
                         <v-tab-item>
@@ -21,8 +27,6 @@
                             <SignupForm />
                         </v-tab-item>
                     </v-tabs-items>
-
-                    <v-tab>Sign Up</v-tab>
                 </v-tabs>
             </v-col>
         </v-row>
@@ -48,22 +52,31 @@
 </script>
 
 <style scoped>
+    .siteLogo {
+        margin-bottom: 25px;
+    }
+
     @media (min-width: 500px) {
         .pageContainer {
-            max-width: 450px;
+            width: 90vw;
         }
 
         .tabContainer {
-            margin-top: 25px;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
                 rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
                 rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         }
     }
 
+    @media (min-width: 1000px) {
+        .pageContainer {
+            max-width: 900px;
+        }
+    }
+
     @media (min-width: 1500px) {
         .pageContainer {
-            max-width: 550px;
+            max-width: 1000px;
         }
     }
 </style>

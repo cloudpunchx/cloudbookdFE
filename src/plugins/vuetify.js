@@ -7,12 +7,13 @@ const vuetify = new Vuetify({
     theme: {
         themes: {
             light: {
-                // background is light pink
-                background: "#ffc2d1",
+                // background is white
+                background: "#ffffff",
                 // primary is dark purple
                 primary: "#2e294e",
                 // secondary is purple-white
-                secondary: "#f8f7ff",
+                secondary: "#ffffff",
+                // secondary: "#f8f7ff",
             },
         },
     },

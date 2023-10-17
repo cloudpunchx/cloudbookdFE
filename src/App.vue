@@ -14,6 +14,6 @@
 
 <style scoped>
     .v-application {
-        background-color: #ffc2d1;
+        background-color: #ffffff;
     }
 </style>

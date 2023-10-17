@@ -9,6 +9,12 @@
         >
             <v-container>
                 <v-row>
+                    <v-col v-if="!isMobile">
+                        <v-img
+                            src="../assets/toa-heftiba-unsplash.jpg"
+                            class="sideImg mx-auto rounded-tl-xl"
+                        ></v-img>
+                    </v-col>
                     <v-col>
                         <v-text-field
                             v-model="firstname"
@@ -55,9 +61,7 @@
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn :disabled="!valid" @click="signup">
-                            Sign Up
-                        </v-btn>
+                        <v-btn :disabled="!valid"> Sign Up </v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -71,6 +75,7 @@
         data() {
             return {
                 valid: true,
+                isMobile: false,
                 firstname: "",
                 lastname: "",
                 nameRules: [
@@ -95,8 +100,37 @@
                 agreeTOS: false,
             };
         },
-        methods: {},
+        methods: {
+            checkWindowSize() {
+                this.isMobile = window.innerWidth <= 500; // Update isMobile based on window width
+            },
+        },
+        mounted() {
+            this.checkWindowSize(); // Call the method when the component is mounted
+            window.addEventListener("resize", this.checkWindowSize); // Add event listener for window resize
+        },
+        beforeDestroy() {
+            window.removeEventListener("resize", this.checkWindowSize); // Remove event listener on component destroy
+        },
     };
 </script>
 
-<style scoped></style>
+<style scoped>
+    @media (min-width: 500px) {
+        .sideImg {
+            width: 40vw;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .sideImg {
+            width: 400px;
+        }
+    }
+
+    @media (min-width: 1500px) {
+        .sideImg {
+            width: 460px;
+        }
+    }
+</style>
