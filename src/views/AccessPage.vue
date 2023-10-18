@@ -1,36 +1,38 @@
 <template>
-    <v-container class="pageContainer">
-        <v-row>
-            <v-col>
-                <!-- Should move this Logo to it's own Component -->
-                <v-img
-                    src="../assets/cloudbookdBlk.png"
-                    width="200"
-                    class="siteLogo mx-auto"
-                >
-                </v-img>
+    <div>
+        <v-container class="pageContainer">
+            <v-row>
+                <v-col>
+                    <!-- Should move this Logo to it's own Component -->
+                    <v-img
+                        src="../assets/cloudbookdBlk.png"
+                        width="200"
+                        class="siteLogo mx-auto"
+                    >
+                    </v-img>
 
-                <!-- Tabs for Log In / Sign Up components -->
-                <v-tabs fixed-tabs v-model="tab" class="tabContainer">
-                    <!-- Tab 1 - Log In -->
-                    <v-tab>Log In</v-tab>
+                    <!-- Tabs for Log In / Sign Up components -->
+                    <v-tabs fixed-tabs v-model="tab" class="tabContainer">
+                        <!-- Tab 1 - Log In -->
+                        <v-tab>Log In</v-tab>
 
-                    <!-- Tab 2 Sign Up -->
-                    <v-tab>Sign Up</v-tab>
+                        <!-- Tab 2 Sign Up -->
+                        <v-tab>Sign Up</v-tab>
 
-                    <v-tabs-items v-model="tab">
-                        <v-tab-item>
-                            <LoginForm />
-                        </v-tab-item>
+                        <v-tabs-items v-model="tab">
+                            <v-tab-item>
+                                <LoginForm />
+                            </v-tab-item>
 
-                        <v-tab-item>
-                            <SignupForm />
-                        </v-tab-item>
-                    </v-tabs-items>
-                </v-tabs>
-            </v-col>
-        </v-row>
-    </v-container>
+                            <v-tab-item>
+                                <SignupForm />
+                            </v-tab-item>
+                        </v-tabs-items>
+                    </v-tabs>
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
 <script>
