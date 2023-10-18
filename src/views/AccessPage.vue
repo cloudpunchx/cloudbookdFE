@@ -1,16 +1,10 @@
 <template>
     <div>
+        <PageHeader />
+
         <v-container class="pageContainer">
             <v-row>
                 <v-col>
-                    <!-- Should move this Logo to it's own Component -->
-                    <v-img
-                        src="../assets/cloudbookdBlk.png"
-                        width="200"
-                        class="siteLogo mx-auto"
-                    >
-                    </v-img>
-
                     <!-- Tabs for Log In / Sign Up components -->
                     <v-tabs fixed-tabs v-model="tab" class="tabContainer">
                         <!-- Tab 1 - Log In -->
@@ -36,12 +30,14 @@
 </template>
 
 <script>
+    import PageHeader from "@/components/PageHeader.vue";
     import LoginForm from "../components/LoginForm.vue";
     import SignupForm from "../components/SignupForm.vue";
 
     export default {
         name: "AccessPage",
         components: {
+            PageHeader,
             LoginForm,
             SignupForm,
         },
@@ -54,8 +50,8 @@
 </script>
 
 <style scoped>
-    .siteLogo {
-        margin-bottom: 25px;
+    .pageContainer {
+        margin-top: 25px;
     }
 
     @media (min-width: 500px) {
