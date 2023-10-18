@@ -1,27 +1,27 @@
 <template>
     <!-- Signup Form Container -->
     <v-container class="formContainer">
-        <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            class="secondary text-center"
-        >
+        <v-form ref="form" v-model="valid" lazy-validation class="text-center">
             <v-container>
                 <v-row>
+                    <!-- Side Image only visible over 500px screen -->
                     <v-col v-if="!isMobile">
                         <v-img
-                            src="../assets/toa-heftiba-unsplash.jpg"
-                            class="sideImg mx-auto rounded-tl-xl"
+                            src="../assets/aneta-pawlik.jpg"
+                            class="sideImg mx-auto rounded-l-xl"
                         ></v-img>
                     </v-col>
+
                     <v-col>
+                        <p class="text-lg-h6 text-xl-h5">Sign Up</p>
+
                         <v-text-field
                             v-model="firstname"
                             :rules="nameRules"
                             :counter="10"
                             label="First Name"
                             required
+                            color="primary"
                         ></v-text-field>
 
                         <v-text-field
@@ -30,6 +30,7 @@
                             :counter="10"
                             label="Last Name"
                             required
+                            color="primary"
                         ></v-text-field>
 
                         <v-text-field
@@ -37,6 +38,7 @@
                             :rules="emailRules"
                             label="E-mail"
                             required
+                            color="primary"
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -49,6 +51,7 @@
                             label="Password"
                             hint="At least 8 characters"
                             counter
+                            color="primary"
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
@@ -61,7 +64,7 @@
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn :disabled="!valid"> Sign Up </v-btn>
+                        <v-btn :disabled="!valid">Submit</v-btn>
                     </v-col>
                 </v-row>
             </v-container>

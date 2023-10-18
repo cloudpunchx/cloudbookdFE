@@ -11,9 +11,10 @@ const vuetify = new Vuetify({
                 background: "#ffffff",
                 // primary is dark purple
                 primary: "#2e294e",
-                // secondary is purple-white
-                secondary: "#ffffff",
-                // secondary: "#f8f7ff",
+                // secondary is purple Pomp and Power
+                secondary: "#966B9D",
+                honeydew: "#E1EFE6",
+                tearose: "#F4CBC6",
             },
         },
     },

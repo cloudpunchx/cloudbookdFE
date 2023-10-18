@@ -2,27 +2,21 @@
     <div>
         <PageHeader />
 
-        <v-container class="pageContainer">
+        <v-container class="pageContent">
             <v-row>
                 <v-col>
-                    <!-- Tabs for Log In / Sign Up components -->
-                    <v-tabs fixed-tabs v-model="tab" class="tabContainer">
-                        <!-- Tab 1 - Log In -->
-                        <v-tab>Log In</v-tab>
-
-                        <!-- Tab 2 Sign Up -->
-                        <v-tab>Sign Up</v-tab>
-
-                        <v-tabs-items v-model="tab">
-                            <v-tab-item>
-                                <LoginForm />
-                            </v-tab-item>
-
-                            <v-tab-item>
-                                <SignupForm />
-                            </v-tab-item>
-                        </v-tabs-items>
-                    </v-tabs>
+                    <v-card class="mx-auto" color="tearose">
+                        <v-card-actions>
+                            <v-btn plain @click="toggleForm(true)"
+                                >LOG IN</v-btn
+                            >
+                            <v-btn plain @click="toggleForm(false)"
+                                >SIGN UP</v-btn
+                            >
+                        </v-card-actions>
+                        <LoginForm v-if="login" />
+                        <SignupForm v-if="!login" />
+                    </v-card>
                 </v-col>
             </v-row>
         </v-container>
@@ -43,31 +37,30 @@
         },
         data() {
             return {
-                tab: null,
+                login: true,
             };
+        },
+        methods: {
+            toggleForm(isLogin) {
+                this.login = isLogin;
+            },
         },
     };
 </script>
 
 <style scoped>
-    .pageContainer {
-        margin-top: 25px;
+    .pageContent {
+        margin-top: 100px;
     }
 
     @media (min-width: 500px) {
-        .pageContainer {
+        .pageContent {
             width: 90vw;
-        }
-
-        .tabContainer {
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-                rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         }
     }
 
     @media (min-width: 1000px) {
-        .pageContainer {
+        .pageContent {
             max-width: 900px;
         }
     }

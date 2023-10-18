@@ -20,6 +20,6 @@
         background-color: #ffffff;
     }
     img {
-        width: 200px;
+        width: 150px;
     }
 </style>

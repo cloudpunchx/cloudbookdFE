@@ -21,5 +21,8 @@
 <style scoped>
     .v-application {
         background-color: #ffffff;
+        background-image: url("./assets/boobooks.png");
+        background-size: repeat;
+        background-repeat: no-repeat;
     }
 </style>

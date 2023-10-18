@@ -1,9 +1,9 @@
 <template>
-    <v-app-bar color="secondary" flat class="pa-2 ma-2">
+    <v-app-bar color="background" flat class="pa-5 ma-5">
         <v-container>
             <!-- Logo -->
             <v-img
-                src="../assets/cloudbookdLogo.png"
+                src="../assets/cloudbookdBlk.png"
                 width="200"
                 class="mx-auto"
             >
