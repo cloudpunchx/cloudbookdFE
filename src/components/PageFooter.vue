@@ -1,9 +1,10 @@
 <template>
-    <v-footer padless>
+    <v-footer color="background" padless>
         <v-col class="text-center">
             <img
                 src="../assets/cloudpunchMediaBlk.png"
-                alt="Cloudpunch Media"
+                alt="Cloudpunch Media Logo"
+                width="150"
             />
         </v-col>
     </v-footer>
@@ -15,11 +16,4 @@
     };
 </script>
 
-<style scoped>
-    .v-footer {
-        background-color: #ffffff;
-    }
-    img {
-        width: 150px;
-    }
-</style>
+<style scoped></style>

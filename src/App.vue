@@ -20,9 +20,9 @@
 
 <style scoped>
     .v-application {
-        background-color: #ffffff;
+        background-color: #f7edf0;
         background-image: url("./assets/boobooks.png");
-        background-size: repeat;
-        background-repeat: no-repeat;
+        background-size: cover;
+        background-repeat: repeat;
     }
 </style>

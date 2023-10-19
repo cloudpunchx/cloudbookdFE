@@ -7,9 +7,19 @@
                     <!-- Side Image only visible over 500px screen -->
                     <v-col v-if="!isMobile">
                         <v-img
-                            src="../assets/aneta-pawlik.jpg"
+                            src="../assets/books3.jpg"
                             class="sideImg mx-auto rounded-l-xl"
                         ></v-img>
+                        <p
+                            class="text-caption font-weight-light text--secondary"
+                        >
+                            Image by
+                            <a
+                                href="https://www.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_24307396.htm#query=books&position=5&from_view=search&track=sph"
+                                class="text-decoration-none"
+                                >Freepik</a
+                            >
+                        </p>
                     </v-col>
 
                     <v-col>
