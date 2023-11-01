@@ -5,12 +5,18 @@
         <v-container class="pageContent">
             <v-row>
                 <v-col>
-                    <v-card class="mx-auto" color="tearose">
+                    <v-card class="mx-auto" color="lavender">
                         <v-card-actions>
-                            <v-btn plain @click="toggleForm(true)"
+                            <v-btn
+                                plain
+                                class="white--text"
+                                @click="toggleForm(true)"
                                 >LOG IN</v-btn
                             >
-                            <v-btn plain @click="toggleForm(false)"
+                            <v-btn
+                                plain
+                                class="white--text"
+                                @click="toggleForm(false)"
                                 >SIGN UP</v-btn
                             >
                         </v-card-actions>

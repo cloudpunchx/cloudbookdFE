@@ -10,20 +10,22 @@
                             src="../assets/books3.jpg"
                             class="sideImg mx-auto rounded-l-xl"
                         ></v-img>
-                        <p
-                            class="text-caption font-weight-light text--secondary"
-                        >
+                        <p class="text-caption font-weight-light white--text">
                             Image by
                             <a
                                 href="https://www.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_24307396.htm#query=books&position=5&from_view=search&track=sph"
-                                class="text-decoration-none"
+                                class="text-decoration-none white--text"
                                 >Freepik</a
                             >
                         </p>
                     </v-col>
 
                     <v-col>
-                        <p class="text-lg-h6 text-xl-h5">Sign Up</p>
+                        <p
+                            class="font-weight-bold white--text text-lg-h6 text-xl-h5 heading"
+                        >
+                            Sign Up
+                        </p>
 
                         <v-text-field
                             v-model="firstname"
@@ -32,6 +34,7 @@
                             label="First Name"
                             required
                             color="primary"
+                            dark
                         ></v-text-field>
 
                         <v-text-field
@@ -41,6 +44,7 @@
                             label="Last Name"
                             required
                             color="primary"
+                            dark
                         ></v-text-field>
 
                         <v-text-field
@@ -49,6 +53,7 @@
                             label="E-mail"
                             required
                             color="primary"
+                            dark
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -62,6 +67,7 @@
                             hint="At least 8 characters"
                             counter
                             color="primary"
+                            dark
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
@@ -69,6 +75,7 @@
                         <v-checkbox
                             v-model="agreeTOS"
                             color="primary"
+                            dark
                             label="Confirm Sign Up"
                         >
                         </v-checkbox>
@@ -129,6 +136,10 @@
 </script>
 
 <style scoped>
+    .heading {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
     @media (min-width: 500px) {
         .sideImg {
             width: 40vw;

@@ -19,6 +19,7 @@
 </script>
 
 <style scoped>
+    @import "../src/assets/sass/style.scss";
     .v-application {
         background-color: #f7edf0;
         background-image: url("./assets/boobooks.png");

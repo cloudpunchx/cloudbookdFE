@@ -15,6 +15,7 @@ const vuetify = new Vuetify({
                 secondary: "#966B9D",
                 honeydew: "#E1EFE6",
                 tearose: "#F4CBC6",
+                lavender: "#C9A2C7",
             },
         },
     },
