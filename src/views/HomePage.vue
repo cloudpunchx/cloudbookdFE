@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PageHeader />
+        <SignedInHeader />
 
         <v-container class="pageContent">
             <v-row>
@@ -43,18 +43,22 @@
                 </v-col>
             </v-row>
 
+            <LogoutButton />
+
             <!-- IDEA: Below the current content have a grid for each created bookshelf, that displays the list name and a selected book cover img that is a link to list page -->
         </v-container>
     </div>
 </template>
 
 <script>
-    import PageHeader from "@/components/PageHeader.vue";
+    import SignedInHeader from "@/components/SignedInHeader.vue";
+    import LogoutButton from "@/components/LogoutButton.vue";
 
     export default {
         name: "HomePage",
         components: {
-            PageHeader,
+            SignedInHeader,
+            LogoutButton,
         },
     };
 </script>

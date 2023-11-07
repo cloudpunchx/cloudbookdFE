@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PageHeader />
+        <NotSignedInHeader />
 
         <v-container class="pageContent">
             <v-row>
@@ -30,14 +30,14 @@
 </template>
 
 <script>
-    import PageHeader from "@/components/PageHeader.vue";
+    import NotSignedInHeader from "@/components/NotSignedInHeader.vue";
     import LoginForm from "../components/LoginForm.vue";
     import SignupForm from "../components/SignupForm.vue";
 
     export default {
         name: "AccessPage",
         components: {
-            PageHeader,
+            NotSignedInHeader,
             LoginForm,
             SignupForm,
         },
