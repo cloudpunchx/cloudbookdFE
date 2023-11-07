@@ -25,6 +25,7 @@
                                 class="header font-weight-medium white--text mx-auto"
                             >
                                 Reading Challenge
+                                <!-- ghost with books img in assets ready -->
                             </p>
                         </v-card-actions>
                     </v-card>

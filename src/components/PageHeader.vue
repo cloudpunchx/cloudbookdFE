@@ -5,7 +5,7 @@
             <v-img src="../assets/cloudbookdBlk.png" class="mx-auto siteLogo">
             </v-img>
             <p class="text-center text-sm-body-2 text-md-body-1">
-                discover your bookish side
+                your solo reading journey
             </p>
         </v-container>
     </v-app-bar>

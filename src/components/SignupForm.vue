@@ -28,7 +28,15 @@
                         </p>
 
                         <v-text-field
-                            v-model="firstname"
+                            required
+                            v-model="username"
+                            label="Username"
+                            color="primary"
+                            dark
+                        ></v-text-field>
+
+                        <v-text-field
+                            v-model="firstName"
                             :rules="nameRules"
                             :counter="10"
                             label="First Name"
@@ -38,7 +46,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="lastname"
+                            v-model="lastName"
                             :rules="nameRules"
                             :counter="10"
                             label="Last Name"
@@ -81,7 +89,11 @@
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn :disabled="!valid">Submit</v-btn>
+                        <v-btn @click="userSignUp">Submit</v-btn>
+
+                        <div v-if="feedbackMsg">
+                            <p class="feedbackMsg">{{ feedbackMsg }}</p>
+                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -90,14 +102,21 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import cookies from "vue-cookies";
+    import router from "@/router";
+
     export default {
         name: "SignupForm",
         data() {
             return {
+                apiUrl: process.env.VUE_APP_API_URL,
+                userId: null,
                 valid: true,
                 isMobile: false,
-                firstname: "",
-                lastname: "",
+                username: "",
+                firstName: "",
+                lastName: "",
                 nameRules: [
                     (v) => !!v || "Name is required",
                     (v) =>
@@ -118,19 +137,74 @@
                         `The email and password you entered don't match`,
                 },
                 agreeTOS: false,
+                feedbackMsg: "",
             };
+        },
+        computed: {
+            isFormValid() {
+                // Return true if all required fields are filled and terms are agreed
+                return (
+                    this.firstName &&
+                    this.lastName &&
+                    this.username &&
+                    this.email &&
+                    this.password
+                );
+            },
         },
         methods: {
             checkWindowSize() {
                 this.isMobile = window.innerWidth <= 500; // Update isMobile based on window width
             },
+            userSignUp() {
+                if (this.agreeTOS == false) {
+                    this.feedbackMsg =
+                        "Please click check box to agree to terms and conditions.";
+                } else {
+                    axios
+                        .request({
+                            url: this.apiUrl + "/user",
+                            method: "POST",
+                            data: {
+                                username: this.username,
+                                firstName: this.firstName,
+                                lastName: this.lastName,
+                                email: this.email,
+                                password: this.password,
+                            },
+                        })
+                        .then((response) => {
+                            cookies.set(`userId`, response.data[0]);
+                            cookies.set(`sessionToken`, response.data[1]);
+                            router.push({
+                                name: "HomePage",
+                            });
+                        })
+                        .catch((error) => {
+                            this.feedbackMsg = error.response.data;
+                            this.clearTextBox();
+                        });
+                }
+            },
+            clearTextBox() {
+                this.username = "";
+                this.firstName = "";
+                this.lastName = "";
+                this.email = "";
+                this.username = "";
+                this.password = "";
+            },
         },
         mounted() {
             this.checkWindowSize(); // Call the method when the component is mounted
             window.addEventListener("resize", this.checkWindowSize); // Add event listener for window resize
+            setTimeout(() => {
+                this.feedbackMsg = "";
+            }, 60000); // Hide after 1 minute
         },
         beforeDestroy() {
             window.removeEventListener("resize", this.checkWindowSize); // Remove event listener on component destroy
+            this.feedbackMsg = "";
         },
     };
 </script>
