@@ -53,7 +53,7 @@
                         ></v-text-field>
 
                         <!-- Submit Button -->
-                        <v-btn :disabled="!valid">Submit</v-btn>
+                        <v-btn @click="userLogin">Submit</v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -62,10 +62,15 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import cookies from "vue-cookies";
+    import router from "@/router";
+
     export default {
         name: "LoginForm",
         data() {
             return {
+                apiUrl: process.env.VUE_APP_API_URL,
                 valid: true,
                 isMobile: false,
                 show1: false,
@@ -86,6 +91,27 @@
         methods: {
             checkWindowSize() {
                 this.isMobile = window.innerWidth <= 500; // Update isMobile based on window width
+            },
+            userLogin() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/user-login",
+                        method: "POST",
+                        data: {
+                            email: this.email,
+                            password: this.password,
+                        },
+                    })
+                    .then((response) => {
+                        cookies.set(`userId`, response.data[0]);
+                        cookies.set(`sessionToken`, response.data[1]);
+                        router.push("/home");
+                    })
+                    .catch((error) => {
+                        this.email = "";
+                        this.password = "";
+                        this.feedbackMsg = error.response.data;
+                    });
             },
         },
         mounted() {
