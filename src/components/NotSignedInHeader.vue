@@ -5,7 +5,7 @@
                 <v-col>
                     <!-- Logo -->
                     <!-- THIS LINK MIGHT NEED TO BE FIXED -->
-                    <a href="/">
+                    <a href="../views/AccessPage.vue">
                         <v-img
                             src="../assets/cloudbookdBlk.png"
                             class="mx-auto siteLogo"

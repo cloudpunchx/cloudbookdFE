@@ -18,17 +18,8 @@
                 </v-col>
 
                 <v-col>
-                    <!-- Reading Challenge Container -->
-                    <v-card color="lavender" class="readingChallengeContainer">
-                        <v-card-actions>
-                            <p
-                                class="header font-weight-medium white--text mx-auto"
-                            >
-                                Reading Challenge
-                                <!-- ghost with books img in assets ready -->
-                            </p>
-                        </v-card-actions>
-                    </v-card>
+                    <!-- Reading Challenge -->
+                    <ReadingChallenge class="readingChallengeContainer" />
 
                     <!-- To Be Read Container -->
                     <v-card color="lavender">
@@ -43,8 +34,6 @@
                 </v-col>
             </v-row>
 
-            <LogoutButton />
-
             <!-- IDEA: Below the current content have a grid for each created bookshelf, that displays the list name and a selected book cover img that is a link to list page -->
         </v-container>
     </div>
@@ -52,13 +41,13 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
-    import LogoutButton from "@/components/LogoutButton.vue";
+    import ReadingChallenge from "@/components/ReadingChallenge.vue";
 
     export default {
         name: "HomePage",
         components: {
             SignedInHeader,
-            LogoutButton,
+            ReadingChallenge,
         },
     };
 </script>

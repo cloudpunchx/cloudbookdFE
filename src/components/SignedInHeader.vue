@@ -2,22 +2,56 @@
     <div>
         <v-app-bar color="background" flat class="custom-app-bar">
             <v-container>
-                <v-row justify-content="center" align-content="center">
-                    <v-col>
+                <v-row justify="center" align="end">
+                    <v-toolbar-title>
                         <!-- Logo -->
-                        <!-- THIS LINK MIGHT NEED TO BE FIXED -->
-                        <a href="/home">
+                        <router-link to="/home">
                             <v-img
                                 src="../assets/cloudbookdBlk.png"
-                                class="mx-auto siteLogo"
+                                class="siteLogo"
                             >
                             </v-img>
-                        </a>
+                        </router-link>
+                    </v-toolbar-title>
 
-                        <p class="text-center text-sm-body-2 text-md-body-1">
-                            your solo reading journey
-                        </p>
-                    </v-col>
+                    <!-- This will link to List page -->
+                    <v-btn text color="primary">Lists</v-btn>
+
+                    <BookSearch />
+
+                    <v-menu v-show="!isMobile" offset-y>
+                        <template v-slot:activator="{on, attrs}">
+                            <v-btn
+                                text
+                                v-show="!isMobile"
+                                v-bind="attrs"
+                                v-on="on"
+                                @mouseover="showDropdown = true"
+                                class="listItemBtn"
+                            >
+                                <v-avatar
+                                    v-show="!isMobile"
+                                    size="30"
+                                    class="avatar"
+                                    ><v-img :src="profileImg"></v-img
+                                ></v-avatar>
+                                {{ usernameUppercase }}
+                                <v-icon>mdi-menu-down</v-icon>
+                            </v-btn>
+                        </template>
+                        <v-list
+                            v-show="showDropdown"
+                            @mouseover="showDropdown = true"
+                            @mouseout="showDropdown = false"
+                            class="listItem"
+                        >
+                            <v-list-item>
+                                <v-list-item-title class="listItem">
+                                    <LogoutButton />
+                                </v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
                 </v-row>
 
                 <!-- Only show Icon when it isMobile -->
@@ -32,7 +66,7 @@
         <!-- NOT STARTED YET: -->
         <!-- Nav Drawer for Tablet/Mobile (smaller screens) -->
         <v-navigation-drawer
-            color="grey"
+            color="background"
             v-model="drawer"
             absolute
             temporary
@@ -41,16 +75,9 @@
         >
             <v-list nav dense>
                 <v-list-item-group>
-                    <!-- <v-list-item>
-                        <v-text-field
-                            class="textField"
-                            v-model="query"
-                            hide-details
-                            clearable
-                            append-icon="mdi-magnify"
-                        >
-                        </v-text-field>
-                    </v-list-item> -->
+                    <v-list-item>
+                        <BookSearch />
+                    </v-list-item>
 
                     <v-list-item>
                         <p>test</p>
@@ -66,11 +93,22 @@
 </template>
 
 <script>
+    import LogoutButton from "./LogoutButton.vue";
+    import BookSearch from "./BookSearch.vue";
+
+    import axios from "axios";
+    import cookies from "vue-cookies";
+
     export default {
         name: "SignedInHeader",
+        components: {
+            LogoutButton,
+            BookSearch,
+        },
         data() {
             return {
                 drawer: false,
+                showDropdown: false,
             };
         },
         computed: {
@@ -81,25 +119,64 @@
             },
         },
         methods: {
+            get_user_profile() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/user",
+                        method: "GET",
+                        headers: {
+                            token: cookies.get(`sessionToken`),
+                        },
+                    })
+                    .then((response) => {
+                        this.username = response.data.username;
+                        this.usernameUppercase = this.username.toUpperCase();
+                        this.profileImg = response.data.profileImg;
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error;
+                    });
+            },
+            toggleDropdown() {
+                this.showDropdown = !this.showDropdown;
+            },
             toggleDrawer() {
                 this.drawer = !this.drawer;
             },
+        },
+        created() {
+            this.get_user_profile();
         },
     };
 </script>
 
 <style scoped>
     .custom-app-bar {
-        padding: 70px;
+        padding: 65px;
     }
 
     .siteLogo {
         width: 200px;
+        margin-right: 15px;
+        cursor: pointer;
     }
 
-    @media (min-width: 1000px) {
-        .siteLogo {
-            width: 250px;
-        }
+    .avatar {
+        margin: 10px;
     }
+
+    .listItemBtn {
+        margin-right: 5px;
+    }
+    .listItem:hover {
+        color: whitesmoke;
+        cursor: pointer;
+    }
+    .mobileListItem:hover {
+        color: whitesmoke;
+    }
+
+    /* @media (min-width: 1000px) {
+
+    } */
 </style>
