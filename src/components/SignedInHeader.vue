@@ -14,10 +14,23 @@
                         </router-link>
                     </v-toolbar-title>
 
-                    <!-- This will link to List page -->
-                    <v-btn text color="primary">Lists</v-btn>
+                    <!-- not sure if router link is working, need to test once we have more pages to move to -->
+                    <!-- Another link to Home page -->
+                    <v-btn text color="primary" v-show="!isMobile">
+                        <router-link to="/home" style="text-decoration: none"
+                            >Home</router-link
+                        >
+                    </v-btn>
 
-                    <BookSearch />
+                    <!-- Link to My Books page -->
+                    <v-btn text color="primary" v-show="!isMobile"
+                        >My Books</v-btn
+                    >
+
+                    <!-- Link to List page -->
+                    <v-btn text color="primary" v-show="!isMobile">Lists</v-btn>
+
+                    <BookSearch v-show="!isMobile" />
 
                     <v-menu v-show="!isMobile" offset-y>
                         <template v-slot:activator="{on, attrs}">
@@ -46,6 +59,12 @@
                             class="listItem"
                         >
                             <v-list-item>
+                                <!-- NEED TO STYLE -->
+                                <v-list-item-title class="listItem">
+                                    Reading Challenge
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
                                 <v-list-item-title class="listItem">
                                     <LogoutButton />
                                 </v-list-item-title>
@@ -53,13 +72,14 @@
                         </v-list>
                     </v-menu>
                 </v-row>
-
-                <!-- Only show Icon when it isMobile -->
-                <v-app-bar-nav-icon
-                    v-show="isMobile"
-                    @click="toggleDrawer"
-                    class="navIcon"
-                ></v-app-bar-nav-icon>
+                <v-row justify="start" style="background-color: #f7edf0">
+                    <!-- Only show Icon when it isMobile -->
+                    <v-app-bar-nav-icon
+                        v-show="isMobile"
+                        @click="toggleDrawer"
+                        class="navIcon"
+                    ></v-app-bar-nav-icon>
+                </v-row>
             </v-container>
         </v-app-bar>
 
