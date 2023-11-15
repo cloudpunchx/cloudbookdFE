@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 1. API Call to GET user reading challenge -->
-        <v-card class="mx-auto my-12" max-width="600" color="lavender">
+        <v-card class="mx-auto my-6" max-width="600" color="lavender">
             <v-row align="center">
                 <!-- need to play around with cols and set for breakpoints -->
                 <v-col cols="4">
@@ -25,7 +25,7 @@
                             <v-progress-linear
                                 v-model="skill"
                                 color="secondary"
-                                height="25"
+                                height="20"
                             >
                                 <template v-slot:default="{value}">
                                     <strong>{{ Math.ceil(value) }}%</strong>

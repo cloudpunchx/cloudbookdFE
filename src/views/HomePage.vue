@@ -6,15 +6,7 @@
             <v-row>
                 <v-col>
                     <!-- Currently Reading Container -->
-                    <v-card color="lavender">
-                        <v-card-actions>
-                            <p
-                                class="header font-weight-medium white--text mx-auto"
-                            >
-                                Currently Reading
-                            </p>
-                        </v-card-actions>
-                    </v-card>
+                    <CurrentlyReading />
                 </v-col>
 
                 <v-col>
@@ -41,12 +33,14 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import CurrentlyReading from "@/components/CurrentlyReading.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
 
     export default {
         name: "HomePage",
         components: {
             SignedInHeader,
+            CurrentlyReading,
             ReadingChallenge,
         },
     };
