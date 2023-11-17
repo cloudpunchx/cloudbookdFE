@@ -5,27 +5,83 @@
         <v-container class="pageContent">
             <p class="headerText">Search</p>
 
-            <!-- leaving off here with sizing and layout -->
-            <v-card>
-                <v-row no-gutters align="center">
-                    <v-col cols="12">
-                        <v-text-field
-                            class="textField ma-4"
-                            v-model="query"
-                            hide-details
-                            clearable
-                            prepend-inner-icon="mdi-magnify"
-                            background-color="transparent"
-                            color="primary"
-                            outlined
+            <v-row>
+                <v-col lg="8">
+                    <!-- Search Books input w button -->
+                    <v-card max-width="500" color="lavender">
+                        <v-row no-gutters align="center">
+                            <v-col cols="12" sm="9">
+                                <v-text-field
+                                    class="textField ma-4"
+                                    v-model="query"
+                                    :placeholder="query"
+                                    hide-details
+                                    clearable
+                                    prepend-inner-icon="mdi-magnify"
+                                    background-color="background"
+                                    color="primary"
+                                    outlined
+                                    rounded
+                                >
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-btn color="primary" class="searchBtn" rounded
+                                    >Search</v-btn
+                                >
+                            </v-col>
+                        </v-row>
+                    </v-card>
+
+                    <!-- Search Results container -->
+                    <v-card
+                        max-width="500"
+                        color="lavender"
+                        elevation="0"
+                        class="pa-2 mt-4"
+                    >
+                        <v-row align="center" no-gutters>
+                            <v-col cols="3">
+                                <v-img
+                                    contain
+                                    class="bookCoverImg"
+                                    src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1489721554i/342445.jpg"
+                                ></v-img>
+                            </v-col>
+
+                            <v-col>
+                                <v-card-text>
+                                    <p class="bookTitle">
+                                        The Dark Tower: The Gunslinger Born
+                                    </p>
+                                    <p class="text-subtitle-2">
+                                        by Peter David, Stephen King
+                                    </p>
+                                    <v-divider></v-divider>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-btn color="primary" text>
+                                        Want to Read
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-col>
+                <v-col>
+                    <v-col>
+                        <!-- Container to hold cute animation of books or ghosts?? -->
+                        <v-card
+                            max-width="200"
+                            color="lavender"
+                            elevation="0"
+                            class="pa-2"
                         >
-                        </v-text-field>
+                        </v-card>
                     </v-col>
-                    <v-col class="mx-2">
-                        <v-btn color="primary" class="searchBtn">Search</v-btn>
-                    </v-col>
-                </v-row>
-            </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </div>
 </template>
@@ -56,38 +112,37 @@
 
     .headerText {
         font-family: open-sans-regular;
+        color: black;
         font-size: 14pt;
     }
 
-    /* .textField {
-        width: 250px;
-    } */
+    .v-card {
+        border-radius: 10px;
+    }
 
     .searchBtn {
         font-size: 8pt;
         margin: 10px;
     }
 
+    .bookTitle {
+        font-size: 12pt;
+    }
+
+    .bookCoverImg {
+        width: 80px;
+    }
+
     @media (min-width: 500px) {
         .pageContent {
             width: 90vw;
         }
-
-        /* .textField {
-            width: 300px;
-        } */
     }
 
     @media (min-width: 960px) {
-        .pageContainer {
-            max-width: 1000px;
-        }
         .pageContent {
             margin-top: 30px;
         }
-        /* .textField {
-            width: 370px;
-        } */
     }
 
     @media (min-width: 1000px) {
@@ -98,11 +153,13 @@
         .headerText {
             font-size: 18pt;
         }
-    }
 
-    @media (min-width: 1500px) {
-        .pageContainer {
-            max-width: 1000px;
+        .bookTitle {
+            font-size: 14pt;
+        }
+
+        .bookCoverImg {
+            width: 100px;
         }
     }
 </style>

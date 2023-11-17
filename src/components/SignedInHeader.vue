@@ -174,6 +174,7 @@
 <style scoped>
     .navContainer {
         margin-top: 100px;
+        background-color: #f7edf0;
     }
     .siteLogo {
         width: 180px;

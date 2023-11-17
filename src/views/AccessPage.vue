@@ -59,6 +59,10 @@
         margin-top: 100px;
     }
 
+    .v-card {
+        border-radius: 10px;
+    }
+
     @media (min-width: 500px) {
         .pageContent {
             width: 90vw;

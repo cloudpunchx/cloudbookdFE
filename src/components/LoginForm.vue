@@ -21,11 +21,7 @@
                     </v-col>
 
                     <v-col>
-                        <p
-                            class="font-weight-bold white--text text-lg-h6 text-xl-h5 heading"
-                        >
-                            Log In
-                        </p>
+                        <p class="text-lg-h6 text-xl-h5 heading">Log In</p>
 
                         <!-- Email Text Field -->
                         <v-text-field
@@ -53,7 +49,7 @@
                         ></v-text-field>
 
                         <!-- Submit Button -->
-                        <v-btn @click="userLogin">Submit</v-btn>
+                        <v-btn @click="userLogin" rounded>Submit</v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -126,7 +122,8 @@
 
 <style scoped>
     .heading {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: open-sans-regular;
+        color: white;
     }
 
     @media (min-width: 500px) {

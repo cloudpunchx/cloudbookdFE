@@ -21,11 +21,7 @@
                     </v-col>
 
                     <v-col>
-                        <p
-                            class="font-weight-bold white--text text-lg-h6 text-xl-h5 heading"
-                        >
-                            Sign Up
-                        </p>
+                        <p class="text-lg-h6 text-xl-h5 heading">Sign Up</p>
 
                         <v-text-field
                             required
@@ -89,7 +85,7 @@
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn @click="userSignUp">Submit</v-btn>
+                        <v-btn @click="userSignUp" rounded>Submit</v-btn>
 
                         <div v-if="feedbackMsg">
                             <p class="feedbackMsg">{{ feedbackMsg }}</p>
@@ -211,7 +207,8 @@
 
 <style scoped>
     .heading {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: open-sans-regular;
+        color: white;
     }
 
     @media (min-width: 500px) {
