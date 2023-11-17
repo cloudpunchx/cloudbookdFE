@@ -14,15 +14,7 @@
                     <ReadingChallenge class="readingChallengeContainer" />
 
                     <!-- To Be Read Container -->
-                    <v-card color="lavender">
-                        <v-card-actions>
-                            <p
-                                class="header font-weight-medium white--text mx-auto"
-                            >
-                                To Be Read
-                            </p>
-                        </v-card-actions>
-                    </v-card>
+                    <ToBeReadPreview />
                 </v-col>
             </v-row>
 
@@ -35,6 +27,7 @@
     import SignedInHeader from "@/components/SignedInHeader.vue";
     import CurrentlyReading from "@/components/CurrentlyReading.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
+    import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
 
     export default {
         name: "HomePage",
@@ -42,19 +35,15 @@
             SignedInHeader,
             CurrentlyReading,
             ReadingChallenge,
+            ToBeReadPreview,
         },
     };
 </script>
 
 <style scoped>
     .pageContent {
-        margin-top: 100px;
+        margin-top: 25px;
     }
-
-    .header {
-        font-family: lobster;
-    }
-
     .readingChallengeContainer {
         margin-bottom: 10px;
     }
@@ -63,29 +52,17 @@
         .pageContent {
             width: 90vw;
         }
-
-        .header {
-            font-size: 15pt;
-        }
     }
 
     @media (min-width: 1000px) {
         .pageContent {
             max-width: 900px;
         }
-
-        .header {
-            font-size: 17pt;
-        }
     }
 
     @media (min-width: 1500px) {
         .pageContainer {
             max-width: 1000px;
-        }
-
-        .header {
-            font-size: 20pt;
         }
     }
 </style>

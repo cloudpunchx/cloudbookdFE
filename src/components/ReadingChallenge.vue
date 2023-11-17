@@ -1,13 +1,18 @@
 <template>
     <div>
         <!-- 1. API Call to GET user reading challenge -->
-        <v-card class="mx-auto my-6" max-width="600" color="lavender">
+        <v-card
+            class="mx-auto my-6"
+            max-width="600"
+            color="background"
+            elevation="0"
+        >
             <v-row align="center">
                 <!-- need to play around with cols and set for breakpoints -->
                 <v-col cols="4">
                     <v-img
-                        src="../assets/ghostWithBooksStyle1.png"
-                        class="siteLogo ma-4"
+                        src="../assets/ghostWithBooksStyle3.png"
+                        class="ma-4 ghostImg"
                     ></v-img>
                 </v-col>
 
@@ -57,12 +62,13 @@
 </script>
 
 <style scoped>
-    .siteLogo {
+    .ghostImg {
         width: 75px;
+        border-radius: 15px;
     }
 
     @media (min-width: 500px) {
-        .siteLogo {
+        .ghostImg {
             width: 100px;
         }
     }
@@ -71,7 +77,7 @@
     }
 
     @media (min-width: 1500px) {
-        .siteLogo {
+        .ghostImg {
             width: 125px;
         }
     }

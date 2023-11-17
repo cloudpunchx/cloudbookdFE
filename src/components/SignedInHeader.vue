@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-app-bar color="background" flat class="custom-app-bar">
-            <v-container>
+        <v-app-bar color="background" flat class="navBar">
+            <v-container class="navContainer">
                 <v-row justify="center" align="end">
                     <v-toolbar-title>
                         <!-- Logo -->
@@ -116,6 +116,7 @@
     import LogoutButton from "./LogoutButton.vue";
     import BookSearch from "./BookSearch.vue";
 
+    // import router from "@/router";
     import axios from "axios";
     import cookies from "vue-cookies";
 
@@ -171,13 +172,11 @@
 </script>
 
 <style scoped>
-    .custom-app-bar {
-        padding: 65px;
+    .navContainer {
+        margin-top: 100px;
     }
-
     .siteLogo {
-        width: 200px;
-        margin-right: 15px;
+        width: 180px;
         cursor: pointer;
     }
 
@@ -196,7 +195,12 @@
         color: whitesmoke;
     }
 
-    /* @media (min-width: 1000px) {
-
-    } */
+    @media (min-width: 960px) {
+        .navContainer {
+            margin-top: 0px;
+        }
+        .navBar {
+            padding: 50px;
+        }
+    }
 </style>
