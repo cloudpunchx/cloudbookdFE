@@ -4,8 +4,15 @@
 
         <v-container class="pageContent">
             <v-row>
+                <v-col lg="4">
+                    <!-- Side Image only visible over 500px screen -->
+                    <v-img
+                        src="../assets/readMoreBooks.png"
+                        class="sideImg mx-auto"
+                    ></v-img>
+                </v-col>
                 <v-col>
-                    <v-card class="mx-auto" color="lavender">
+                    <v-card max-width="700" class="mx-auto" color="lavender">
                         <v-card-actions>
                             <v-btn
                                 plain
@@ -20,6 +27,7 @@
                                 >SIGN UP</v-btn
                             >
                         </v-card-actions>
+
                         <LoginForm v-if="login" />
                         <SignupForm v-if="!login" />
                     </v-card>
@@ -67,11 +75,17 @@
         .pageContent {
             width: 90vw;
         }
+        .sideImg {
+            width: 40vw;
+        }
     }
 
     @media (min-width: 1000px) {
         .pageContent {
             max-width: 900px;
+        }
+        .sideImg {
+            width: 350px;
         }
     }
 

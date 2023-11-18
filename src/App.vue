@@ -22,8 +22,8 @@
     @import "../src/assets/sass/style.scss";
     .v-application {
         background-color: #f7edf0;
-        background-image: url("./assets/boobooks.png");
-        background-size: cover;
+        background-image: url("./assets/ghostBackground.png");
+        background-size: 50% auto;
         background-repeat: repeat;
     }
 </style>

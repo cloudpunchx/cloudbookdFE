@@ -5,20 +5,12 @@
             <v-container>
                 <v-row>
                     <!-- Side Image only visible over 500px screen -->
-                    <v-col v-if="!isMobile">
+                    <!-- <v-col v-if="!isMobile">
                         <v-img
-                            src="../assets/books.jpg"
+                            src="../assets/readMoreBooks.png"
                             class="sideImg mx-auto rounded-l-xl"
                         ></v-img>
-                        <p class="text-caption font-weight-light white--text">
-                            Image by
-                            <a
-                                href="https://www.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23974704.htm#query=bookshelf&position=13&from_view=search&track=sph"
-                                class="text-decoration-none white--text"
-                                >Freepik</a
-                            >
-                        </p>
-                    </v-col>
+                    </v-col> -->
 
                     <v-col>
                         <p class="text-lg-h6 text-xl-h5 heading">Log In</p>
@@ -134,13 +126,7 @@
 
     @media (min-width: 1000px) {
         .sideImg {
-            width: 400px;
-        }
-    }
-
-    @media (min-width: 1500px) {
-        .sideImg {
-            width: 460px;
+            width: 350px;
         }
     }
 </style>

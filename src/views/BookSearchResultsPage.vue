@@ -5,7 +5,7 @@
         <v-container class="pageContent">
             <p class="headerText">Search</p>
 
-            <v-row>
+            <v-row no-gutters>
                 <v-col lg="8">
                     <!-- Search Books input w button -->
                     <v-card max-width="500" color="lavender">
@@ -70,16 +70,9 @@
                     </v-card>
                 </v-col>
                 <v-col>
-                    <v-col>
-                        <!-- Container to hold cute animation of books or ghosts?? -->
-                        <v-card
-                            max-width="200"
-                            color="lavender"
-                            elevation="0"
-                            class="pa-2"
-                        >
-                        </v-card>
-                    </v-col>
+                    <v-card max-width="200" color="background" elevation="0">
+                        <v-img src="../assets/readGhouls.png"></v-img>
+                    </v-card>
                 </v-col>
             </v-row>
         </v-container>

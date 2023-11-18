@@ -14,7 +14,6 @@
                         </router-link>
                     </v-toolbar-title>
 
-                    <!-- not sure if router link is working, need to test once we have more pages to move to -->
                     <!-- Another link to Home page -->
                     <v-btn text color="primary" v-show="!isMobile">
                         <router-link to="/home" style="text-decoration: none"
