@@ -5,12 +5,12 @@
             <v-container>
                 <v-row>
                     <!-- Side Image only visible over 500px screen -->
-                    <!-- <v-col v-if="!isMobile">
+                    <v-col v-if="!isMobile">
                         <v-img
                             src="../assets/readMoreBooks.png"
                             class="sideImg mx-auto rounded-l-xl"
                         ></v-img>
-                    </v-col> -->
+                    </v-col>
 
                     <v-col>
                         <p class="text-lg-h6 text-xl-h5 heading">Sign Up</p>
@@ -200,18 +200,18 @@
 <style scoped>
     .heading {
         font-family: open-sans-regular;
-        color: white;
+        color: whitesmoke;
     }
 
     @media (min-width: 500px) {
         .sideImg {
-            width: 40vw;
+            width: 200px;
         }
     }
 
     @media (min-width: 1000px) {
         .sideImg {
-            width: 350px;
+            width: 250px;
         }
     }
 </style>

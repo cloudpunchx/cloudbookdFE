@@ -4,10 +4,9 @@
             <v-row justify-content="center" align-content="center">
                 <v-col>
                     <!-- Logo -->
-                    <!-- THIS LINK MIGHT NEED TO BE FIXED -->
                     <a href="../views/AccessPage.vue">
                         <v-img
-                            src="../assets/cloudbookdBlk.png"
+                            src="../assets/cloudbookdLogo1.png"
                             class="mx-auto siteLogo"
                         >
                         </v-img>
@@ -40,12 +39,12 @@
     }
 
     .siteLogo {
-        width: 200px;
+        width: 250px;
     }
 
     @media (min-width: 1000px) {
         .siteLogo {
-            width: 250px;
+            width: 300px;
         }
     }
 </style>

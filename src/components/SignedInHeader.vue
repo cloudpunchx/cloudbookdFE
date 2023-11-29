@@ -7,7 +7,7 @@
                         <!-- Logo -->
                         <router-link to="/home">
                             <v-img
-                                src="../assets/cloudbookdBlk.png"
+                                src="../assets/cloudbookdLogo1.png"
                                 class="siteLogo"
                             >
                             </v-img>
