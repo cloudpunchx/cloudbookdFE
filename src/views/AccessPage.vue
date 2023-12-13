@@ -4,13 +4,6 @@
 
         <v-container class="pageContent">
             <v-row>
-                <!-- <v-col lg="4">
-                    Side Image only visible over 500px screen
-                    <v-img
-                        src="../assets/readMoreBooks.png"
-                        class="sideImg mx-auto"
-                    ></v-img>
-                </v-col> -->
                 <v-col>
                     <v-card
                         max-width="700"
@@ -19,10 +12,10 @@
                         color="lavender"
                     >
                         <v-card-actions>
-                            <v-btn plain @click="toggleForm(true)"
+                            <v-btn plain dark @click="toggleForm(true)"
                                 >LOG IN</v-btn
                             >
-                            <v-btn plain @click="toggleForm(false)"
+                            <v-btn plain dark @click="toggleForm(false)"
                                 >SIGN UP</v-btn
                             >
                         </v-card-actions>

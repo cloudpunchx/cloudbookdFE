@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- API Call to GET to be read, make clickable -->
-        <v-container>
+        <v-container class="container">
             <p class="header">Want to Read</p>
             <v-row>
                 <v-col
@@ -50,5 +50,9 @@
     .header {
         font-family: open-sans-regular;
         font-size: 18pt;
+    }
+
+    .container {
+        background-color: #f7edf0;
     }
 </style>

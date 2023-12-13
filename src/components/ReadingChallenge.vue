@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- 1. API Call to GET user reading challenge -->
         <v-card
             class="mx-auto my-6"
             max-width="600"
@@ -8,7 +7,6 @@
             elevation="0"
         >
             <v-row align="center">
-                <!-- need to play around with cols and set for breakpoints -->
                 <v-col cols="4">
                     <v-img
                         src="../assets/ghostWithBooksStyle3.png"
@@ -17,38 +15,57 @@
                 </v-col>
 
                 <v-col>
-                    <!-- could add year to the beginning of this title - dynamic so it updates to correct calendar year, not based on user challenge -->
-                    <v-card-title>READING CHALLENGE</v-card-title>
+                    <!-- not done styling title -->
+                    <v-card-subtitle class="title"
+                        >{{ currentYear }} READING CHALLENGE</v-card-subtitle
+                    >
 
+                    <!-- TEST IF THE V-IF WORKS FOR IF GOAL IS SET OR NOT -->
                     <v-card-text>
                         <v-row align="center" class="mx-0">
-                            <div class="my-2 text-subtitle-1">
-                                29 books completed
+                            <div
+                                v-if="userReadingGoal >= 0"
+                                class="my-2 text-subtitle-1"
+                            >
+                                {{ booksReadThisYear }} books read
+                            </div>
+                            <div v-else class="my-2 text-subtitle-1">
+                                set a reading goal today!
                             </div>
 
-                            <!-- GET user progress, show on bar w % (vuetify)-->
                             <v-progress-linear
-                                v-model="skill"
+                                v-if="!errorMsg && userReadingGoal !== null"
+                                v-model="progressPercentage"
                                 color="secondary"
                                 height="20"
                             >
                                 <template v-slot:default="{value}">
-                                    <strong>{{ Math.ceil(value) }}%</strong>
+                                    <strong
+                                        >({{ Math.ceil(value) }}%)
+                                        {{ booksReadThisYear }}/{{
+                                            userReadingGoal
+                                        }}</strong
+                                    >
                                 </template>
                             </v-progress-linear>
 
-                            <div class="black--text ms-4 my-1">
-                                14 books behind schedule
+                            <v-progress-linear
+                                v-if="!userReadingGoal && !errorMsg"
+                                indeterminate
+                                color="primary"
+                            ></v-progress-linear>
+
+                            <div class="black--text ms-4 my-1" v-if="errorMsg">
+                                Error: {{ errorMsg }}
                             </div>
                         </v-row>
                     </v-card-text>
 
                     <v-divider class="mx-4"></v-divider>
 
-                    <v-card-actions>
-                        <!-- this btn will take you to reading challenge page -->
+                    <!-- <v-card-actions>
                         <v-btn color="primary" text> View Challenge </v-btn>
-                    </v-card-actions>
+                    </v-card-actions> -->
                 </v-col>
             </v-row>
         </v-card>
@@ -56,8 +73,64 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import cookies from "vue-cookies";
+
+    // need to do another API call for books read with the current year
+
     export default {
         name: "ReadingChallenge",
+        data() {
+            return {
+                apiUrl: process.env.VUE_APP_API_URL,
+                token: "",
+                currentYear: 2024, //manually change this every year (for now- could return to and automate)
+                userReadingGoal: "",
+                booksReadThisYear: "",
+                booksRemainingToGoal: "",
+                progressPercentage: 0,
+                errorMsg: "",
+            };
+        },
+        watch: {
+            // Watch for changes in booksReadThisYear and userReadingGoal to update the progress
+            booksReadThisYear: "updateProgress",
+            userReadingGoal: "updateProgress",
+        },
+        methods: {
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
+            getUserReadingGoal() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/reading-challenge",
+                        method: "GET",
+                        headers: {
+                            token: cookies.get(`sessionToken`),
+                        },
+                    })
+                    .then((response) => {
+                        this.userReadingGoal = response.data.ReadingGoal;
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error;
+                    });
+            },
+            // Method to update the progress percentage
+            updateProgress() {
+                if (this.userReadingGoal > 0) {
+                    this.progressPercentage =
+                        (this.booksReadThisYear / this.userReadingGoal) * 100;
+                } else {
+                    this.progressPercentage = 0;
+                }
+            },
+        },
+        created() {
+            this.getUserReadingGoal();
+            this.getToken();
+        },
     };
 </script>
 

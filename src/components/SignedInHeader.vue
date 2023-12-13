@@ -127,6 +127,11 @@
         },
         data() {
             return {
+                apiUrl: process.env.VUE_APP_API_URL,
+                token: "",
+                username: "",
+                usernameUppercase: "",
+                profileImg: "",
                 drawer: false,
                 showDropdown: false,
             };
@@ -157,6 +162,9 @@
                         this.errorMsg = error;
                     });
             },
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
             toggleDropdown() {
                 this.showDropdown = !this.showDropdown;
             },
@@ -166,6 +174,7 @@
         },
         created() {
             this.get_user_profile();
+            this.getToken();
         },
     };
 </script>

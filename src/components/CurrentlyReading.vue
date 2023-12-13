@@ -25,21 +25,6 @@
                                         <div class="text-subtitle-2">
                                             by Peter David, Stephen King
                                         </div>
-
-                                        <!-- GET user progress, show on bar w % (vuetify)-->
-                                        <v-progress-linear
-                                            v-model="skill"
-                                            color="secondary"
-                                            height="15"
-                                        >
-                                            <template v-slot:default="{value}">
-                                                <strong
-                                                    >{{
-                                                        Math.ceil(value)
-                                                    }}%</strong
-                                                >
-                                            </template>
-                                        </v-progress-linear>
                                     </v-row>
                                 </v-card-text>
 
@@ -77,21 +62,6 @@
                                         <div class="text-subtitle-2">
                                             by Joe Hill
                                         </div>
-
-                                        <!-- GET user progress, show on bar w % (vuetify)-->
-                                        <v-progress-linear
-                                            v-model="skill"
-                                            color="secondary"
-                                            height="15"
-                                        >
-                                            <template v-slot:default="{value}">
-                                                <strong
-                                                    >{{
-                                                        Math.ceil(value)
-                                                    }}%</strong
-                                                >
-                                            </template>
-                                        </v-progress-linear>
                                     </v-row>
                                 </v-card-text>
 
