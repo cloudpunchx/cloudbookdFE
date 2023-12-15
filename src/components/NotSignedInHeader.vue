@@ -1,20 +1,20 @@
 <template>
     <v-app-bar color="background" flat class="custom-app-bar">
         <v-container>
-            <v-row justify-content="center" align-content="center">
-                <v-col>
+            <v-row justify="center" align-content="center">
+                <v-toolbar-title>
                     <!-- Logo -->
-                    <a href="../views/AccessPage.vue">
+                    <router-link to="/">
                         <v-img
                             src="../assets/cloudbookdLogo1.png"
-                            class="mx-auto siteLogo"
+                            class="siteLogo"
                         >
                         </v-img>
-                    </a>
+                    </router-link>
                     <p class="text-center text-sm-body-2 text-md-body-1">
                         your solo reading journey
                     </p>
-                </v-col>
+                </v-toolbar-title>
             </v-row>
         </v-container>
     </v-app-bar>

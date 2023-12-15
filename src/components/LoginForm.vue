@@ -92,9 +92,18 @@
                     })
                     .then((response) => {
                         cookies.set(`userId`, response.data[0]);
-                        cookies.set(`sessionToken`, response.data[1]);
+                        // COULD DELETE ARGS IF ISSUES ARISE
+                        cookies.set(
+                            `sessionToken`,
+                            response.data[1],
+                            "7d",
+                            null,
+                            null,
+                            true
+                        );
                         router.push("/home");
                     })
+                    // MIGHT HAVE TO FIX THIS ERROR/THESE STRING UPDATES?
                     .catch((error) => {
                         this.email = "";
                         this.password = "";

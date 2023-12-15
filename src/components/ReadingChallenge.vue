@@ -15,22 +15,20 @@
                 </v-col>
 
                 <v-col>
-                    <!-- not done styling title -->
-                    <v-card-subtitle class="title"
+                    <v-card-subtitle class="overline"
                         >{{ currentYear }} READING CHALLENGE</v-card-subtitle
                     >
 
-                    <!-- TEST IF THE V-IF WORKS FOR IF GOAL IS SET OR NOT -->
+                    <!-- https://www.youtube.com/watch?v=lLIwx145O_A COMPUTED PROPERTIES VIDEO FOR IMPLEMENTING CALCULATION ON BOOKS -->
                     <v-card-text>
                         <v-row align="center" class="mx-0">
+                            <!-- show if user set goal-->
                             <div
-                                v-if="userReadingGoal >= 0"
-                                class="my-2 text-subtitle-1"
+                                v-if="userReadingGoal !== null"
+                                class="my-2 subtitle-1"
                             >
-                                {{ booksReadThisYear }} books read
-                            </div>
-                            <div v-else class="my-2 text-subtitle-1">
-                                set a reading goal today!
+                                <!-- Use the BooksRead component to display only the number of books read -->
+                                <BooksRead :showNumber="true" />
                             </div>
 
                             <v-progress-linear
@@ -55,17 +53,41 @@
                                 color="primary"
                             ></v-progress-linear>
 
-                            <div class="black--text ms-4 my-1" v-if="errorMsg">
+                            <!-- <div class="black--text ms-4 my-1" v-if="errorMsg">
                                 Error: {{ errorMsg }}
-                            </div>
+                            </div> -->
                         </v-row>
                     </v-card-text>
 
                     <v-divider class="mx-4"></v-divider>
 
-                    <!-- <v-card-actions>
-                        <v-btn color="primary" text> View Challenge </v-btn>
-                    </v-card-actions> -->
+                    <v-expansion-panels flat inset>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header
+                                v-if="userReadingGoal !== null"
+                                class="setGoalPanel subtitle-2"
+                                color="background"
+                            >
+                                EDIT GOAL
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-header
+                                v-else
+                                class="setGoalPanel subtitle-2"
+                                color="background"
+                            >
+                                SET GOAL
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content
+                                class="setGoalPanel"
+                                color="background"
+                            >
+                                <v-card-actions>
+                                    <!-- Need to change depending on if user needs to set or edit goal -->
+                                    <SetReadingChallGoal />
+                                </v-card-actions>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
                 </v-col>
             </v-row>
         </v-card>
@@ -75,17 +97,21 @@
 <script>
     import axios from "axios";
     import cookies from "vue-cookies";
-
-    // need to do another API call for books read with the current year
+    import BooksRead from "@/components/BooksRead.vue";
+    import SetReadingChallGoal from "./SetReadingChallGoal.vue";
 
     export default {
         name: "ReadingChallenge",
+        components: {
+            BooksRead,
+            SetReadingChallGoal,
+        },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
                 currentYear: 2024, //manually change this every year (for now- could return to and automate)
-                userReadingGoal: "",
+                userReadingGoal: null,
                 booksReadThisYear: "",
                 booksRemainingToGoal: "",
                 progressPercentage: 0,
@@ -118,6 +144,7 @@
                     });
             },
             // Method to update the progress percentage
+            // not sure if this works yet
             updateProgress() {
                 if (this.userReadingGoal > 0) {
                     this.progressPercentage =
@@ -138,6 +165,10 @@
     .ghostImg {
         width: 75px;
         border-radius: 15px;
+    }
+
+    .goalInput {
+        max-width: 80px;
     }
 
     @media (min-width: 500px) {
