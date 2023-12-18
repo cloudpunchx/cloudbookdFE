@@ -16,10 +16,9 @@
 
                 <v-col>
                     <v-card-subtitle class="overline"
-                        >{{ currentYear }} READING CHALLENGE</v-card-subtitle
+                        >{{ currYear }} READING CHALLENGE</v-card-subtitle
                     >
 
-                    <!-- https://www.youtube.com/watch?v=lLIwx145O_A COMPUTED PROPERTIES VIDEO FOR IMPLEMENTING CALCULATION ON BOOKS -->
                     <v-card-text>
                         <v-row align="center" class="mx-0">
                             <!-- show if user set goal-->
@@ -110,7 +109,7 @@
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
-                currentYear: 2024, //manually change this every year (for now- could return to and automate)
+                currYear: process.env.VUE_APP_CURRENT_YEAR,
                 userReadingGoal: null,
                 booksReadThisYear: "",
                 booksRemainingToGoal: "",

@@ -1,14 +1,16 @@
 <template>
     <div>
-        <v-text-field class="goalInput" dense> </v-text-field>
-        <v-btn color="primary" text> Submit </v-btn>
+        <v-text-field v-model="readingGoalInput" label="Enter Goal" dense>
+        </v-text-field>
+        <v-btn color="primary" text @click="setReadingChallGoal">
+            Submit
+        </v-btn>
+
+        <div class="black--text ms-4 my-1" v-if="errorMsg">
+            Error: {{ errorMsg }}
+        </div>
     </div>
 </template>
-
-<!-- SET READINGCHALLENGE SO IF USER HAS NOT MADE A GOAL THEN THE BOX HAS SETREADINGCHALL -->
-<!-- IF THEY HAVE SET A GOAL THEN ONLY SHOW THE PATCH GOAL -->
-
-<!-- can we set currYear as a global var instead of in each component? -->
 
 <script>
     import axios from "axios";
@@ -20,6 +22,9 @@
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
+                currYear: process.env.VUE_APP_CURRENT_YEAR,
+                readingGoalInput: "",
+                errorMsg: "",
             };
         },
         methods: {
@@ -35,12 +40,13 @@
                             token: this.token,
                         },
                         data: {
-                            // readingGoal
-                            // currYear
+                            readingGoal: this.readingGoalInput,
+                            currYear: this.currYear,
                         },
                     })
-                    .then((response) => {
-                        this.userReadingGoal = response.data.ReadingGoal;
+                    .then(() => {
+                        // need to config response and errors
+                        // this.userReadingGoal = response.data.ReadingGoal;
                     })
                     .catch((error) => {
                         this.errorMsg = error;
@@ -49,7 +55,6 @@
         },
         created() {
             this.getToken();
-            this.setReadingChallGoal();
         },
     };
 </script>
