@@ -4,12 +4,12 @@
             <v-col class="goalInput" cols="8">
                 <v-text-field
                     v-model="readingGoalInput"
-                    label="Enter Goal"
+                    label="Edit Goal"
                     dense
                 ></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-btn color="primary" text @click="setReadingChallGoal">
+                <v-btn color="primary" text @click="editReadingChallGoal">
                     Submit
                 </v-btn>
             </v-col>
@@ -26,7 +26,7 @@
     import cookies from "vue-cookies";
 
     export default {
-        name: "SetReadingChallGoal",
+        name: "EditReadingChallGoal",
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
@@ -40,11 +40,11 @@
             getToken() {
                 this.token = cookies.get(`sessionToken`);
             },
-            setReadingChallGoal() {
+            editReadingChallGoal() {
                 axios
                     .request({
                         url: this.apiUrl + "/reading-challenge",
-                        method: "POST",
+                        method: "PATCH",
                         headers: {
                             token: this.token,
                         },
@@ -53,9 +53,8 @@
                             currYear: this.currYear,
                         },
                     })
-                    .then((response) => {
-                        let responseData = response.data;
-                        console.log(responseData);
+                    .then(() => {
+                        this.readingGoalInput = "";
                         // emit goalSet to hide Set Goal Panel on ReadingChallenge.vue
                         this.$emit("goalAction");
                     })

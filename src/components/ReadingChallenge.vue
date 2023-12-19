@@ -27,11 +27,11 @@
                                 class="my-2 subtitle-1"
                             >
                                 <!-- Use the BooksRead component to display only the number of books read -->
-                                <BooksRead :showNumber="true" />
+                                <!-- <BooksRead :showNumber="true" /> -->
                             </div>
 
                             <v-progress-linear
-                                v-if="!errorMsg && userReadingGoal !== null"
+                                v-if="userReadingGoal !== null"
                                 v-model="progressPercentage"
                                 color="secondary"
                                 height="20"
@@ -60,8 +60,9 @@
 
                     <v-divider class="mx-4"></v-divider>
 
-                    <v-expansion-panels flat inset>
-                        <v-expansion-panel>
+                    <v-expansion-panels flat>
+                        <v-expansion-panel v-if="userReadingGoal !== null">
+                            <!-- If User HAS set a reading goal, show Edit Goal(PATCH) -->
                             <v-expansion-panel-header
                                 v-if="userReadingGoal !== null"
                                 class="setGoalPanel subtitle-2"
@@ -69,20 +70,37 @@
                             >
                                 EDIT GOAL
                             </v-expansion-panel-header>
-                            <v-expansion-panel-header
-                                v-else
-                                class="setGoalPanel subtitle-2"
-                                color="background"
-                            >
-                                SET GOAL
-                            </v-expansion-panel-header>
+
+                            <!-- Component - Edit Goal (PATCH) -->
                             <v-expansion-panel-content
                                 class="setGoalPanel"
                                 color="background"
                             >
                                 <v-card-actions>
-                                    <!-- Need to change depending on if user needs to set or edit goal -->
-                                    <SetReadingChallGoal />
+                                    <EditReadingChallGoal
+                                        @goalAction="handleGoalAction"
+                                    />
+                                </v-card-actions>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                        <v-expansion-panel v-else>
+                            <!-- Else show Set Goal(PUT) -->
+                            <v-expansion-panel-header
+                                class="setGoalPanel subtitle-2"
+                                color="background"
+                            >
+                                SET GOAL
+                            </v-expansion-panel-header>
+
+                            <!-- Component - Set Goal (PUT) -->
+                            <v-expansion-panel-content
+                                class="setGoalPanel"
+                                color="background"
+                            >
+                                <v-card-actions>
+                                    <SetReadingChallGoal
+                                        @goalAction="handleGoalAction"
+                                    />
                                 </v-card-actions>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
@@ -96,20 +114,23 @@
 <script>
     import axios from "axios";
     import cookies from "vue-cookies";
-    import BooksRead from "@/components/BooksRead.vue";
+    // import BooksRead from "@/components/BooksRead.vue";
     import SetReadingChallGoal from "./SetReadingChallGoal.vue";
+    import EditReadingChallGoal from "./EditReadingChallGoal.vue";
 
     export default {
         name: "ReadingChallenge",
         components: {
-            BooksRead,
+            // BooksRead,
             SetReadingChallGoal,
+            EditReadingChallGoal,
         },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
                 currYear: process.env.VUE_APP_CURRENT_YEAR,
+                // isPanelOpen: true,
                 userReadingGoal: null,
                 booksReadThisYear: "",
                 booksRemainingToGoal: "",
@@ -119,8 +140,8 @@
         },
         watch: {
             // Watch for changes in booksReadThisYear and userReadingGoal to update the progress
-            booksReadThisYear: "updateProgress",
-            userReadingGoal: "updateProgress",
+            // booksReadThisYear: "updateProgress",
+            // userReadingGoal: "updateProgress",
         },
         methods: {
             getToken() {
@@ -137,6 +158,7 @@
                     })
                     .then((response) => {
                         this.userReadingGoal = response.data.ReadingGoal;
+                        this.updateProgress();
                     })
                     .catch((error) => {
                         this.errorMsg = error;
@@ -151,6 +173,13 @@
                 } else {
                     this.progressPercentage = 0;
                 }
+            },
+            // FUNCTION NOT RELOADING AFTER GOAL SET
+            handleGoalAction() {
+                // Reload to get the goal after the action (set or edit)
+                this.getUserReadingGoal();
+                // Update the flag to close the expansion panel
+                // this.isPanelOpen = false;
             },
         },
         created() {
