@@ -6,12 +6,12 @@
             <v-row>
                 <v-col>
                     <v-card
-                        max-width="700"
+                        max-width="500"
                         elevation="24"
                         class="mx-auto"
                         color="lavender"
                     >
-                        <v-card-actions>
+                        <v-card-actions class="justify-end">
                             <v-btn plain dark @click="toggleForm(true)"
                                 >LOG IN</v-btn
                             >

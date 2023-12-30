@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import AccessPage from "../views/AccessPage";
+import LandingPage from "../views/LandingPage";
 import HomePage from "../views/HomePage";
 import BookSearchResultsPage from "../views/BookSearchResultsPage";
 Vue.use(VueRouter);
@@ -10,6 +11,29 @@ const routes = [
         path: "/",
         name: "AccessPage",
         component: AccessPage,
+        meta: [
+            {
+                title: "CloudBookd | Your Solo Reading Journey",
+            },
+            {
+                name: "description",
+                content: "CloudBookd, track all your books!",
+            },
+            {
+                name: "keywords",
+                content:
+                    "cloudbookd, books, read, rate, track, tracker, series",
+            },
+            {
+                name: "author",
+                content: "Siobhan Bonardi",
+            },
+        ],
+    },
+    {
+        path: "/test",
+        name: "LandingPage",
+        component: LandingPage,
         meta: [
             {
                 title: "CloudBookd | Your Solo Reading Journey",

@@ -4,14 +4,6 @@
         <v-form ref="form" v-model="valid" lazy-validation class="text-center">
             <v-container>
                 <v-row>
-                    <!-- Side Image only visible over 500px screen -->
-                    <v-col v-if="!isMobile">
-                        <v-img
-                            src="../assets/readMoreBooks.png"
-                            class="sideImg mx-auto rounded-l-xl"
-                        ></v-img>
-                    </v-col>
-
                     <v-col>
                         <p class="text-lg-h6 text-xl-h5 heading">Sign Up</p>
 
@@ -20,6 +12,7 @@
                             v-model="username"
                             label="Username"
                             color="primary"
+                            outlined
                             dark
                         ></v-text-field>
 
@@ -30,6 +23,7 @@
                             label="First Name"
                             required
                             color="primary"
+                            outlined
                             dark
                         ></v-text-field>
 
@@ -40,6 +34,7 @@
                             label="Last Name"
                             required
                             color="primary"
+                            outlined
                             dark
                         ></v-text-field>
 
@@ -49,6 +44,7 @@
                             label="E-mail"
                             required
                             color="primary"
+                            outlined
                             dark
                         ></v-text-field>
 
@@ -63,6 +59,7 @@
                             hint="At least 8 characters"
                             counter
                             color="primary"
+                            outlined
                             dark
                             @click:append="show1 = !show1"
                         ></v-text-field>
@@ -77,7 +74,7 @@
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn @click="userSignUp" rounded>Submit</v-btn>
+                        <v-btn @click="userSignUp">Submit</v-btn>
 
                         <div v-if="feedbackMsg">
                             <p class="feedbackMsg">{{ feedbackMsg }}</p>
@@ -141,9 +138,6 @@
             },
         },
         methods: {
-            checkWindowSize() {
-                this.isMobile = window.innerWidth <= 500; // Update isMobile based on window width
-            },
             userSignUp() {
                 if (this.agreeTOS == false) {
                     this.feedbackMsg =
@@ -192,14 +186,11 @@
             },
         },
         mounted() {
-            this.checkWindowSize(); // Call the method when the component is mounted
-            window.addEventListener("resize", this.checkWindowSize); // Add event listener for window resize
             setTimeout(() => {
                 this.feedbackMsg = "";
             }, 60000); // Hide after 1 minute
         },
         beforeDestroy() {
-            window.removeEventListener("resize", this.checkWindowSize); // Remove event listener on component destroy
             this.feedbackMsg = "";
         },
     };
@@ -209,17 +200,5 @@
     .heading {
         font-family: open-sans-regular;
         color: whitesmoke;
-    }
-
-    @media (min-width: 500px) {
-        .sideImg {
-            width: 200px;
-        }
-    }
-
-    @media (min-width: 1000px) {
-        .sideImg {
-            width: 250px;
-        }
     }
 </style>

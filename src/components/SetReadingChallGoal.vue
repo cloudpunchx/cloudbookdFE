@@ -58,10 +58,18 @@
                         console.log(responseData);
                         // emit goalSet to hide Set Goal Panel on ReadingChallenge.vue
                         this.$emit("goalAction");
+                        this.clearError();
                     })
                     .catch((error) => {
                         this.errorMsg = error.response.data;
+                        // Set a timeout to clear the error after 1 minute
+                        setTimeout(() => {
+                            this.clearError();
+                        }, 60000); // 1 minute = 60,000 milliseconds
                     });
+            },
+            clearError() {
+                this.errorMsg = "";
             },
         },
         created() {
