@@ -3,7 +3,7 @@
         <v-container class="pageContent" fluid>
             <v-row>
                 <!-- Left side with logo and about -->
-                <v-col cols="12" sm="6" md="6" class="purpleContainer">
+                <v-col cols="12" sm="5" md="5" lg="5" class="purpleContainer">
                     <v-card
                         elevation="0"
                         color="lavender"
@@ -16,10 +16,16 @@
                                 class="siteLogo"
                             ></v-img>
                         </router-link>
-                        <p class="aboutSection">
-                            Welcome to your solo reading journey.
-                        </p>
-                        <p class="aboutSection">Track your reading...</p>
+
+                        <!-- about section -->
+                        <ul class="aboutSection">
+                            <li>Welcome to your solo reading journey.</li>
+                            <li>
+                                Track the books you've read, want to read, and
+                                currently reading.
+                            </li>
+                            <li>Set a yearly reading challenge goal.</li>
+                        </ul>
                         <v-img
                             src="../assets/skeletonReading.png"
                             class="skeletonImg"
@@ -28,18 +34,38 @@
                 </v-col>
 
                 <!-- Right side with login/signup card -->
-                <v-col cols="12" sm="6" md="6">
+                <v-col cols="12" sm="7" md="7" lg="7" class="loginContainer">
                     <v-card
-                        max-width="500"
                         elevation="24"
-                        color="lavender"
+                        :color="
+                            $vuetify.breakpoint.width >= 600
+                                ? 'lavender'
+                                : 'background'
+                        "
                         class="formsCard mx-auto"
                     >
+                        <!-- login / signup form toggle -->
                         <v-card-actions class="justify-end">
-                            <v-btn plain dark @click="toggleForm(true)"
+                            <v-btn
+                                plain
+                                color="primary"
+                                :dark="
+                                    $vuetify.breakpoint.width >= 600
+                                        ? true
+                                        : false
+                                "
+                                @click="toggleForm(true)"
                                 >LOG IN</v-btn
                             >
-                            <v-btn plain dark @click="toggleForm(false)"
+                            <v-btn
+                                plain
+                                color="primary"
+                                :dark="
+                                    $vuetify.breakpoint.width >= 600
+                                        ? true
+                                        : false
+                                "
+                                @click="toggleForm(false)"
                                 >SIGN UP</v-btn
                             >
                         </v-card-actions>
@@ -77,21 +103,14 @@
 </script>
 
 <style scoped>
-    .pageContent {
-        margin: 0;
-        padding: 0;
-    }
-
     .siteLogo {
-        width: 200px;
-        margin-bottom: 20px;
+        width: 100%;
+        max-width: 200px;
+        margin-top: 20px;
     }
 
     .purpleContainer {
         background-color: #c9a2c7;
-        color: white;
-        min-height: 100vh;
-        display: flex;
     }
 
     .purpleContent {
@@ -100,38 +119,69 @@
 
     .aboutSection {
         color: #6e4b6a;
-        font-size: 18px;
+        font-size: 11pt;
         font-weight: bold;
+        padding: 0;
         margin-top: 20px;
+        list-style-type: none;
     }
 
     .skeletonImg {
-        width: 400px;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .loginContainer {
+        background: linear-gradient(to bottom, #c9a2c7, #f7edf0);
+        max-height: 100vh;
     }
 
     .formsCard {
-        margin-top: 200px;
+        max-width: 90%;
+        margin-bottom: 400px;
     }
 
     @media (min-width: 500px) {
         .siteLogo {
-            width: 300px;
+            max-width: 250px;
+        }
+
+        .purpleContainer {
+            background-color: #c9a2c7;
+        }
+    }
+
+    @media (min-width: 600px) {
+        .purpleContainer {
+            min-height: 100vh;
+            display: flex;
+        }
+        .loginContainer {
+            background: none;
+            background-color: transparent;
+        }
+        .formsCard {
+            max-width: 80%;
+            margin-top: 20%;
         }
     }
 
     @media (min-width: 1000px) {
         .siteLogo {
-            width: 300px;
+            max-width: 300px;
+            margin-top: 0;
         }
 
         .purpleContainer {
             align-items: center;
         }
-    }
 
-    @media (min-width: 1500px) {
-        .siteLogo {
-            width: 300px;
+        .aboutSection {
+            font-size: 15pt;
+        }
+
+        .formsCard {
+            max-width: 50%;
         }
     }
 </style>

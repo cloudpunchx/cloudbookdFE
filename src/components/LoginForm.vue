@@ -5,7 +5,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <p class="text-lg-h6 text-xl-h5 heading">Log In</p>
+                        <p class="heading">Log in to Cloudbookd</p>
 
                         <!-- Email Text Field -->
                         <v-text-field
@@ -15,7 +15,11 @@
                             required
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
+                            class="textInput"
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -30,12 +34,24 @@
                             counter
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
+                            class="textInput"
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
                         <!-- Submit Button -->
-                        <v-btn @click="userLogin">Submit</v-btn>
+                        <v-btn
+                            text
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
+                            class="submitBtn"
+                            @click="userLogin"
+                            >Submit</v-btn
+                        >
                     </v-col>
                 </v-row>
             </v-container>
@@ -107,7 +123,27 @@
 
 <style scoped>
     .heading {
-        font-family: open-sans-regular;
-        color: whitesmoke;
+        color: #6e4b6a;
+        font-size: 11pt;
+        font-weight: bold;
+    }
+
+    .submitBtn {
+        font-size: 11pt;
+    }
+
+    @media (min-width: 500px) {
+        .heading {
+            font-size: 13pt;
+        }
+        .submitBtn {
+            font-size: 13pt;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .heading {
+            font-size: 15pt;
+        }
     }
 </style>

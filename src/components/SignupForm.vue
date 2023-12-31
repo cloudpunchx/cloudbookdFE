@@ -5,7 +5,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <p class="text-lg-h6 text-xl-h5 heading">Sign Up</p>
+                        <p class="heading">Sign Up for Cloudbookd</p>
 
                         <v-text-field
                             required
@@ -13,7 +13,10 @@
                             label="Username"
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
                         ></v-text-field>
 
                         <v-text-field
@@ -24,7 +27,10 @@
                             required
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
                         ></v-text-field>
 
                         <v-text-field
@@ -35,7 +41,10 @@
                             required
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
                         ></v-text-field>
 
                         <v-text-field
@@ -45,7 +54,10 @@
                             required
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -60,7 +72,10 @@
                             counter
                             color="primary"
                             outlined
-                            dark
+                            dense
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
@@ -68,13 +83,24 @@
                         <v-checkbox
                             v-model="agreeTOS"
                             color="primary"
-                            dark
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
+                            dense
                             label="Confirm Sign Up"
                         >
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn @click="userSignUp">Submit</v-btn>
+                        <v-btn
+                            text
+                            :dark="
+                                $vuetify.breakpoint.width >= 600 ? true : false
+                            "
+                            class="submitBtn"
+                            @click="userSignUp"
+                            >Submit</v-btn
+                        >
 
                         <div v-if="feedbackMsg">
                             <p class="feedbackMsg">{{ feedbackMsg }}</p>
@@ -198,7 +224,27 @@
 
 <style scoped>
     .heading {
-        font-family: open-sans-regular;
-        color: whitesmoke;
+        color: #6e4b6a;
+        font-size: 11pt;
+        font-weight: bold;
+    }
+
+    .submitBtn {
+        font-size: 11pt;
+    }
+
+    @media (min-width: 500px) {
+        .heading {
+            font-size: 13pt;
+        }
+        .submitBtn {
+            font-size: 13pt;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .heading {
+            font-size: 15pt;
+        }
     }
 </style>
