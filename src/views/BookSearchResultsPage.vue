@@ -3,7 +3,7 @@
         <SignedInHeader />
 
         <v-container class="pageContent">
-            <p class="headerText">Search</p>
+            <p class="headerText">Search Results</p>
 
             <v-row no-gutters>
                 <v-col lg="8">
@@ -35,6 +35,33 @@
                                 >
                             </v-col>
                         </v-row>
+                        <v-row class="mt-n7" no-gutters>
+                            <v-col>
+                                <!-- Radio buttons -->
+                                <v-radio-group
+                                    v-model="searchType"
+                                    row
+                                    dark
+                                    class="radioBtn"
+                                >
+                                    <v-radio
+                                        label="All"
+                                        value="all"
+                                        color="primary"
+                                    ></v-radio>
+                                    <v-radio
+                                        label="Title"
+                                        value="title"
+                                        color="primary"
+                                    ></v-radio>
+                                    <v-radio
+                                        label="Author"
+                                        value="author"
+                                        color="primary"
+                                    ></v-radio>
+                                </v-radio-group>
+                            </v-col>
+                        </v-row>
                     </v-card>
 
                     <!-- Search Results container -->
@@ -62,21 +89,26 @@
                                     "
                                 ></v-img>
                             </v-col>
-
+                            <!-- ADD LINKS TO BOOK PAGE ON TITLE AND IMG -->
                             <v-col>
                                 <v-card-text>
                                     <p class="bookTitle">
                                         {{ book.volumeInfo.title }}
                                     </p>
                                     <p class="text-subtitle-2">
-                                        {{ book.volumeInfo.authors }}
+                                        by
+                                        {{ book.volumeInfo.authors.join(", ") }}
+                                    </p>
+                                    <p class="text-subtitle">
+                                        published
+                                        {{ book.volumeInfo.publishedDate }}
                                     </p>
                                     <v-divider></v-divider>
                                 </v-card-text>
 
                                 <v-card-actions>
                                     <v-btn color="primary" text>
-                                        Want to Read
+                                        Read More
                                     </v-btn>
                                 </v-card-actions>
                             </v-col>
@@ -84,6 +116,7 @@
                     </v-card>
                 </v-col>
                 <v-col>
+                    <!-- NEED TO HIDE THIS ON MOBILE -->
                     <v-card max-width="200" color="background" elevation="0">
                         <v-img src="../assets/readGhouls.png"></v-img>
                     </v-card>
@@ -107,7 +140,7 @@
             return {
                 token: "",
                 apiKey: process.env.VUE_APP_API_KEY,
-                // query: this.$route.params.query,
+                searchType: "all",
                 query: "",
                 books: [],
                 errorMsg: "",
@@ -115,11 +148,23 @@
         },
         methods: {
             search_books() {
+                let queryType;
+                if (this.searchType === "all") {
+                    queryType = `intitle:${this.query} OR inauthor:${this.query}`;
+                } else if (this.searchType === "title") {
+                    queryType = `intitle:${this.query}`;
+                } else if (this.searchType === "author") {
+                    queryType = `inauthor:${this.query}`;
+                }
                 axios
                     .get("https://www.googleapis.com/books/v1/volumes", {
                         params: {
-                            q: `intitle:${this.query} OR inauthor:${this.query}`,
+                            q: queryType,
                             key: this.apiKey,
+                            orderBy:
+                                this.searchType === "author"
+                                    ? "newest"
+                                    : undefined,
                         },
                     })
                     .then((response) => {
@@ -159,13 +204,14 @@
     }
 
     .headerText {
-        font-family: open-sans-regular;
-        color: black;
+        font-weight: bold;
+        color: #6e4b6a;
         font-size: 14pt;
     }
 
     .v-card {
         border-radius: 10px;
+        color: #2e294e;
     }
 
     .searchBtn {
@@ -173,12 +219,19 @@
         margin: 10px;
     }
 
+    .radioBtn {
+        margin-left: 25px;
+    }
+
     .bookTitle {
         font-size: 12pt;
+        font-weight: bold;
     }
 
     .bookCoverImg {
         width: 80px;
+        border: 1px rgb(97, 97, 97) solid;
+        border-radius: 5px;
     }
 
     @media (min-width: 500px) {
