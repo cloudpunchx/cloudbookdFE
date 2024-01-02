@@ -10,7 +10,7 @@
                         class="purpleContent mx-auto"
                     >
                         <!-- Logo -->
-                        <router-link to="/test">
+                        <router-link to="/">
                             <v-img
                                 src="../assets/cloudbookdLogo1.png"
                                 class="siteLogo"

@@ -7,7 +7,7 @@
 
             <v-row no-gutters>
                 <v-col lg="8">
-                    <!-- Search Books input w button -->
+                    <!-- Search Books input w button (user can search with header search or this one)-->
                     <v-card max-width="500" color="lavender">
                         <v-row no-gutters align="center">
                             <v-col cols="12" sm="9">
