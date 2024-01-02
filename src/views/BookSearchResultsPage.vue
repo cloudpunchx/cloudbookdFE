@@ -26,7 +26,11 @@
                                 </v-text-field>
                             </v-col>
                             <v-col>
-                                <v-btn color="primary" class="searchBtn" rounded
+                                <v-btn
+                                    color="primary"
+                                    class="searchBtn"
+                                    rounded
+                                    @click="search_books"
                                     >Search</v-btn
                                 >
                             </v-col>
@@ -35,6 +39,8 @@
 
                     <!-- Search Results container -->
                     <v-card
+                        v-for="book in books"
+                        :key="book.id"
                         max-width="500"
                         color="lavender"
                         elevation="0"
@@ -43,19 +49,27 @@
                         <v-row align="center" no-gutters>
                             <v-col cols="3">
                                 <v-img
+                                    v-if="
+                                        book.volumeInfo.imageLinks &&
+                                        book.volumeInfo.imageLinks
+                                            .smallThumbnail
+                                    "
                                     contain
                                     class="bookCoverImg"
-                                    src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1489721554i/342445.jpg"
+                                    :src="
+                                        book.volumeInfo.imageLinks
+                                            .smallThumbnail
+                                    "
                                 ></v-img>
                             </v-col>
 
                             <v-col>
                                 <v-card-text>
                                     <p class="bookTitle">
-                                        The Dark Tower: The Gunslinger Born
+                                        {{ book.volumeInfo.title }}
                                     </p>
                                     <p class="text-subtitle-2">
-                                        by Peter David, Stephen King
+                                        {{ book.volumeInfo.authors }}
                                     </p>
                                     <v-divider></v-divider>
                                 </v-card-text>
@@ -81,6 +95,8 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import axios from "axios";
+    import cookies from "vue-cookies";
 
     export default {
         name: "BookSearchResultsPage",
@@ -89,11 +105,50 @@
         },
         data() {
             return {
+                token: "",
+                apiKey: process.env.VUE_APP_API_KEY,
+                // query: this.$route.params.query,
                 query: "",
+                books: [],
+                errorMsg: "",
             };
         },
+        methods: {
+            search_books() {
+                axios
+                    .get("https://www.googleapis.com/books/v1/volumes", {
+                        params: {
+                            q: `intitle:${this.query} OR inauthor:${this.query}`,
+                            key: this.apiKey,
+                        },
+                    })
+                    .then((response) => {
+                        this.books = response.data.items;
+                        console.log("Search Results:", response.data);
+                    })
+                    .catch((error) => {
+                        console.error("API Request Error:", error.request);
+                        console.error(
+                            "API Response Data:",
+                            error.response.data
+                        );
+                        console.error(
+                            "API Response Status:",
+                            error.response.status
+                        );
+                        this.errorMsg = error;
+                    });
+            },
+
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
+        },
         created() {
-            document.title = `Search results for ${this.query} | CloudBookd`;
+            document.title = `Search results for ${this.$route.params.query} | CloudBookd`;
+            this.getToken();
+            this.query = this.$route.params.query; // Assign the search query to the component's data
+            this.search_books();
         },
     };
 </script>
