@@ -81,6 +81,11 @@
                                         @goalAction="handleGoalAction"
                                     />
                                 </v-card-actions>
+                                <v-row justify="end">
+                                    <v-col>
+                                        <DeleteReadingChallGoal />
+                                    </v-col>
+                                </v-row>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                         <v-expansion-panel v-else>
@@ -117,6 +122,7 @@
     // import BooksRead from "@/components/BooksRead.vue";
     import SetReadingChallGoal from "./SetReadingChallGoal.vue";
     import EditReadingChallGoal from "./EditReadingChallGoal.vue";
+    import DeleteReadingChallGoal from "./DeleteReadingChallGoal.vue";
 
     export default {
         name: "ReadingChallenge",
@@ -124,6 +130,7 @@
             // BooksRead,
             SetReadingChallGoal,
             EditReadingChallGoal,
+            DeleteReadingChallGoal,
         },
         data() {
             return {
