@@ -29,8 +29,10 @@
                     <!-- Link to List page -->
                     <v-btn text color="primary" v-show="!isMobile">Lists</v-btn>
 
+                    <!-- Book Search component, only if not mobile -->
                     <BookSearch v-show="!isMobile" />
 
+                    <!-- Drop Down Menu - only if not mobile -->
                     <v-menu v-show="!isMobile" offset-y>
                         <template v-slot:activator="{on, attrs}">
                             <v-btn
@@ -115,7 +117,6 @@
     import LogoutButton from "./LogoutButton.vue";
     import BookSearch from "./BookSearch.vue";
 
-    // import router from "@/router";
     import axios from "axios";
     import cookies from "vue-cookies";
 

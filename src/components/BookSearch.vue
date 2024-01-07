@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- not sure if I need the isMobile, it might just be enough that it knows on the signedinheader component -->
         <v-text-field
             class="textField"
             v-model="query"

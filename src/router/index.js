@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LandingPage from "../views/LandingPage";
 import HomePage from "../views/HomePage";
 import BookSearchResultsPage from "../views/BookSearchResultsPage";
+import BookPage from "../views/BookPage";
 Vue.use(VueRouter);
 
 const routes = [
@@ -56,6 +57,27 @@ const routes = [
         path: "/search",
         name: "BookSearchResultsPage",
         component: BookSearchResultsPage,
+        meta: [
+            // title is set in creation of BookSearchResultsPage using custom query
+            {
+                name: "description",
+                content: "CloudBookd, track all your books!",
+            },
+            {
+                name: "keywords",
+                content:
+                    "cloudbookd, books, read, rate, track, tracker, series",
+            },
+            {
+                name: "author",
+                content: "Siobhan Bonardi",
+            },
+        ],
+    },
+    {
+        path: "/book/:id",
+        name: "BookPage",
+        component: BookPage,
         meta: [
             {
                 name: "description",

@@ -74,7 +74,7 @@
                         class="pa-2 mt-4"
                     >
                         <v-row align="center" no-gutters>
-                            <v-col cols="3">
+                            <v-col cols="3" class="d-flex justify-center">
                                 <v-img
                                     v-if="
                                         book.volumeInfo.imageLinks &&
@@ -89,27 +89,66 @@
                                     "
                                 ></v-img>
                             </v-col>
-                            <!-- ADD LINKS TO BOOK PAGE ON TITLE AND IMG -->
+
                             <v-col>
                                 <v-card-text>
                                     <p class="bookTitle">
                                         {{ book.volumeInfo.title }}
                                     </p>
-                                    <p class="text-subtitle-2">
+                                    <p class="authorName text-subtitle-2">
                                         by
                                         {{ book.volumeInfo.authors.join(", ") }}
                                     </p>
-                                    <p class="text-subtitle">
+                                    <p class="publishDate text-overline">
                                         published
                                         {{ book.volumeInfo.publishedDate }}
                                     </p>
+
+                                    <!-- Only show rating IF book has ratings -->
+                                    <div
+                                        v-if="
+                                            book.volumeInfo.averageRating !==
+                                            undefined
+                                        "
+                                        class="d-flex"
+                                    >
+                                        <v-rating
+                                            :value="
+                                                book.volumeInfo.averageRating
+                                            "
+                                            color="amber"
+                                            dense
+                                            half-increments
+                                            readonly
+                                            size="14"
+                                        ></v-rating>
+
+                                        <p class="ms-4 text-caption">
+                                            {{ book.volumeInfo.averageRating }}
+                                            avg. rating - ({{
+                                                book.volumeInfo.ratingsCount
+                                            }}
+                                            ratings)
+                                        </p>
+                                    </div>
                                     <v-divider></v-divider>
                                 </v-card-text>
 
+                                <!-- button to bring user to book page -->
                                 <v-card-actions>
-                                    <v-btn color="primary" text>
-                                        Read More
-                                    </v-btn>
+                                    <router-link
+                                        :to="{
+                                            name: 'BookPage',
+                                            params: {
+                                                id: book.id,
+                                                bookName: book.volumeInfo.title,
+                                            },
+                                        }"
+                                    >
+                                        <v-btn color="primary" text
+                                            >View Details</v-btn
+                                        >
+                                    </router-link>
                                 </v-card-actions>
                             </v-col>
                         </v-row>
@@ -128,6 +167,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+
     import axios from "axios";
     import cookies from "vue-cookies";
 
@@ -144,6 +184,8 @@
                 query: "",
                 books: [],
                 errorMsg: "",
+                bookId: "",
+                bookName: "",
             };
         },
         methods: {
@@ -184,7 +226,6 @@
                         this.errorMsg = error;
                     });
             },
-
             getToken() {
                 this.token = cookies.get(`sessionToken`);
             },
@@ -226,6 +267,15 @@
     .bookTitle {
         font-size: 12pt;
         font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .authorName {
+        margin-bottom: 5px;
+    }
+
+    .publishDate {
+        margin-bottom: 5px;
     }
 
     .bookCoverImg {
