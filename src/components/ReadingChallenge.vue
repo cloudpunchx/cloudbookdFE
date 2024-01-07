@@ -10,7 +10,7 @@
                 <v-col cols="4">
                     <v-img
                         src="../assets/ghostWithBooksStyle3.png"
-                        class="ma-4 ghostImg"
+                        class="ghostImg ma-4"
                     ></v-img>
                 </v-col>
 

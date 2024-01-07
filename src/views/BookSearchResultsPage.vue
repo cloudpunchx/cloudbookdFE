@@ -269,6 +269,12 @@
         margin-left: 25px;
     }
 
+    .bookCoverImg {
+        width: 80px;
+        border: 1px rgb(97, 97, 97) solid;
+        border-radius: 5px;
+    }
+
     .bookTitle {
         font-size: 12pt;
         font-weight: bold;
@@ -281,12 +287,6 @@
 
     .publishDate {
         margin-bottom: 5px;
-    }
-
-    .bookCoverImg {
-        width: 80px;
-        border: 1px rgb(97, 97, 97) solid;
-        border-radius: 5px;
     }
 
     @media (min-width: 500px) {
@@ -306,16 +306,16 @@
             max-width: 900px;
         }
 
+        .bookCoverImg {
+            width: 100px;
+        }
+
         .headerText {
             font-size: 18pt;
         }
 
         .bookTitle {
             font-size: 14pt;
-        }
-
-        .bookCoverImg {
-            width: 100px;
         }
     }
 </style>
