@@ -75,7 +75,7 @@ const routes = [
         ],
     },
     {
-        path: "/book/:id",
+        path: "/book/:bookId",
         name: "BookPage",
         component: BookPage,
         meta: [

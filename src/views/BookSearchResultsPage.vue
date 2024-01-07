@@ -95,10 +95,15 @@
                                     <p class="bookTitle">
                                         {{ book.volumeInfo.title }}
                                     </p>
-                                    <p class="authorName text-subtitle-2">
+                                    <!-- Check if authors property exists before using join -->
+                                    <p
+                                        v-if="book.volumeInfo.authors"
+                                        class="authorName text-subtitle-2"
+                                    >
                                         by
                                         {{ book.volumeInfo.authors.join(", ") }}
                                     </p>
+
                                     <p class="publishDate text-overline">
                                         published
                                         {{ book.volumeInfo.publishedDate }}
@@ -140,7 +145,7 @@
                                         :to="{
                                             name: 'BookPage',
                                             params: {
-                                                id: book.id,
+                                                bookId: book.id,
                                                 bookName: book.volumeInfo.title,
                                             },
                                         }"
