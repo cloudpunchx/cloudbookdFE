@@ -11,6 +11,11 @@
                 <v-col cols="12" lg="4">
                     <v-img
                         class="bookCoverImg"
+                        v-if="
+                            book.volumeInfo &&
+                            book.volumeInfo.imageLinks &&
+                            book.volumeInfo.imageLinks.thumbnail
+                        "
                         :src="book.volumeInfo.imageLinks.thumbnail"
                     ></v-img>
 
@@ -23,21 +28,30 @@
                         dense
                         half-increments
                     ></v-rating>
-                    <v-btn text> WANT TO READ </v-btn>
+                    <ToBeReadButton
+                        class="tbrBtnContainer"
+                        :bookId="book.id"
+                        :bookTitle="book.volumeInfo?.title"
+                        :author="book.volumeInfo?.authors"
+                        :bookCover="book.volumeInfo?.imageLinks?.thumbnail"
+                    />
                 </v-col>
 
                 <v-col cols="12" lg="8">
-                    <p class="bookTitle">
+                    <p
+                        v-if="book.volumeInfo && book.volumeInfo.title"
+                        class="bookTitle"
+                    >
                         {{ book.volumeInfo.title }}
                     </p>
 
-                    <p class="authorName">
+                    <p class="authorName" v-if="book.volumeInfo?.authors">
                         {{ book.volumeInfo.authors.join(", ") }}
                     </p>
 
                     <!-- Only show rating IF book has ratings -->
                     <div
-                        v-if="book.volumeInfo.averageRating !== undefined"
+                        v-if="book.volumeInfo?.averageRating !== undefined"
                         class="d-flex"
                     >
                         <v-rating
@@ -59,21 +73,21 @@
                     <!-- Needed to use v-html because the API call is returning some HTML in book description-->
                     <p
                         class="bookDescription"
-                        v-html="book.volumeInfo.description"
+                        v-html="book.volumeInfo?.description"
                     ></p>
 
-                    <p class="genres">
+                    <p class="genres" v-if="book.volumeInfo?.categories">
                         {{ book.volumeInfo.categories.join(", ") }}
                     </p>
 
                     <p class="publishDate text-overline">
                         Published
-                        {{ book.volumeInfo.publishedDate }} by
-                        {{ book.volumeInfo.publisher }}
+                        {{ book.volumeInfo?.publishedDate }} by
+                        {{ book.volumeInfo?.publisher }}
                     </p>
 
                     <p class="text-overline">
-                        {{ book.volumeInfo.pageCount }} pages
+                        {{ book.volumeInfo?.pageCount }} pages
                     </p>
                 </v-col>
             </v-row>
@@ -83,6 +97,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import ToBeReadButton from "@/components/ToBeReadButton.vue";
 
     import axios from "axios";
 
@@ -90,6 +105,7 @@
         name: "BookPage",
         components: {
             SignedInHeader,
+            ToBeReadButton,
         },
         data() {
             return {
@@ -190,10 +206,7 @@
         margin-bottom: 5px;
     }
 
-    .v-btn {
-        color: white;
-        background-color: #c9a2c7;
-        font-size: 9pt;
+    .tbrBtnContainer {
         margin-top: 10px;
     }
 
@@ -222,8 +235,7 @@
             font-size: 12pt;
         }
 
-        .v-btn {
-            font-size: 12pt;
+        .tbrBtnContainer {
             margin: 10px;
         }
     }
