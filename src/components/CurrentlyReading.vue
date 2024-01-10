@@ -4,63 +4,32 @@
             <v-row>
                 <v-col>
                     <p class="header">Currently Reading</p>
-                    <v-card color="background" elevation="0" class="pa-2">
+                    <v-card
+                        v-for="book in books"
+                        :key="book.bookId"
+                        color="background"
+                        elevation="0"
+                        class="pa-2"
+                    >
                         <v-row align="center" no-gutters>
                             <!-- need to play around with cols and set for breakpoints -->
                             <v-col cols="3">
                                 <v-img
                                     contain
                                     class="bookCoverImg"
-                                    src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1489721554i/342445.jpg"
+                                    :src="book.Cover_Img"
                                 ></v-img>
                             </v-col>
 
                             <v-col>
                                 <p class="bookTitle mx-2">
-                                    The Dark Tower: The Gunslinger Born
+                                    {{ book.Title }}
                                 </p>
 
                                 <v-card-text>
                                     <v-row align="center" class="mx-0">
                                         <div class="text-subtitle-2">
-                                            by Peter David, Stephen King
-                                        </div>
-                                    </v-row>
-                                </v-card-text>
-
-                                <v-divider class="mx-4 my-1"></v-divider>
-
-                                <v-card-actions>
-                                    <!-- this btn will take you to reading update page -->
-                                    <v-btn color="primary" text>
-                                        Update Progress
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-col>
-                        </v-row>
-                        <v-divider></v-divider>
-                    </v-card>
-
-                    <v-card color="background" elevation="0" class="pa-2">
-                        <v-row align="center" no-gutters>
-                            <!-- need to play around with cols and set for breakpoints -->
-                            <v-col cols="3">
-                                <v-img
-                                    contain
-                                    class="bookCoverImg"
-                                    src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1377304780i/3217221.jpg"
-                                ></v-img>
-                            </v-col>
-
-                            <v-col>
-                                <p class="bookTitle mx-2">
-                                    Locke & Key: Welcome to Lovecraft
-                                </p>
-
-                                <v-card-text>
-                                    <v-row align="center" class="mx-0">
-                                        <div class="text-subtitle-2">
-                                            by Joe Hill
+                                            {{ book.Author }}
                                         </div>
                                     </v-row>
                                 </v-card-text>
@@ -84,12 +53,58 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import cookies from "vue-cookies";
+
     export default {
         name: "CurrentlyReading",
         data() {
-            return {};
+            return {
+                apiUrl: process.env.VUE_APP_API_URL,
+                token: "",
+                books: [],
+                errorMsg: "",
+            };
         },
-        methods: {},
+        methods: {
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
+            getToBeRead() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/user-books",
+                        method: "GET",
+                        headers: {
+                            token: this.token,
+                        },
+                        params: {
+                            readingStatus: "currently reading",
+                        },
+                    })
+                    .then((response) => {
+                        // Check if the response is an object and convert it to an array
+                        this.books = Array.isArray(response.data)
+                            ? response.data
+                            : [response.data];
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error.response.data;
+                        // Set a timeout to clear the error after 1 minute
+                        setTimeout(() => {
+                            this.clearError();
+                        }, 60000); // 1 minute = 60,000 milliseconds
+                    });
+            },
+            clearError() {
+                this.errorMsg = "";
+            },
+        },
+        created() {
+            this.getToken();
+            this.getToBeRead();
+        },
     };
 </script>
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Reading Challenge Card -->
         <v-card
             class="mx-auto my-6"
             max-width="600"
@@ -7,6 +8,7 @@
             elevation="0"
         >
             <v-row align="center">
+                <!-- First Col - Ghost Img -->
                 <v-col cols="4">
                     <v-img
                         src="../assets/ghostWithBooksStyle3.png"
@@ -26,8 +28,11 @@
                                 v-if="userReadingGoal !== null"
                                 class="my-2 subtitle-1"
                             >
-                                <!-- Use the BooksRead component to display only the number of books read -->
-                                <!-- <BooksRead :showNumber="true" /> -->
+                                <!-- Get # of books read this year emit from BooksRead.vue-->
+                                <BooksRead
+                                    @booksReadThisYear="handleBooksReadThisYear"
+                                />
+                                <p>{{ booksReadThisYear }} books completed</p>
                             </div>
 
                             <v-progress-linear
@@ -52,9 +57,7 @@
                                 color="primary"
                             ></v-progress-linear>
 
-                            <!-- <div class="black--text ms-4 my-1" v-if="errorMsg">
-                                Error: {{ errorMsg }}
-                            </div> -->
+                            <div v-if="errorMsg">Error: {{ errorMsg }}</div>
                         </v-row>
                     </v-card-text>
 
@@ -119,7 +122,7 @@
 <script>
     import axios from "axios";
     import cookies from "vue-cookies";
-    // import BooksRead from "@/components/BooksRead.vue";
+    import BooksRead from "@/components/BooksRead.vue";
     import SetReadingChallGoal from "./SetReadingChallGoal.vue";
     import EditReadingChallGoal from "./EditReadingChallGoal.vue";
     import DeleteReadingChallGoal from "./DeleteReadingChallGoal.vue";
@@ -127,7 +130,7 @@
     export default {
         name: "ReadingChallenge",
         components: {
-            // BooksRead,
+            BooksRead,
             SetReadingChallGoal,
             EditReadingChallGoal,
             DeleteReadingChallGoal,
@@ -137,7 +140,7 @@
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
                 currYear: process.env.VUE_APP_CURRENT_YEAR,
-                // isPanelOpen: true,
+                isPanelOpen: true,
                 userReadingGoal: null,
                 booksReadThisYear: "",
                 booksRemainingToGoal: "",
@@ -147,8 +150,8 @@
         },
         watch: {
             // Watch for changes in booksReadThisYear and userReadingGoal to update the progress
-            // booksReadThisYear: "updateProgress",
-            // userReadingGoal: "updateProgress",
+            booksReadThisYear: "updateProgress",
+            userReadingGoal: "updateProgress",
         },
         methods: {
             getToken() {
@@ -171,8 +174,7 @@
                         this.errorMsg = error;
                     });
             },
-            // Method to update the progress percentage
-            // not sure if this works yet
+            // Method to update the progress percentage on books completed
             updateProgress() {
                 if (this.userReadingGoal > 0) {
                     this.progressPercentage =
@@ -181,12 +183,15 @@
                     this.progressPercentage = 0;
                 }
             },
-            // FUNCTION NOT RELOADING AFTER GOAL SET
             handleGoalAction() {
                 // Reload to get the goal after the action (set or edit)
                 this.getUserReadingGoal();
                 // Update the flag to close the expansion panel
-                // this.isPanelOpen = false;
+                this.isPanelOpen = false;
+            },
+            // Handle the custom event and update the booksReadThisYear variable
+            handleBooksReadThisYear(value) {
+                this.booksReadThisYear = value;
             },
         },
         created() {

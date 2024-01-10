@@ -31,8 +31,8 @@
                 this.token = cookies.get(`sessionToken`);
             },
             addToBeRead() {
-                // Convert the array of authors to a JSON-formatted string
-                const authorsJson = JSON.stringify(this.author);
+                // Join the array of authors into a single string separated by a comma
+                const authorString = this.author.join(", ");
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
@@ -43,7 +43,7 @@
                         data: {
                             bookId: this.bookId,
                             bookTitle: this.bookTitle,
-                            author: authorsJson,
+                            author: authorString,
                             bookCover: this.bookCover,
                             readingStatus: "tbr",
                         },

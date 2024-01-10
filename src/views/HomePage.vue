@@ -42,7 +42,7 @@
 
 <style scoped>
     .pageContent {
-        margin-top: 25px;
+        margin-top: 50px;
     }
     .readingChallengeContainer {
         margin-bottom: 10px;
@@ -57,6 +57,7 @@
     @media (min-width: 1000px) {
         .pageContent {
             max-width: 900px;
+            margin-top: 25px;
         }
     }
 

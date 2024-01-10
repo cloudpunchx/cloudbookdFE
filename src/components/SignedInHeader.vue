@@ -26,9 +26,6 @@
                         >My Books</v-btn
                     >
 
-                    <!-- Link to List page -->
-                    <v-btn text color="primary" v-show="!isMobile">Lists</v-btn>
-
                     <!-- Book Search component, only if not mobile -->
                     <BookSearch v-show="!isMobile" />
 
