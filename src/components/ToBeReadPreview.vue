@@ -5,21 +5,12 @@
             <p class="header">Want to Read</p>
             <v-row>
                 <v-col
-                    v-for="n in 9"
-                    :key="n"
+                    v-for="book in displayedBooks"
+                    :key="book.bookId"
                     class="d-flex child-flex"
                     cols="4"
                 >
-                    <v-img
-                        :src="`https://picsum.photos/500/300?image=${
-                            n * 5 + 10
-                        }`"
-                        :lazy-src="`https://picsum.photos/10/6?image=${
-                            n * 5 + 10
-                        }`"
-                        aspect-ratio="1"
-                        class="grey lighten-2"
-                    >
+                    <v-img :src="book.Cover_Img" aspect-ratio="1">
                         <template v-slot:placeholder>
                             <v-row
                                 class="fill-height ma-0"
@@ -40,8 +31,64 @@
 </template>
 
 <script>
+    import axios from "axios";
+    import cookies from "vue-cookies";
+
     export default {
         name: "ToBeReadPreview",
+        data() {
+            return {
+                apiUrl: process.env.VUE_APP_API_URL,
+                token: "",
+                books: [],
+                errorMsg: "",
+            };
+        },
+        computed: {
+            displayedBooks() {
+                // Limit the number of displayed books to 9
+                return this.books.slice(0, 9);
+            },
+        },
+        methods: {
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
+            getToBeRead() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/user-books",
+                        method: "GET",
+                        headers: {
+                            token: this.token,
+                        },
+                        params: {
+                            readingStatus: "tbr",
+                        },
+                    })
+                    .then((response) => {
+                        // Check if the response is an object and convert it to an array
+                        this.books = Array.isArray(response.data)
+                            ? response.data
+                            : [response.data];
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error.response.data;
+                        // Set a timeout to clear the error after 1 minute
+                        setTimeout(() => {
+                            this.clearError();
+                        }, 60000); // 1 minute = 60,000 milliseconds
+                    });
+            },
+            clearError() {
+                this.errorMsg = "";
+            },
+        },
+        created() {
+            this.getToken();
+            this.getToBeRead();
+        },
     };
 </script>
 
@@ -54,5 +101,10 @@
 
     .container {
         background-color: #f7edf0;
+    }
+
+    .errorMsg {
+        font-size: 10pt;
+        color: red;
     }
 </style>

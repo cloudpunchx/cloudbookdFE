@@ -45,7 +45,7 @@
                             bookTitle: this.bookTitle,
                             author: authorsJson,
                             bookCover: this.bookCover,
-                            shelves: "tbr", //to be read
+                            readingStatus: "tbr",
                         },
                     })
                     .then((response) => {
