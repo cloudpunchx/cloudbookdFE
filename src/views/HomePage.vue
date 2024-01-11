@@ -4,12 +4,15 @@
 
         <v-container class="pageContent">
             <v-row>
-                <v-col cols="12" sm="12" md="6">
+                <v-col cols="12" sm="6" md="6">
                     <!-- Currently Reading Container -->
                     <CurrentlyReading />
+
+                    <!-- Recently Read Container -->
+                    <RecentlyRead />
                 </v-col>
 
-                <v-col cols="12" sm="12" md="6">
+                <v-col cols="12" sm="6" md="6">
                     <!-- Reading Challenge -->
                     <ReadingChallenge class="readingChallengeContainer" />
 
@@ -26,6 +29,7 @@
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
     import CurrentlyReading from "@/components/CurrentlyReading.vue";
+    import RecentlyRead from "@/components/RecentlyRead.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
     import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
 
@@ -34,6 +38,7 @@
         components: {
             SignedInHeader,
             CurrentlyReading,
+            RecentlyRead,
             ReadingChallenge,
             ToBeReadPreview,
         },
@@ -51,6 +56,18 @@
     @media (min-width: 500px) {
         .pageContent {
             width: 85vw;
+        }
+    }
+
+    @media (min-width: 600px) {
+        .pageContent {
+            width: 100vw;
+        }
+    }
+
+    @media (min-width: 800px) {
+        .pageContent {
+            width: 90vw;
         }
     }
 
