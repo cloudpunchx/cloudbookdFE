@@ -36,6 +36,13 @@
                         :author="book.volumeInfo?.authors"
                         :bookCover="book.volumeInfo?.imageLinks?.thumbnail"
                     />
+                    <CurrentlyReadingButton
+                        class="tbrBtnContainer"
+                        :bookId="book.id"
+                        :bookTitle="book.volumeInfo?.title"
+                        :author="book.volumeInfo?.authors"
+                        :bookCover="book.volumeInfo?.imageLinks?.thumbnail"
+                    />
                 </v-col>
 
                 <v-col cols="12" lg="8">
@@ -99,6 +106,7 @@
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
     import ToBeReadButton from "@/components/ToBeReadButton.vue";
+    import CurrentlyReadingButton from "@/components/CurrentlyReadingButton.vue";
 
     import axios from "axios";
 
@@ -107,6 +115,7 @@
         components: {
             SignedInHeader,
             ToBeReadButton,
+            CurrentlyReadingButton,
         },
         data() {
             return {

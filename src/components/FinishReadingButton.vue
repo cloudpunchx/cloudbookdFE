@@ -164,7 +164,7 @@
         color: white;
     }
     .dialog-content {
-        overflow: hidden; /* This will hide the scroll bars */
+        overflow: hidden; /* hide the scroll bars */
     }
 
     .errorMsg {
