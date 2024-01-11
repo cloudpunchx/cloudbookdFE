@@ -27,6 +27,7 @@
                         hover
                         dense
                         half-increments
+                        readonly
                     ></v-rating>
                     <ToBeReadButton
                         class="tbrBtnContainer"

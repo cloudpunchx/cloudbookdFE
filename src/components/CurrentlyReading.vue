@@ -12,7 +12,6 @@
                         class="pa-2"
                     >
                         <v-row align="center" no-gutters>
-                            <!-- need to play around with cols and set for breakpoints -->
                             <v-col cols="3">
                                 <v-img
                                     contain
@@ -37,14 +36,13 @@
                                 <v-divider class="mx-4 my-1"></v-divider>
 
                                 <v-card-actions>
-                                    <!-- this btn will take you to reading update page -->
-                                    <v-btn color="primary" text>
-                                        Update Progress
-                                    </v-btn>
+                                    <FinishReadingButton
+                                        :bookId="book.bookId"
+                                        :bookTitle="book.Title"
+                                    />
                                 </v-card-actions>
                             </v-col>
                         </v-row>
-                        <v-divider></v-divider>
                     </v-card>
                 </v-col>
             </v-row>
@@ -56,8 +54,13 @@
     import axios from "axios";
     import cookies from "vue-cookies";
 
+    import FinishReadingButton from "./FinishReadingButton.vue";
+
     export default {
         name: "CurrentlyReading",
+        components: {
+            FinishReadingButton,
+        },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
@@ -112,7 +115,6 @@
     .pageContent {
         background-color: #f7edf0;
     }
-    /* NOT STYLED YET */
     .header {
         font-family: open-sans-regular;
         font-size: 14pt;

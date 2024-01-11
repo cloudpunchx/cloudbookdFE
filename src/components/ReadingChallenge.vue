@@ -57,7 +57,9 @@
                                 color="primary"
                             ></v-progress-linear>
 
-                            <div v-if="errorMsg">Error: {{ errorMsg }}</div>
+                            <div class="errorMsg" v-if="errorMsg">
+                                {{ errorMsg }}
+                            </div>
                         </v-row>
                     </v-card-text>
 
@@ -140,7 +142,6 @@
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
                 currYear: process.env.VUE_APP_CURRENT_YEAR,
-                isPanelOpen: true,
                 userReadingGoal: null,
                 booksReadThisYear: "",
                 booksRemainingToGoal: "",
@@ -186,8 +187,6 @@
             handleGoalAction() {
                 // Reload to get the goal after the action (set or edit)
                 this.getUserReadingGoal();
-                // Update the flag to close the expansion panel
-                this.isPanelOpen = false;
             },
             // Handle the custom event and update the booksReadThisYear variable
             handleBooksReadThisYear(value) {
@@ -209,6 +208,11 @@
 
     .goalInput {
         max-width: 80px;
+    }
+
+    .errorMsg {
+        font-size: 10pt;
+        color: red;
     }
 
     @media (min-width: 500px) {

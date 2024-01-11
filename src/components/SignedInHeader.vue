@@ -2,9 +2,9 @@
     <div>
         <v-app-bar color="background" flat class="navBar">
             <v-container class="navContainer">
-                <v-row justify="center" align="end">
+                <v-row justify="center" align="center">
                     <v-toolbar-title>
-                        <!-- Logo -->
+                        <!-- site Logo -->
                         <router-link to="/home">
                             <v-img
                                 src="../assets/cloudbookdLogo1.png"
@@ -57,12 +57,6 @@
                             class="listItem"
                         >
                             <v-list-item>
-                                <!-- NEED TO STYLE -->
-                                <v-list-item-title class="listItem">
-                                    Reading Challenge
-                                </v-list-item-title>
-                            </v-list-item>
-                            <v-list-item>
                                 <v-list-item-title class="listItem">
                                     <LogoutButton />
                                 </v-list-item-title>
@@ -81,7 +75,6 @@
             </v-container>
         </v-app-bar>
 
-        <!-- NOT STARTED YET: -->
         <!-- Nav Drawer for Tablet/Mobile (smaller screens) -->
         <v-navigation-drawer
             color="background"
@@ -91,18 +84,15 @@
             left
             :style="{position: drawer ? 'fixed' : 'absolute'}"
         >
-            <v-list nav dense>
+            <v-list nav>
                 <v-list-item-group>
-                    <v-list-item>
+                    <v-list-item class="mobileListItem">
                         <BookSearch />
                     </v-list-item>
-
+                </v-list-item-group>
+                <v-list-item-group>
                     <v-list-item>
-                        <p>test</p>
-                    </v-list-item>
-
-                    <v-list-item>
-                        <p>test 2</p>
+                        <LogoutButton />
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -191,15 +181,8 @@
         margin: 10px;
     }
 
-    .listItemBtn {
-        margin-right: 5px;
-    }
-    .listItem:hover {
-        color: whitesmoke;
-        cursor: pointer;
-    }
-    .mobileListItem:hover {
-        color: whitesmoke;
+    .mobileListItem {
+        margin-bottom: 15px;
     }
 
     @media (min-width: 960px) {
@@ -207,7 +190,7 @@
             margin-top: 0px;
         }
         .navBar {
-            padding: 50px;
+            padding: 20px;
         }
     }
 </style>
