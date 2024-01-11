@@ -10,7 +10,7 @@
     import cookies from "vue-cookies";
 
     export default {
-        name: "BooksRead",
+        name: "GetBooksRead",
         props: {
             showNumber: {
                 type: Boolean,

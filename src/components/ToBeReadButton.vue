@@ -1,6 +1,8 @@
 <template>
     <div>
-        <v-btn text @click="addToBeRead"> Want To Read</v-btn>
+        <v-btn @click="addToBeRead" color="lavender" dark elevation="0">
+            Want To Read</v-btn
+        >
         <div class="errorMsg" v-if="errorMsg">
             {{ errorMsg }}
         </div>
@@ -72,8 +74,6 @@
 
 <style scoped>
     .v-btn {
-        color: white;
-        background-color: #c9a2c7;
         font-size: 9pt;
     }
 

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <v-btn text @click="currentlyReading">Currently Reading</v-btn>
+        <v-btn @click="currentlyReading" color="lavender" dark elevation="0"
+            >Currently Reading</v-btn
+        >
         <div class="errorMsg" v-if="errorMsg">
             {{ errorMsg }}
         </div>
@@ -132,16 +134,12 @@
 
 <style scoped>
     .v-btn {
-        color: white;
-        background-color: #c9a2c7;
         font-size: 9pt;
     }
-
     .errorMsg {
         font-size: 10pt;
         color: red;
     }
-
     @media (min-width: 1000px) {
         .v-btn {
             font-size: 12pt;

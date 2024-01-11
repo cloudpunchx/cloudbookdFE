@@ -42,6 +42,7 @@
                     })
                     .then((response) => {
                         this.responseMsg = response.data;
+                        this.$emit("readingGoalDeleted"); // Emit the event
                         setTimeout(() => {
                             this.clearMsg();
                         }, 60000);

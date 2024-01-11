@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn @click="dialog = true" color="primary" text>
+        <v-btn @click="dialog = true" color="lavender" dark elevation="0">
             Mark As Read
         </v-btn>
 
@@ -160,6 +160,9 @@
 </script>
 
 <style scoped>
+    .v-btn {
+        font-size: 9pt;
+    }
     .cardTitle {
         color: white;
     }
@@ -170,5 +173,11 @@
     .errorMsg {
         font-size: 10pt;
         color: red;
+    }
+
+    @media (min-width: 1000px) {
+        .v-btn {
+            font-size: 12pt;
+        }
     }
 </style>

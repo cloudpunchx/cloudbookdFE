@@ -8,41 +8,81 @@
             elevation="0"
         >
             <v-row>
-                <v-col cols="12" lg="4">
-                    <v-img
-                        class="bookCoverImg"
-                        v-if="
-                            book.volumeInfo &&
-                            book.volumeInfo.imageLinks &&
-                            book.volumeInfo.imageLinks.thumbnail
-                        "
-                        :src="book.volumeInfo.imageLinks.thumbnail"
-                    ></v-img>
+                <v-col cols="12" lg="4" class="d-flex justify-center">
+                    <div>
+                        <v-img
+                            class="bookCoverImg"
+                            v-if="
+                                book.volumeInfo &&
+                                book.volumeInfo.imageLinks &&
+                                book.volumeInfo.imageLinks.thumbnail
+                            "
+                            :src="book.volumeInfo.imageLinks.thumbnail"
+                        ></v-img>
 
-                    <!-- User Input for Rating -->
-                    <v-rating
-                        v-model="userRating"
-                        :size="getRatingSize()"
-                        color="amber"
-                        hover
-                        dense
-                        half-increments
-                        readonly
-                    ></v-rating>
-                    <ToBeReadButton
-                        class="tbrBtnContainer"
-                        :bookId="book.id"
-                        :bookTitle="book.volumeInfo?.title"
-                        :author="book.volumeInfo?.authors"
-                        :bookCover="book.volumeInfo?.imageLinks?.thumbnail"
-                    />
-                    <CurrentlyReadingButton
-                        class="tbrBtnContainer"
-                        :bookId="book.id"
-                        :bookTitle="book.volumeInfo?.title"
-                        :author="book.volumeInfo?.authors"
-                        :bookCover="book.volumeInfo?.imageLinks?.thumbnail"
-                    />
+                        <!-- Update book to tbr, currently reading, finished -->
+                        <v-btn
+                            @click="dialog = true"
+                            class="changeStatusButton"
+                            color="lavender"
+                            dark
+                        >
+                            Add To My Books
+                        </v-btn>
+
+                        <v-dialog v-model="dialog" max-width="400px">
+                            <v-card
+                                class="dialog-content"
+                                color="lavender"
+                                rounded="lg"
+                            >
+                                <v-row>
+                                    <v-col
+                                        class="d-flex flex-column justify-center align-center"
+                                    >
+                                        <v-card-title class="cardTitle"
+                                            >Choose a Shelf</v-card-title
+                                        >
+                                        <v-card-text>
+                                            <ToBeReadButton
+                                                :bookId="bookId"
+                                                :bookTitle="bookTitle"
+                                                :author="author"
+                                                :bookCover="bookCover"
+                                                @statusChanged="dialog = false"
+                                            />
+                                            <CurrentlyReadingButton
+                                                :bookId="bookId"
+                                                :bookTitle="bookTitle"
+                                                :author="author"
+                                                :bookCover="bookCover"
+                                                @statusChanged="dialog = false"
+                                            />
+                                            <FinishReadingButton
+                                                :bookId="bookId"
+                                                :bookTitle="bookTitle"
+                                                :author="author"
+                                                :bookCover="bookCover"
+                                                @statusChanged="dialog = false"
+                                            />
+                                        </v-card-text>
+
+                                        <v-card-actions
+                                            class="d-flex justify-center"
+                                        >
+                                            <v-btn
+                                                color="primary"
+                                                text
+                                                @click="dialog = false"
+                                            >
+                                                Close
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-col>
+                                </v-row>
+                            </v-card>
+                        </v-dialog>
+                    </div>
                 </v-col>
 
                 <v-col cols="12" lg="8">
@@ -107,6 +147,7 @@
     import SignedInHeader from "@/components/SignedInHeader.vue";
     import ToBeReadButton from "@/components/ToBeReadButton.vue";
     import CurrentlyReadingButton from "@/components/CurrentlyReadingButton.vue";
+    import FinishReadingButton from "@/components/FinishReadingButton.vue";
 
     import axios from "axios";
 
@@ -116,14 +157,15 @@
             SignedInHeader,
             ToBeReadButton,
             CurrentlyReadingButton,
+            FinishReadingButton,
         },
         data() {
             return {
                 apiKey: process.env.VUE_APP_API_KEY,
                 bookId: "",
                 book: {},
+                dialog: false,
                 errorMsg: "",
-                userRating: 0,
             };
         },
         methods: {
@@ -184,6 +226,14 @@
         border-radius: 5px;
     }
 
+    .changeStatusButton {
+        margin-top: 25px;
+    }
+
+    .cardTitle {
+        color: white;
+    }
+
     .bookTitle {
         font-family: Georgia, "Times New Roman", Times, serif;
         font-size: 14pt;
@@ -218,6 +268,10 @@
 
     .tbrBtnContainer {
         margin-top: 10px;
+    }
+
+    .dialog-content {
+        overflow: hidden; /* hide the scroll bars */
     }
 
     @media (min-width: 500px) {
