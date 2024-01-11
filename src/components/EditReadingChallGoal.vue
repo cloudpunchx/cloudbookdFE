@@ -53,7 +53,8 @@
                             currYear: this.currYear,
                         },
                     })
-                    .then(() => {
+                    .then((response) => {
+                        console.log(response.data);
                         this.readingGoalInput = "";
                         // emit goalSet to hide Set Goal Panel on ReadingChallenge.vue
                         this.$emit("goalAction");

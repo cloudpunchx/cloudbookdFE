@@ -67,7 +67,7 @@
                             <!-- If User HAS set a reading goal, show Edit Goal(PATCH) -->
                             <v-expansion-panel-header
                                 v-if="userReadingGoal !== null"
-                                class="setGoalPanel subtitle-2"
+                                class="subtitle-2"
                                 color="background"
                             >
                                 EDIT GOAL
