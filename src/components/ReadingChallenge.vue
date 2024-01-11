@@ -9,7 +9,7 @@
         >
             <v-row align="center">
                 <!-- First Col - Ghost Img -->
-                <v-col cols="4">
+                <v-col cols="4" sm="3">
                     <v-img
                         src="../assets/ghostWithBooksStyle3.png"
                         class="ghostImg ma-4"

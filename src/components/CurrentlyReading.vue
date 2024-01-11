@@ -11,8 +11,8 @@
                         elevation="0"
                         class="pa-2"
                     >
-                        <v-row align="center" no-gutters>
-                            <v-col cols="3">
+                        <v-row align="center" dense>
+                            <v-col cols="3" sm="2" md="3" lg="3">
                                 <v-img
                                     contain
                                     class="bookCoverImg"
@@ -20,7 +20,7 @@
                                 ></v-img>
                             </v-col>
 
-                            <v-col>
+                            <v-col sm="10" md="9" lg="9">
                                 <p class="bookTitle mx-2">
                                     {{ book.Title }}
                                 </p>

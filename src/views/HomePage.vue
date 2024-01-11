@@ -4,12 +4,12 @@
 
         <v-container class="pageContent">
             <v-row>
-                <v-col>
+                <v-col cols="12" sm="12" md="6">
                     <!-- Currently Reading Container -->
                     <CurrentlyReading />
                 </v-col>
 
-                <v-col>
+                <v-col cols="12" sm="12" md="6">
                     <!-- Reading Challenge -->
                     <ReadingChallenge class="readingChallengeContainer" />
 
@@ -50,7 +50,7 @@
 
     @media (min-width: 500px) {
         .pageContent {
-            width: 90vw;
+            width: 85vw;
         }
     }
 
@@ -63,7 +63,7 @@
 
     @media (min-width: 1500px) {
         .pageContainer {
-            max-width: 1000px;
+            max-width: 1500px;
         }
     }
 </style>
