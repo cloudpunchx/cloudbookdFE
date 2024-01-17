@@ -1,10 +1,10 @@
 <template>
     <div>
-        <v-app-bar color="background" flat class="navBar">
+        <v-app-bar color="background" :flat="isMobile">
             <v-container class="navContainer">
                 <v-row justify="center" align="center">
                     <v-toolbar-title>
-                        <!-- site Logo -->
+                        <!-- site Logo - routes to /home-->
                         <router-link to="/home">
                             <v-img
                                 src="../assets/cloudbookdLogo1.png"
@@ -14,22 +14,26 @@
                         </router-link>
                     </v-toolbar-title>
 
-                    <!-- Another link to Home page -->
+                    <!-- Another link to Home page - not shown when mobile -->
                     <v-btn text color="primary" v-show="!isMobile">
-                        <router-link to="/home" style="text-decoration: none"
+                        <router-link to="/home" class="navLink"
                             >Home</router-link
                         >
                     </v-btn>
 
-                    <!-- Link to My Books page -->
-                    <v-btn text color="primary" v-show="!isMobile"
+                    <!-- Link to My Books page - not shown when mobile-->
+                    <v-btn
+                        text
+                        color="primary"
+                        v-show="!isMobile"
+                        @click="visitMyBooks"
                         >My Books</v-btn
                     >
 
-                    <!-- Book Search component, only if not mobile -->
+                    <!-- Book Search component - not shown when mobile -->
                     <BookSearch v-show="!isMobile" />
 
-                    <!-- Drop Down Menu - only if not mobile -->
+                    <!-- Drop Down Menu - not shown when mobile -->
                     <v-menu v-show="!isMobile" offset-y>
                         <template v-slot:activator="{on, attrs}">
                             <v-btn
@@ -38,7 +42,6 @@
                                 v-bind="attrs"
                                 v-on="on"
                                 @mouseover="showDropdown = true"
-                                class="listItemBtn"
                             >
                                 <v-avatar
                                     v-show="!isMobile"
@@ -54,22 +57,22 @@
                             v-show="showDropdown"
                             @mouseover="showDropdown = true"
                             @mouseout="showDropdown = false"
-                            class="listItem"
                         >
                             <v-list-item>
-                                <v-list-item-title class="listItem">
+                                <v-list-item-title>
                                     <LogoutButton />
                                 </v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
                 </v-row>
-                <v-row justify="start" style="background-color: #f7edf0">
+                <!-- Mobile sizing - nav icon -->
+                <v-row justify="start">
                     <!-- Only show Icon when it isMobile -->
                     <v-app-bar-nav-icon
+                        class="navIcon"
                         v-show="isMobile"
                         @click="toggleDrawer"
-                        class="navIcon"
                     ></v-app-bar-nav-icon>
                 </v-row>
             </v-container>
@@ -106,6 +109,7 @@
 
     import axios from "axios";
     import cookies from "vue-cookies";
+    import router from "@/router";
 
     export default {
         name: "SignedInHeader",
@@ -127,12 +131,16 @@
         computed: {
             isMobile() {
                 const isMobile = this.$vuetify.breakpoint.smAndDown;
+                // visual check if 'isMobile'
                 console.log("isMobile:", isMobile);
                 return isMobile;
             },
         },
         methods: {
-            get_user_profile() {
+            getToken() {
+                this.token = cookies.get(`sessionToken`);
+            },
+            getUserProfile() {
                 axios
                     .request({
                         url: this.apiUrl + "/user",
@@ -150,8 +158,13 @@
                         this.errorMsg = error;
                     });
             },
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
+            visitMyBooks() {
+                if (this.$route.name !== "MyBooks") {
+                    router.push({
+                        name: "MyBooks",
+                        params: {username: this.username},
+                    });
+                }
             },
             toggleDropdown() {
                 this.showDropdown = !this.showDropdown;
@@ -161,7 +174,7 @@
             },
         },
         created() {
-            this.get_user_profile();
+            this.getUserProfile();
             this.getToken();
         },
     };
@@ -177,6 +190,10 @@
         cursor: pointer;
     }
 
+    .navLink {
+        text-decoration: none;
+    }
+
     .avatar {
         margin: 10px;
     }
@@ -188,9 +205,6 @@
     @media (min-width: 960px) {
         .navContainer {
             margin-top: 0px;
-        }
-        .navBar {
-            padding: 20px;
         }
     }
 </style>

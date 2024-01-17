@@ -37,6 +37,7 @@
                                 v-model="progressPercentage"
                                 color="secondary"
                                 height="20"
+                                class="non-interactive-progress-bar"
                             >
                                 <template v-slot:default="{value}">
                                     <strong
@@ -220,6 +221,10 @@
     .errorMsg {
         font-size: 10pt;
         color: red;
+    }
+
+    .non-interactive-progress-bar {
+        pointer-events: none; /* This will make the progress bar non-clickable */
     }
 
     @media (min-width: 500px) {

@@ -164,6 +164,9 @@
                 apiKey: process.env.VUE_APP_API_KEY,
                 bookId: "",
                 book: {},
+                bookTitle: "",
+                author: "",
+                bookCover: "",
                 dialog: false,
                 errorMsg: "",
             };

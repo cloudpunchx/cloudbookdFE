@@ -7,7 +7,7 @@
             clearable
             placeholder="Search Books"
             append-icon="mdi-magnify"
-            @click:append="search_books"
+            @click:append="searchBooks"
             background-color="transparent"
             color="primary"
         >
@@ -26,7 +26,7 @@
             };
         },
         methods: {
-            search_books() {
+            searchBooks() {
                 router.push({
                     name: "BookSearchResultsPage",
                     params: {query: this.query},

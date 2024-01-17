@@ -4,6 +4,8 @@ import LandingPage from "../views/LandingPage";
 import HomePage from "../views/HomePage";
 import BookSearchResultsPage from "../views/BookSearchResultsPage";
 import BookPage from "../views/BookPage";
+import MyBooks from "../views/MyBooks";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -78,6 +80,26 @@ const routes = [
         path: "/book/:bookId",
         name: "BookPage",
         component: BookPage,
+        meta: [
+            {
+                name: "description",
+                content: "CloudBookd, track all your books!",
+            },
+            {
+                name: "keywords",
+                content:
+                    "cloudbookd, books, read, rate, track, tracker, series",
+            },
+            {
+                name: "author",
+                content: "Siobhan Bonardi",
+            },
+        ],
+    },
+    {
+        path: "/mybooks",
+        name: "MyBooks",
+        component: MyBooks,
         meta: [
             {
                 name: "description",

@@ -3,7 +3,7 @@
         <v-container class="pageContent">
             <v-row>
                 <v-col>
-                    <p class="header">Currently Reading</p>
+                    <h1 class="header">Currently Reading</h1>
                     <v-card
                         v-for="book in books"
                         :key="book.bookId"
@@ -13,15 +13,31 @@
                     >
                         <v-row align="center" dense>
                             <v-col cols="3" sm="2" md="3" lg="3">
+                                <!-- clickable img - route to BookPage w/Book Name + ID -->
                                 <v-img
                                     contain
                                     class="bookCoverImg"
                                     :src="book.Cover_Img"
+                                    @click="
+                                        navigateToBookPage(
+                                            book.bookId,
+                                            book.Title
+                                        )
+                                    "
                                 ></v-img>
                             </v-col>
 
                             <v-col sm="10" md="9" lg="9">
-                                <p class="bookTitle mx-2">
+                                <!-- clickable Title - route to BookPage w/Book Name + ID -->
+                                <p
+                                    class="bookTitle mx-2"
+                                    @click="
+                                        navigateToBookPage(
+                                            book.bookId,
+                                            book.Title
+                                        )
+                                    "
+                                >
                                     {{ book.Title }}
                                 </p>
 
@@ -100,6 +116,12 @@
                         }, 60000); // 1 minute = 60,000 milliseconds
                     });
             },
+            navigateToBookPage(bookId, bookName) {
+                this.$router.push({
+                    name: "BookPage",
+                    params: {bookId, bookName},
+                });
+            },
             clearError() {
                 this.errorMsg = "";
             },
@@ -116,7 +138,9 @@
         background-color: #f7edf0;
     }
     .header {
+        color: #6e4b6a;
         font-family: open-sans-regular;
+        font-weight: 600;
         font-size: 14pt;
     }
 
@@ -124,8 +148,14 @@
         font-size: 12pt;
     }
 
+    .bookTitle:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
     .bookCoverImg {
         width: 80px;
+        cursor: pointer;
     }
 
     @media (min-width: 500px) {

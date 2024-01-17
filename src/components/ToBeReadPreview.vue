@@ -2,7 +2,7 @@
     <div>
         <!-- API Call to GET to be read, make clickable -->
         <v-container class="container">
-            <p class="header">Want to Read</p>
+            <h1 class="header">Want to Read</h1>
             <v-row>
                 <v-col
                     v-for="book in displayedBooks"
@@ -10,7 +10,13 @@
                     class="d-flex child-flex"
                     cols="4"
                 >
-                    <v-img :src="book.Cover_Img" aspect-ratio="1">
+                    <!-- clickable img - route to BookPage w/Book Name + ID -->
+                    <v-img
+                        :src="book.Cover_Img"
+                        class="bookCoverImg"
+                        aspect-ratio="1"
+                        @click="navigateToBookPage(book.bookId, book.Title)"
+                    >
                         <template v-slot:placeholder>
                             <v-row
                                 class="fill-height ma-0"
@@ -27,6 +33,9 @@
                 </v-col>
             </v-row>
         </v-container>
+        <div class="errorMsg" v-if="errorMsg">
+            {{ errorMsg }}
+        </div>
     </div>
 </template>
 
@@ -81,6 +90,12 @@
                         }, 60000); // 1 minute = 60,000 milliseconds
                     });
             },
+            navigateToBookPage(bookId, bookName) {
+                this.$router.push({
+                    name: "BookPage",
+                    params: {bookId, bookName},
+                });
+            },
             clearError() {
                 this.errorMsg = "";
             },
@@ -93,14 +108,18 @@
 </script>
 
 <style scoped>
-    /* NOT STYLED YET */
     .header {
+        color: #6e4b6a;
         font-family: open-sans-regular;
+        font-weight: 600;
         font-size: 18pt;
     }
 
     .container {
         background-color: #f7edf0;
+    }
+    .bookCoverImg {
+        cursor: pointer;
     }
 
     .errorMsg {
