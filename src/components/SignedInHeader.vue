@@ -60,6 +60,16 @@
                         >
                             <v-list-item>
                                 <v-list-item-title>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="visitEditProfile"
+                                        >Edit Profile</v-btn
+                                    >
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
                                     <LogoutButton />
                                 </v-list-item-title>
                             </v-list-item>
@@ -92,10 +102,13 @@
                     <v-list-item class="mobileListItem">
                         <BookSearch />
                     </v-list-item>
-                </v-list-item-group>
-                <v-list-item-group>
                     <v-list-item>
                         <LogoutButton />
+                    </v-list-item>
+                    <v-list-item>
+                        <v-btn text color="primary" @click="visitEditProfile"
+                            >Edit Profile</v-btn
+                        >
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -162,6 +175,14 @@
                 if (this.$route.name !== "MyBooks") {
                     router.push({
                         name: "MyBooks",
+                        params: {username: this.username},
+                    });
+                }
+            },
+            visitEditProfile() {
+                if (this.$route.name !== "EditUserProfile") {
+                    router.push({
+                        name: "EditUserProfile",
                         params: {username: this.username},
                     });
                 }

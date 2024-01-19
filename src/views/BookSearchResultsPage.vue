@@ -3,7 +3,7 @@
         <SignedInHeader />
 
         <v-container class="pageContent">
-            <p class="headerText">Search Results</p>
+            <h1 class="header">Search Results</h1>
 
             <v-row no-gutters>
                 <v-col lg="8">
@@ -249,10 +249,10 @@
     .pageContent {
         margin-top: 100px;
     }
-
-    .headerText {
-        font-weight: bold;
+    .header {
         color: #6e4b6a;
+        font-family: open-sans-regular;
+        font-weight: 600;
         font-size: 14pt;
     }
 
@@ -311,7 +311,7 @@
             width: 100px;
         }
 
-        .headerText {
+        .header {
             font-size: 18pt;
         }
 

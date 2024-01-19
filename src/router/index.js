@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import LandingPage from "../views/LandingPage";
 import HomePage from "../views/HomePage";
+import EditUserProfile from "../views/EditUserProfile";
 import BookSearchResultsPage from "../views/BookSearchResultsPage";
 import BookPage from "../views/BookPage";
 import MyBooks from "../views/MyBooks";
@@ -39,6 +40,29 @@ const routes = [
         meta: [
             {
                 title: "CloudBookd | Your Solo Reading Journey",
+            },
+            {
+                name: "description",
+                content: "CloudBookd, track all your books!",
+            },
+            {
+                name: "keywords",
+                content:
+                    "cloudbookd, books, read, rate, track, tracker, series",
+            },
+            {
+                name: "author",
+                content: "Siobhan Bonardi",
+            },
+        ],
+    },
+    {
+        path: "/user/edit",
+        name: "EditUserProfile",
+        component: EditUserProfile,
+        meta: [
+            {
+                title: "Edit Profile | Cloudbookd",
             },
             {
                 name: "description",

@@ -184,13 +184,11 @@
         .header {
             font-size: 18pt;
         }
-
-        .bookTitle {
-            font-size: 14pt;
-        }
-
         .bookCoverImg {
             width: 100px;
+        }
+        .bookTitle {
+            font-size: 14pt;
         }
     }
 </style>

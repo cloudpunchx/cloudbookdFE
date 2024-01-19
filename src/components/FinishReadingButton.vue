@@ -165,8 +165,8 @@
                     });
             },
             clearResponse() {
-                this.errorMsg = "";
                 this.responseMsg = "";
+                this.errorMsg = "";
             },
         },
         created() {
