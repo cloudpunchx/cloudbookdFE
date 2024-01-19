@@ -30,7 +30,7 @@
                             <v-col sm="10" md="9" lg="9">
                                 <!-- clickable Title - route to BookPage w/Book Name + ID -->
                                 <p
-                                    class="bookTitle mx-2"
+                                    class="bookTitle clickableLink mx-2"
                                     @click="
                                         navigateToBookPage(
                                             book.bookId,
@@ -43,7 +43,10 @@
 
                                 <v-card-text>
                                     <v-row align="center" class="mx-0">
-                                        <div class="text-subtitle-2">
+                                        <div
+                                            class="text-subtitle-2 clickableLink"
+                                            @click="searchAuthor(book.Author)"
+                                        >
                                             {{ book.Author }}
                                         </div>
                                     </v-row>
@@ -55,6 +58,7 @@
                                     <FinishReadingButton
                                         :bookId="book.bookId"
                                         :bookTitle="book.Title"
+                                        :isOnHomePage="true"
                                     />
                                 </v-card-actions>
                             </v-col>
@@ -69,6 +73,7 @@
 <script>
     import axios from "axios";
     import cookies from "vue-cookies";
+    import {EventBus} from "@/eventBus";
 
     import FinishReadingButton from "./FinishReadingButton.vue";
 
@@ -89,7 +94,7 @@
             getToken() {
                 this.token = cookies.get(`sessionToken`);
             },
-            getToBeRead() {
+            getCurrentlyReading() {
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
@@ -122,13 +127,27 @@
                     params: {bookId, bookName},
                 });
             },
+            searchAuthor(author) {
+                this.$router.push({
+                    name: "BookSearchResultsPage",
+                    params: {query: author, searchType: "author"},
+                });
+            },
+            reloadList() {
+                this.getCurrentlyReading();
+            },
             clearError() {
                 this.errorMsg = "";
             },
         },
         created() {
             this.getToken();
-            this.getToBeRead();
+            this.getCurrentlyReading();
+            // Listen for the 'bookFinished' event
+            EventBus.$on("bookFinished", this.reloadList);
+        },
+        beforeDestroy() {
+            EventBus.$off("bookFinished", this.reloadList);
         },
     };
 </script>
@@ -148,7 +167,7 @@
         font-size: 12pt;
     }
 
-    .bookTitle:hover {
+    .clickableLink:hover {
         text-decoration: underline;
         cursor: pointer;
     }

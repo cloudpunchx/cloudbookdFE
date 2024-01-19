@@ -86,16 +86,39 @@
                                 <v-card class="bookCard" outlined tile>
                                     <v-row>
                                         <v-col lg="1">
+                                            <!-- clickable img - route to BookPage w/Book Name + ID -->
                                             <v-img
                                                 contain
                                                 class="bookCoverImg"
                                                 :src="book.Cover_Img"
+                                                @click="
+                                                    navigateToBookPage(
+                                                        book.bookId,
+                                                        book.Title
+                                                    )
+                                                "
                                             ></v-img>
                                         </v-col>
-                                        <v-col lg="3" align-self="center">
+                                        <!-- clickable Title - route to BookPage w/Book Name + ID -->
+                                        <v-col
+                                            class="clickableLink"
+                                            lg="3"
+                                            align-self="center"
+                                            @click="
+                                                navigateToBookPage(
+                                                    book.bookId,
+                                                    book.Title
+                                                )
+                                            "
+                                        >
                                             {{ book.Title }}
                                         </v-col>
-                                        <v-col lg="2" align-self="center">
+                                        <v-col
+                                            class="clickableLink"
+                                            lg="2"
+                                            align-self="center"
+                                            @click="searchAuthor(book.Author)"
+                                        >
                                             {{ book.Author }}
                                         </v-col>
                                         <v-col lg="2" align-self="center">
@@ -177,11 +200,26 @@
 
                                         <v-col cols="9" sm="10">
                                             <v-card-text class="tight-spacing">
-                                                <p class="bookTitle">
+                                                <p
+                                                    class="bookTitle clickableLink"
+                                                    @click="
+                                                        navigateToBookPage(
+                                                            book.bookId,
+                                                            book.Title
+                                                        )
+                                                    "
+                                                >
                                                     {{ book.Title }}
                                                 </p>
 
-                                                <p class="text-subtitle-2">
+                                                <p
+                                                    class="text-subtitle-2 clickableLink"
+                                                    @click="
+                                                        searchAuthor(
+                                                            book.Author
+                                                        )
+                                                    "
+                                                >
                                                     by {{ book.Author }}
                                                 </p>
 
@@ -370,6 +408,18 @@
                 };
                 return date.toLocaleDateString("en-US", options);
             },
+            navigateToBookPage(bookId, bookName) {
+                this.$router.push({
+                    name: "BookPage",
+                    params: {bookId, bookName},
+                });
+            },
+            searchAuthor(author) {
+                this.$router.push({
+                    name: "BookSearchResultsPage",
+                    params: {query: author, searchType: "author"},
+                });
+            },
             clearError() {
                 this.errorMsg = "";
             },
@@ -413,6 +463,11 @@
     }
     .bookCoverImg {
         width: 80px;
+        cursor: pointer;
+    }
+    .clickableLink:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
     .tight-spacing p,
     .tight-spacing div {

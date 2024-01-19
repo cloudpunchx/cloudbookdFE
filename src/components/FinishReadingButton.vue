@@ -72,6 +72,9 @@
                             </v-menu>
                         </div>
 
+                        <div class="responseMsg" v-if="responseMsg">
+                            {{ responseMsg }}
+                        </div>
                         <div class="errorMsg" v-if="errorMsg">
                             {{ errorMsg }}
                         </div>
@@ -98,23 +101,28 @@
 <script>
     import axios from "axios";
     import cookies from "vue-cookies";
+    import {EventBus} from "@/eventBus";
 
     export default {
         name: "FinishReadingButton",
         props: {
             bookId: String,
             bookTitle: String,
+            isOnHomePage: {
+                type: Boolean,
+                default: false,
+            },
         },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
                 menu: false,
+                responseMsg: "",
                 errorMsg: "",
                 dialog: false, // For controlling the visibility of the dialog
-                // dateStarted: "", // For the date started input - MIGHT PUT THIS BACK IN LATER ON
-                dateFinished: "", // For the date finished input
-                userRating: 0, // For v-rating
+                dateFinished: "",
+                userRating: 0,
             };
         },
         methods: {
@@ -132,25 +140,33 @@
                         data: {
                             bookId: this.bookId,
                             readingStatus: "read",
-                            // dateStarted: this.dateStarted,
                             dateFinished: this.dateFinished,
                             rating: this.userRating,
                         },
                     })
                     .then((response) => {
-                        console.log(response);
+                        this.responseMsg = response.data;
                         this.dialog = false; // Close the dialog after updating
+                        // Emit the event only if this button is on the homepage
+                        if (this.isOnHomePage) {
+                            EventBus.$emit("bookFinished");
+                        }
+                        // Set a timeout to clear the response after 1 minute
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
                     })
                     .catch((error) => {
                         this.errorMsg = error.response.data;
                         // Set a timeout to clear the error after 1 minute
                         setTimeout(() => {
-                            this.clearError();
+                            this.clearResponse();
                         }, 60000); // 1 minute = 60,000 milliseconds
                     });
             },
-            clearError() {
+            clearResponse() {
                 this.errorMsg = "";
+                this.responseMsg = "";
             },
         },
         created() {
@@ -169,10 +185,13 @@
     .dialog-content {
         overflow: hidden; /* hide the scroll bars */
     }
-
+    .responseMsg {
+        margin-left: 20px;
+    }
     .errorMsg {
         font-size: 10pt;
         color: red;
+        margin-left: 20px;
     }
 
     @media (min-width: 1000px) {

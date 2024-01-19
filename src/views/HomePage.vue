@@ -20,8 +20,6 @@
                     <ToBeReadPreview />
                 </v-col>
             </v-row>
-
-            <!-- IDEA: Below the current content have a grid for each created bookshelf, that displays the list name and a selected book cover img that is a link to list page -->
         </v-container>
     </div>
 </template>

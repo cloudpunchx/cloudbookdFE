@@ -81,6 +81,7 @@ const routes = [
         name: "BookPage",
         component: BookPage,
         meta: [
+            // title is set in creation of BookSearchResultsPage using custom query
             {
                 name: "description",
                 content: "CloudBookd, track all your books!",
@@ -101,6 +102,7 @@ const routes = [
         name: "MyBooks",
         component: MyBooks,
         meta: [
+            // title is set in creation of BookSearchResultsPage using custom query
             {
                 name: "description",
                 content: "CloudBookd, track all your books!",

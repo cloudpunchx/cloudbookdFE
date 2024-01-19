@@ -239,6 +239,7 @@
             document.title = `Search results for ${this.$route.params.query} | CloudBookd`;
             this.getToken();
             this.query = this.$route.params.query; // Assign the search query to the component's data
+            this.searchType = this.$route.params.searchType || "all";
             this.search_books();
         },
     };

@@ -3,6 +3,9 @@
         <v-btn @click="addToBeRead" color="lavender" dark elevation="0">
             Want To Read</v-btn
         >
+        <div class="responseMsg" v-if="responseMsg">
+            {{ responseMsg }}
+        </div>
         <div class="errorMsg" v-if="errorMsg">
             {{ errorMsg }}
         </div>
@@ -18,13 +21,15 @@
         props: {
             bookId: String,
             bookTitle: String,
-            author: Array,
+            // might need to change author back to Array
+            author: String,
             bookCover: String,
         },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
                 token: "",
+                responseMsg: "",
                 errorMsg: "",
             };
         },
@@ -33,8 +38,14 @@
                 this.token = cookies.get(`sessionToken`);
             },
             addToBeRead() {
-                // Join the array of authors into a single string separated by a comma
-                const authorString = this.author.join(", ");
+                let authorString;
+                // Check if 'author' is an array and join into a string if it is
+                if (Array.isArray(this.author)) {
+                    authorString = this.author.join(", ");
+                } else {
+                    // If 'author' is not an array, use it directly as a string
+                    authorString = this.author;
+                }
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
@@ -51,19 +62,23 @@
                         },
                     })
                     .then((response) => {
-                        let responseData = response.data;
-                        console.log(responseData);
+                        this.responseMsg = response.data;
+                        // Set a timeout to clear the response after 1 minute
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
                     })
                     .catch((error) => {
                         this.errorMsg = error.response.data;
                         // Set a timeout to clear the error after 1 minute
                         setTimeout(() => {
-                            this.clearError();
+                            this.clearResponse();
                         }, 60000); // 1 minute = 60,000 milliseconds
                     });
             },
-            clearError() {
+            clearResponse() {
                 this.errorMsg = "";
+                this.responseMsg = "";
             },
         },
         created() {
@@ -77,9 +92,14 @@
         font-size: 9pt;
     }
 
+    .responseMsg {
+        margin-left: 20px;
+    }
+
     .errorMsg {
         font-size: 10pt;
         color: red;
+        margin-left: 20px;
     }
 
     @media (min-width: 1000px) {

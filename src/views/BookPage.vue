@@ -23,7 +23,7 @@
                         <!-- Update book to tbr, currently reading, finished -->
                         <v-btn
                             @click="dialog = true"
-                            class="changeStatusButton"
+                            class="addToBooksBtn"
                             color="lavender"
                             dark
                         >
@@ -184,6 +184,10 @@
                     )
                     .then((response) => {
                         this.book = response.data;
+                        this.bookTitle = this.book.volumeInfo.title;
+                        this.author = this.book.volumeInfo.authors.join(", ");
+                        this.bookCover =
+                            this.book.volumeInfo.imageLinks.thumbnail;
                         console.log("Book Details:", this.book);
                     })
                     .catch((error) => {
@@ -229,7 +233,7 @@
         border-radius: 5px;
     }
 
-    .changeStatusButton {
+    .addToBooksBtn {
         margin-top: 25px;
     }
 
