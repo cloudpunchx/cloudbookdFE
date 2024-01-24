@@ -24,7 +24,10 @@
                     <v-card-text v-if="userReadingGoal !== null">
                         <v-row align="center" class="mx-0">
                             <!-- show if user set goal-->
-                            <div class="my-2 subtitle-1">
+                            <div
+                                class="my-2 subtitle-1"
+                                v-if="booksReadThisYear.length >= 1"
+                            >
                                 <!-- Get # of books read this year emit from BooksRead.vue-->
                                 <GetBooksRead
                                     @booksReadThisYear="handleBooksReadThisYear"

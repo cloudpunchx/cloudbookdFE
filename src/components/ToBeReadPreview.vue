@@ -1,9 +1,10 @@
 <template>
     <div>
-        <!-- API Call to GET to be read, make clickable -->
         <v-container class="container">
             <h1 class="header">Want to Read</h1>
-            <v-row>
+
+            <!-- Show IF tbr has books in it -->
+            <v-row v-if="displayedBooks.length > 0">
                 <v-col
                     v-for="book in displayedBooks"
                     :key="book.bookId"
@@ -30,12 +31,25 @@
                             </v-row>
                         </template>
                     </v-img>
+                    <div class="errorMsg" v-if="errorMsg">
+                        {{ errorMsg }}
+                    </div>
+                </v-col>
+            </v-row>
+
+            <!-- otherwise show default -->
+            <v-row v-else justify="center">
+                <v-col cols="6" sm="6" md="6" lg="10">
+                    <v-img
+                        src="../assets/mrBook.png"
+                        class="defaultImg"
+                    ></v-img>
+                    <p class="defaultText">
+                        your tbr is lonely, add some books!
+                    </p>
                 </v-col>
             </v-row>
         </v-container>
-        <div class="errorMsg" v-if="errorMsg">
-            {{ errorMsg }}
-        </div>
     </div>
 </template>
 
@@ -125,5 +139,17 @@
     .errorMsg {
         font-size: 10pt;
         color: red;
+    }
+
+    .defaultText {
+        margin-top: 10px;
+        color: #2e294e;
+    }
+
+    @media (min-width: 1000px) {
+        .defaultImg {
+            width: 200px;
+            margin-top: 10px;
+        }
     }
 </style>

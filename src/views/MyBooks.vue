@@ -74,7 +74,7 @@
                             </v-col>
                         </v-row>
                         <!-- Container for User Books -->
-                        <v-row no-gutters>
+                        <v-row v-if="paginatedBooks.length >= 1" no-gutters>
                             <v-col
                                 v-for="book in paginatedBooks"
                                 :key="book.bookId"
@@ -313,6 +313,8 @@
             </v-row>
         </v-container>
 
+        <!-- leaving off here -->
+        <!-- NEED TO MOVE ERROR SOMEWHERE ELSE -->
         <div class="errorMsg" v-if="errorMsg">
             {{ errorMsg }}
         </div>

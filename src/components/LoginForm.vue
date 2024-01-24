@@ -5,7 +5,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <p class="heading">Log in to Cloudbookd</p>
+                        <h1 class="heading">Log in to Cloudbookd</h1>
 
                         <!-- Email Text Field -->
                         <v-text-field
@@ -19,7 +19,6 @@
                             :dark="
                                 $vuetify.breakpoint.width >= 600 ? true : false
                             "
-                            class="textInput"
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -38,7 +37,6 @@
                             :dark="
                                 $vuetify.breakpoint.width >= 600 ? true : false
                             "
-                            class="textInput"
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
@@ -52,6 +50,10 @@
                             @click="userLogin"
                             >Submit</v-btn
                         >
+
+                        <div class="errorMsg" v-if="errorMsg">
+                            {{ errorMsg }}
+                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -81,9 +83,8 @@
                 rules: {
                     required: (value) => !!value || "Required.",
                     min: (v) => v.length >= 8 || "Min 8 characters",
-                    emailMatch: () =>
-                        `The email and password you entered don't match`,
                 },
+                errorMsg: "",
             };
         },
         methods: {
@@ -99,23 +100,19 @@
                     })
                     .then((response) => {
                         cookies.set(`userId`, response.data[0]);
-                        // COULD DELETE ARGS IF ISSUES ARISE
-                        cookies.set(
-                            `sessionToken`,
-                            response.data[1],
-                            "7d",
-                            null,
-                            null,
-                            true
-                        );
+                        cookies.set(`sessionToken`, response.data[1]);
                         router.push("/home");
                     })
-                    // MIGHT HAVE TO FIX THIS ERROR/THESE STRING UPDATES?
                     .catch((error) => {
-                        this.email = "";
-                        this.password = "";
-                        this.feedbackMsg = error.response.data;
+                        this.errorMsg = error.response.data;
+                        // Set a timeout to clear the error after 1 minute
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
                     });
+            },
+            clearResponse() {
+                this.errorMsg = "";
             },
         },
     };
@@ -130,6 +127,11 @@
 
     .submitBtn {
         font-size: 11pt;
+    }
+
+    .errorMsg {
+        font-size: 10pt;
+        color: red;
     }
 
     @media (min-width: 500px) {

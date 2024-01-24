@@ -5,7 +5,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <p class="heading">Sign Up for Cloudbookd</p>
+                        <h1 class="heading">Sign Up for Cloudbookd</h1>
 
                         <v-text-field
                             required
@@ -22,7 +22,6 @@
                         <v-text-field
                             v-model="firstName"
                             :rules="nameRules"
-                            :counter="10"
                             label="First Name"
                             required
                             color="primary"
@@ -36,7 +35,6 @@
                         <v-text-field
                             v-model="lastName"
                             :rules="nameRules"
-                            :counter="10"
                             label="Last Name"
                             required
                             color="primary"
@@ -102,8 +100,8 @@
                             >Submit</v-btn
                         >
 
-                        <div v-if="feedbackMsg">
-                            <p class="feedbackMsg">{{ feedbackMsg }}</p>
+                        <div class="errorMsg" v-if="errorMsg">
+                            {{ errorMsg }}
                         </div>
                     </v-col>
                 </v-row>
@@ -148,7 +146,7 @@
                         `The email and password you entered don't match`,
                 },
                 agreeTOS: false,
-                feedbackMsg: "",
+                errorMsg: "",
             };
         },
         computed: {
@@ -183,41 +181,23 @@
                         })
                         .then((response) => {
                             cookies.set(`userId`, response.data[0]);
-                            // COULD DELETE ARGS IF ISSUES ARISE
-                            cookies.set(
-                                `sessionToken`,
-                                response.data[1],
-                                "7d",
-                                null,
-                                null,
-                                true
-                            );
+                            cookies.set(`sessionToken`, response.data[1]);
                             router.push({
                                 name: "HomePage",
                             });
                         })
                         .catch((error) => {
-                            this.feedbackMsg = error.response.data;
-                            this.clearTextBox();
+                            this.errorMsg = error.response.data;
+                            // Set a timeout to clear the error after 1 minute
+                            setTimeout(() => {
+                                this.clearResponse();
+                            }, 60000); // 1 minute = 60,000 milliseconds
                         });
                 }
             },
-            clearTextBox() {
-                this.username = "";
-                this.firstName = "";
-                this.lastName = "";
-                this.email = "";
-                this.username = "";
-                this.password = "";
+            clearResponse() {
+                this.errorMsg = "";
             },
-        },
-        mounted() {
-            setTimeout(() => {
-                this.feedbackMsg = "";
-            }, 60000); // Hide after 1 minute
-        },
-        beforeDestroy() {
-            this.feedbackMsg = "";
         },
     };
 </script>
@@ -231,6 +211,11 @@
 
     .submitBtn {
         font-size: 11pt;
+    }
+
+    .errorMsg {
+        font-size: 10pt;
+        color: red;
     }
 
     @media (min-width: 500px) {

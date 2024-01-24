@@ -71,14 +71,8 @@
 
     @media (min-width: 1000px) {
         .pageContent {
-            max-width: 900px;
+            max-width: 45vw;
             margin-top: 25px;
-        }
-    }
-
-    @media (min-width: 1500px) {
-        .pageContainer {
-            max-width: 1500px;
         }
     }
 </style>
