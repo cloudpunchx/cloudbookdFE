@@ -2,16 +2,17 @@
     <div>
         <!-- Reading Challenge Card -->
         <v-card
-            class="mx-auto my-6"
+            class="challCard mx-auto my-6"
             max-width="600"
-            color="background"
+            color="primary"
             elevation="0"
+            shaped
         >
             <v-row align="center">
                 <!-- First Col - Ghost Img -->
                 <v-col cols="4" sm="3">
                     <v-img
-                        src="../assets/ghostWithBooksStyle3.png"
+                        src="../assets/ghostWithBooksStyle2.png"
                         class="ghostImg ma-4"
                     ></v-img>
                 </v-col>
@@ -38,7 +39,7 @@
                             <v-progress-linear
                                 v-if="userReadingGoal !== null"
                                 v-model="progressPercentage"
-                                color="secondary"
+                                color="white"
                                 height="20"
                                 class="non-interactive-progress-bar"
                             >
@@ -55,7 +56,7 @@
                             <v-progress-linear
                                 v-if="!userReadingGoal && !errorMsg"
                                 indeterminate
-                                color="primary"
+                                color="background"
                             ></v-progress-linear>
 
                             <div class="errorMsg" v-if="errorMsg">
@@ -66,19 +67,19 @@
 
                     <v-divider class="mx-4"></v-divider>
 
-                    <v-expansion-panels v-model="activePanel" flat>
+                    <v-expansion-panels v-model="activePanel" flat dark>
                         <v-expansion-panel v-if="userReadingGoal !== null">
                             <!-- If User HAS set a reading goal, show Edit Goal(PATCH) -->
                             <v-expansion-panel-header
                                 v-if="userReadingGoal !== null"
                                 class="subtitle-2"
-                                color="background"
+                                color="primary"
                             >
                                 EDIT GOAL
                             </v-expansion-panel-header>
 
                             <!-- Component - Edit Goal (PATCH) -->
-                            <v-expansion-panel-content color="background">
+                            <v-expansion-panel-content color="primary">
                                 <v-card-actions>
                                     <EditReadingChallGoal
                                         @goalAction="handleGoalAction"
@@ -97,14 +98,14 @@
                         <v-expansion-panel v-else>
                             <!-- Else show Set Goal(PUT) -->
                             <v-expansion-panel-header
-                                class="subtitle-2"
-                                color="background"
+                                class="whiteText subtitle-2"
+                                color="primary"
                             >
                                 SET GOAL
                             </v-expansion-panel-header>
 
                             <!-- Component - Set Goal (PUT) -->
-                            <v-expansion-panel-content color="background">
+                            <v-expansion-panel-content color="lavender">
                                 <v-card-actions>
                                     <SetReadingChallGoal
                                         @goalAction="handleGoalAction"
@@ -212,6 +213,13 @@
 </script>
 
 <style scoped>
+    .challCard {
+        color: white;
+    }
+
+    .whiteText {
+        color: white;
+    }
     .ghostImg {
         width: 75px;
         border-radius: 15px;

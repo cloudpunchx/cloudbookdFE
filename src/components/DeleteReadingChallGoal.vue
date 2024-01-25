@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn color="error" plain x-small @click="deleteReadingChallGoal">
+        <v-btn color="error" x-small @click="deleteReadingChallGoal">
             Delete Current Goal
         </v-btn>
 

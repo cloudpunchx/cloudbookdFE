@@ -10,7 +10,7 @@ const vuetify = new Vuetify({
                 // background is lavender blush
                 background: "#F7EDF0",
                 // primary is dark purple
-                primary: "#2e294e",
+                primary: "#5e3b92",
                 // secondary is purple Pomp and Power
                 secondary: "#966B9D",
                 honeydew: "#E1EFE6",

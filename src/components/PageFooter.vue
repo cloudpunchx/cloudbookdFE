@@ -1,5 +1,5 @@
 <template>
-    <v-footer color="background" padless>
+    <v-footer class="gradient">
         <v-col class="text-center">
             <img
                 src="../assets/cloudpunchMediaBlk.png"
@@ -16,4 +16,8 @@
     };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .gradient {
+        background: linear-gradient(to top, whitesmoke, #d0cadb);
+    }
+</style>

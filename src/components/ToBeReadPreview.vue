@@ -124,14 +124,11 @@
 <style scoped>
     .header {
         color: #6e4b6a;
-        font-family: open-sans-regular;
+        font-family: poppins;
         font-weight: 600;
         font-size: 18pt;
     }
 
-    .container {
-        background-color: #f7edf0;
-    }
     .bookCoverImg {
         cursor: pointer;
     }
@@ -144,6 +141,7 @@
     .defaultText {
         margin-top: 10px;
         color: #2e294e;
+        font-family: open-sans-regular;
     }
 
     @media (min-width: 1000px) {

@@ -2,25 +2,37 @@
     <div>
         <SignedInHeader />
 
-        <v-container class="pageContent">
+        <!-- WORKING HERE WITH NEW STYLES -->
+        <div class="pageContent">
             <v-row>
-                <v-col cols="12" sm="6" md="6">
+                <v-col lg="4">
                     <!-- Currently Reading Container -->
                     <CurrentlyReading />
+                </v-col>
 
+                <v-col lg="4">
+                    <div class="arch-container">
+                        <v-img
+                            src="../assets/ghostieReading.png"
+                            class="arch-image"
+                        ></v-img>
+                        <ReadingChallenge class="readingChallengeContainer" />
+                    </div>
+                </v-col>
+
+                <v-col lg="4">
                     <!-- Recently Read Container -->
                     <RecentlyRead />
                 </v-col>
+            </v-row>
 
-                <v-col cols="12" sm="6" md="6">
-                    <!-- Reading Challenge -->
-                    <ReadingChallenge class="readingChallengeContainer" />
-
+            <v-row>
+                <v-col cols="auto">
                     <!-- To Be Read Container -->
                     <ToBeReadPreview />
                 </v-col>
             </v-row>
-        </v-container>
+        </div>
     </div>
 </template>
 
@@ -46,33 +58,36 @@
 <style scoped>
     .pageContent {
         margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertical Centering */
+        align-items: center; /* Horizontal Centering */
+        height: 100%; /* Adjust as needed */
     }
-    .readingChallengeContainer {
-        margin-bottom: 10px;
+    .arch-image {
+        width: 150px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .arch-container,
+    .arch-image {
+        border-top-left-radius: 50% 30%; /* Adjust the percentage as needed */
+        border-top-right-radius: 50% 30%; /* Adjust the percentage as needed */
     }
 
     @media (min-width: 500px) {
-        .pageContent {
-            width: 85vw;
-        }
-    }
-
-    @media (min-width: 600px) {
-        .pageContent {
-            width: 100vw;
-        }
-    }
-
-    @media (min-width: 800px) {
-        .pageContent {
-            width: 90vw;
-        }
     }
 
     @media (min-width: 1000px) {
         .pageContent {
-            max-width: 45vw;
-            margin-top: 25px;
+            margin-top: 20px;
+        }
+        .arch-image {
+            width: 400px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .arch-container {
+            max-width: 400px;
         }
     }
 </style>

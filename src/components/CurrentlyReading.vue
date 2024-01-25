@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container class="pageContent">
+        <div class="currReadContainer">
             <v-row>
                 <v-col>
                     <h1 class="header">Currently Reading</h1>
@@ -71,11 +71,11 @@
 
                     <div v-else>
                         <v-card
-                            class="noCurrReadingCard pa-2"
-                            color="lavender"
-                            elevation="10"
+                            class="noCurrReadingCard"
+                            color="transparent"
+                            flat
                         >
-                            <v-row align="center" dense>
+                            <v-row dense>
                                 <v-col cols="5" sm="6" md="6" lg="5">
                                     <v-img
                                         src="../assets/openBookImg.png"
@@ -83,14 +83,12 @@
                                     ></v-img>
                                 </v-col>
 
-                                <v-col sm="6" md="6" lg="7">
+                                <v-col align="center" sm="6" md="6" lg="7">
                                     <v-card-text>
-                                        <v-row align="center" class="mx-0">
-                                            <div>
-                                                you aren't currently reading any
-                                                books, let's change that!
-                                            </div>
-                                        </v-row>
+                                        <p class="defaultText">
+                                            you aren't currently reading any
+                                            books, let's change that!
+                                        </p>
                                     </v-card-text>
                                 </v-col>
                             </v-row>
@@ -98,7 +96,7 @@
                     </div>
                 </v-col>
             </v-row>
-        </v-container>
+        </div>
     </div>
 </template>
 
@@ -185,12 +183,14 @@
 </script>
 
 <style scoped>
-    .pageContent {
-        background-color: #f7edf0;
+    .currReadContainer {
+        background-color: #5e3b92;
+        padding: 15px;
+        border-radius: 0 15px 0 15px;
     }
     .header {
-        color: #6e4b6a;
-        font-family: open-sans-regular;
+        color: whitesmoke;
+        font-family: poppins;
         font-weight: 600;
         font-size: 14pt;
     }
@@ -214,6 +214,10 @@
     }
     .defaultImg {
         width: 200px;
+    }
+
+    .defaultText {
+        font-family: open-sans-regular;
     }
 
     @media (min-width: 1000px) {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container class="pageContent">
+        <div class="recReadContainer">
             <v-row>
                 <v-col>
                     <h1 class="header">Recently Read</h1>
@@ -8,7 +8,7 @@
                         <v-card
                             v-for="book in displayedBooks"
                             :key="book.bookId"
-                            color="background"
+                            color="transparent"
                             elevation="0"
                             class="pa-2"
                         >
@@ -62,7 +62,7 @@
                     </div>
 
                     <div v-else>
-                        <v-card color="background" elevation="0" class="pa-2">
+                        <v-card color="transparent" elevation="0" class="pa-2">
                             <v-row justify="center" dense>
                                 <v-col
                                     class="d-flex justify-center"
@@ -81,7 +81,7 @@
                     </div>
                 </v-col>
             </v-row>
-        </v-container>
+        </div>
     </div>
 </template>
 
@@ -169,12 +169,14 @@
 </script>
 
 <style scoped>
-    .pageContent {
-        background-color: #f7edf0;
+    .recReadContainer {
+        background-color: #5e3b92;
+        padding: 15px;
+        border-radius: 15px 0 15px 0;
     }
     .header {
-        color: #6e4b6a;
-        font-family: open-sans-regular;
+        color: whitesmoke;
+        font-family: poppins;
         font-weight: 600;
         font-size: 14pt;
     }

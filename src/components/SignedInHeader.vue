@@ -1,52 +1,64 @@
 <template>
     <div>
-        <v-app-bar color="background" :flat="isMobile">
-            <v-container class="navContainer">
-                <v-row justify="center" align="center">
-                    <v-toolbar-title>
-                        <!-- site Logo - routes to /home-->
-                        <router-link to="/home">
-                            <v-img
-                                src="../assets/cloudbookdLogo1.png"
-                                class="siteLogo"
-                            >
-                            </v-img>
-                        </router-link>
-                    </v-toolbar-title>
+        <v-app-bar class="navContainer" color="background" flat>
+            <v-row justify="center" align="center">
+                <!-- Only show Hamburger Icon when isMobile -->
+                <v-col cols="auto" v-if="isMobile">
+                    <v-app-bar-nav-icon
+                        class="navIcon"
+                        @click="toggleDrawer"
+                    ></v-app-bar-nav-icon>
+                </v-col>
 
+                <v-col cols="auto">
+                    <!-- site Logo - routes to /home-->
+                    <router-link to="/home">
+                        <v-img
+                            src="../assets/cloudbookdLogo1.png"
+                            class="siteLogo"
+                        >
+                        </v-img>
+                    </router-link>
+                </v-col>
+
+                <v-col cols="auto" v-show="!isMobile">
                     <!-- Another link to Home page - not shown when mobile -->
-                    <v-btn text color="primary" v-show="!isMobile">
+                    <v-btn class="btnText" text color="primary">
                         <router-link to="/home" class="navLink"
                             >Home</router-link
                         >
                     </v-btn>
+                </v-col>
 
+                <v-col cols="auto" v-show="!isMobile">
                     <!-- Link to My Books page - not shown when mobile-->
                     <v-btn
+                        class="btnText"
                         text
                         color="primary"
-                        v-show="!isMobile"
                         @click="visitMyBooks"
                         >My Books</v-btn
                     >
+                </v-col>
 
+                <v-col cols="auto" v-show="!isMobile">
                     <!-- Book Search component - not shown when mobile -->
-                    <BookSearch v-show="!isMobile" />
+                    <BookSearch />
+                </v-col>
 
+                <v-col cols="auto" v-show="!isMobile">
                     <!-- Drop Down Menu - not shown when mobile -->
-                    <v-menu v-show="!isMobile" offset-y>
+                    <v-menu offset-y>
                         <template v-slot:activator="{on, attrs}">
                             <v-btn
+                                class="btnText"
+                                color="primary"
                                 text
-                                v-show="!isMobile"
                                 v-bind="attrs"
                                 v-on="on"
                                 @mouseover="showDropdown = true"
                             >
-                                <v-avatar
-                                    v-show="!isMobile"
-                                    size="30"
-                                    class="avatar"
+                                <v-avatar size="30" class="avatar"
                                     ><v-img :src="profileImg"></v-img
                                 ></v-avatar>
                                 {{ usernameUppercase }}
@@ -75,17 +87,8 @@
                             </v-list-item>
                         </v-list>
                     </v-menu>
-                </v-row>
-                <!-- Mobile sizing - nav icon -->
-                <v-row justify="start">
-                    <!-- Only show Icon when it isMobile -->
-                    <v-app-bar-nav-icon
-                        class="navIcon"
-                        v-show="isMobile"
-                        @click="toggleDrawer"
-                    ></v-app-bar-nav-icon>
-                </v-row>
-            </v-container>
+                </v-col>
+            </v-row>
         </v-app-bar>
 
         <!-- Nav Drawer for Tablet/Mobile (smaller screens) -->
@@ -204,10 +207,9 @@
 <style scoped>
     .navContainer {
         margin-top: 100px;
-        background-color: #f7edf0;
     }
     .siteLogo {
-        width: 180px;
+        width: 200px;
         cursor: pointer;
     }
 
@@ -226,6 +228,10 @@
     @media (min-width: 960px) {
         .navContainer {
             margin-top: 0px;
+        }
+
+        .btnText {
+            font-size: 16pt;
         }
     }
 </style>

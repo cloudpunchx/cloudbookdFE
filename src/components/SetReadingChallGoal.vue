@@ -6,12 +6,11 @@
                     v-model="readingGoalInput"
                     label="Enter Goal"
                     dense
+                    dark
                 ></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-btn color="primary" text @click="setReadingChallGoal">
-                    Submit
-                </v-btn>
+                <v-btn text dark @click="setReadingChallGoal"> Submit </v-btn>
             </v-col>
         </v-row>
 
