@@ -231,7 +231,17 @@
         }
 
         .btnText {
-            font-size: 16pt;
+            font-size: 10pt;
+        }
+    }
+
+    @media (min-width: 1500px) {
+        .navContainer {
+            margin-top: 0px;
+        }
+
+        .btnText {
+            font-size: 15pt;
         }
     }
 </style>

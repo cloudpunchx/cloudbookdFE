@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container class="container">
+        <v-container class="contentContainer">
             <h1 class="header">Want to Read</h1>
 
             <!-- Show IF tbr has books in it -->
@@ -9,7 +9,10 @@
                     v-for="book in displayedBooks"
                     :key="book.bookId"
                     class="d-flex child-flex"
-                    cols="4"
+                    cols="3"
+                    sm="2"
+                    md="2"
+                    lg="2"
                 >
                     <!-- clickable img - route to BookPage w/Book Name + ID -->
                     <v-img
@@ -69,8 +72,8 @@
         },
         computed: {
             displayedBooks() {
-                // Limit the number of displayed books to 9
-                return this.books.slice(0, 9);
+                // Limit the number of displayed books to 18
+                return this.books.slice(0, 18);
             },
         },
         methods: {
@@ -123,7 +126,7 @@
 
 <style scoped>
     .header {
-        color: #6e4b6a;
+        color: #5e3b92;
         font-family: poppins;
         font-weight: 600;
         font-size: 18pt;

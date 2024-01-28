@@ -14,9 +14,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                         ></v-text-field>
 
                         <v-text-field
@@ -27,9 +25,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                         ></v-text-field>
 
                         <v-text-field
@@ -40,9 +36,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                         ></v-text-field>
 
                         <v-text-field
@@ -53,9 +47,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -71,9 +63,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
@@ -81,22 +71,14 @@
                         <v-checkbox
                             v-model="agreeTOS"
                             color="primary"
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                             dense
                             label="Confirm Sign Up"
                         >
                         </v-checkbox>
 
                         <!-- Submit Button -->
-                        <v-btn
-                            text
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
-                            class="submitBtn"
-                            @click="userSignUp"
+                        <v-btn text dark class="submitBtn" @click="userSignUp"
                             >Submit</v-btn
                         >
 
@@ -204,9 +186,10 @@
 
 <style scoped>
     .heading {
-        color: #6e4b6a;
+        color: #c0c0c0;
         font-size: 11pt;
         font-weight: bold;
+        margin-bottom: 15px;
     }
 
     .submitBtn {

@@ -1,101 +1,94 @@
 <template>
     <div>
-        <div class="currReadContainer">
-            <v-row>
-                <v-col>
-                    <h1 class="header">Currently Reading</h1>
-                    <div v-if="books && books.length > 0">
-                        <v-card
-                            v-for="book in books"
-                            :key="book.bookId"
-                            color="background"
-                            elevation="0"
-                            class="pa-2"
-                        >
-                            <v-row align="center" dense>
-                                <v-col cols="3" sm="2" md="3" lg="3">
-                                    <!-- clickable img - route to BookPage w/Book Name + ID -->
-                                    <v-img
-                                        contain
-                                        class="bookCoverImg"
-                                        :src="book.Cover_Img"
-                                        @click="
-                                            navigateToBookPage(
-                                                book.bookId,
-                                                book.Title
-                                            )
-                                        "
-                                    ></v-img>
-                                </v-col>
+        <div class="currReadContainer elevation">
+            <h1 class="header">Currently Reading</h1>
 
-                                <v-col sm="10" md="9" lg="9">
-                                    <!-- clickable Title - route to BookPage w/Book Name + ID -->
-                                    <p
-                                        class="bookTitle clickableLink mx-2"
-                                        @click="
-                                            navigateToBookPage(
-                                                book.bookId,
-                                                book.Title
-                                            )
-                                        "
+            <!-- IF user has books in currently reading -->
+            <div v-if="books && books.length > 0">
+                <v-card
+                    v-for="book in books"
+                    :key="book.bookId"
+                    color="background"
+                    elevation="0"
+                    class="pa-2"
+                >
+                    <v-row align="center" dense>
+                        <v-col cols="3" sm="2" md="3" lg="3">
+                            <!-- clickable img - route to BookPage w/Book Name + ID -->
+                            <v-img
+                                contain
+                                class="bookCoverImg"
+                                :src="book.Cover_Img"
+                                @click="
+                                    navigateToBookPage(book.bookId, book.Title)
+                                "
+                            ></v-img>
+                        </v-col>
+
+                        <v-col sm="10" md="9" lg="9">
+                            <!-- clickable Title - route to BookPage w/Book Name + ID -->
+                            <p
+                                class="bookTitle clickableLink mx-2"
+                                @click="
+                                    navigateToBookPage(book.bookId, book.Title)
+                                "
+                            >
+                                {{ book.Title }}
+                            </p>
+
+                            <v-card-text>
+                                <v-row align="center" class="mx-0">
+                                    <div
+                                        class="text-subtitle-2 clickableLink"
+                                        @click="searchAuthor(book.Author)"
                                     >
-                                        {{ book.Title }}
-                                    </p>
+                                        {{ book.Author }}
+                                    </div>
+                                </v-row>
+                            </v-card-text>
 
-                                    <v-card-text>
-                                        <v-row align="center" class="mx-0">
-                                            <div
-                                                class="text-subtitle-2 clickableLink"
-                                                @click="
-                                                    searchAuthor(book.Author)
-                                                "
-                                            >
-                                                {{ book.Author }}
-                                            </div>
-                                        </v-row>
-                                    </v-card-text>
+                            <v-divider class="mx-4 my-1"></v-divider>
 
-                                    <v-divider class="mx-4 my-1"></v-divider>
+                            <v-card-actions>
+                                <FinishReadingButton
+                                    :bookId="book.bookId"
+                                    :bookTitle="book.Title"
+                                    :isOnHomePage="true"
+                                />
+                            </v-card-actions>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </div>
 
-                                    <v-card-actions>
-                                        <FinishReadingButton
-                                            :bookId="book.bookId"
-                                            :bookTitle="book.Title"
-                                            :isOnHomePage="true"
-                                        />
-                                    </v-card-actions>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </div>
-
-                    <div v-else>
-                        <v-card
-                            class="noCurrReadingCard"
-                            color="transparent"
-                            flat
+            <!-- if user is not currently reading anything -->
+            <div v-else>
+                <v-card class="noCurrReadingCard" color="transparent" flat>
+                    <v-row justify="center" dense>
+                        <v-col
+                            cols="5"
+                            sm="12"
+                            md="12"
+                            lg="11"
+                            class="d-flex align-center justify-center"
                         >
-                            <v-row dense>
-                                <v-col cols="5" sm="6" md="6" lg="5">
-                                    <v-img
-                                        src="../assets/openBookImg.png"
-                                        class="defaultImg"
-                                    ></v-img>
-                                </v-col>
+                            <v-img
+                                src="../assets/ghostPages.png"
+                                alt="Open book with small ghosts and stars coming out of the middle."
+                            ></v-img>
+                        </v-col>
 
-                                <v-col align="center" sm="6" md="6" lg="7">
-                                    <v-card-text>
-                                        <p class="defaultText">
-                                            you aren't currently reading any
-                                            books, let's change that!
-                                        </p>
-                                    </v-card-text>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                    </div>
-                </v-col>
-            </v-row>
+                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
+                            <v-card-text>
+                                <p class="defaultText">
+                                    you aren't currently reading any books,
+                                    let's change that!
+                                </p>
+                            </v-card-text>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </div>
         </div>
     </div>
 </template>
@@ -183,6 +176,9 @@
 </script>
 
 <style scoped>
+    .elevation {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
     .currReadContainer {
         background-color: #5e3b92;
         padding: 15px;
@@ -194,16 +190,13 @@
         font-weight: 600;
         font-size: 14pt;
     }
-
     .bookTitle {
         font-size: 12pt;
     }
-
     .clickableLink:hover {
         text-decoration: underline;
         cursor: pointer;
     }
-
     .bookCoverImg {
         width: 80px;
         cursor: pointer;
@@ -212,15 +205,15 @@
         margin-top: 10px;
         color: white;
     }
-    .defaultImg {
-        width: 200px;
-    }
-
     .defaultText {
         font-family: open-sans-regular;
     }
+    @media (min-width: 600px) {
+        /* Medium Sizing */
+    }
 
     @media (min-width: 1000px) {
+        /* Desktop Sizing and Larger */
         .header {
             font-size: 18pt;
         }

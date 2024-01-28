@@ -16,9 +16,7 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                         ></v-text-field>
 
                         <!-- Password Text Field -->
@@ -34,20 +32,12 @@
                             color="primary"
                             outlined
                             dense
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
+                            dark
                             @click:append="show1 = !show1"
                         ></v-text-field>
 
                         <!-- Submit Button -->
-                        <v-btn
-                            text
-                            :dark="
-                                $vuetify.breakpoint.width >= 600 ? true : false
-                            "
-                            class="submitBtn"
-                            @click="userLogin"
+                        <v-btn text dark class="submitBtn" @click="userLogin"
                             >Submit</v-btn
                         >
 
@@ -120,9 +110,10 @@
 
 <style scoped>
     .heading {
-        color: #6e4b6a;
+        color: #c0c0c0;
         font-size: 11pt;
         font-weight: bold;
+        margin-bottom: 15px;
     }
 
     .submitBtn {

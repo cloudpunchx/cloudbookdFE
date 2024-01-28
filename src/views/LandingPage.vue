@@ -2,22 +2,23 @@
     <div>
         <v-container class="pageContent" fluid>
             <v-row>
-                <!-- Left side with logo and about -->
+                <!-- first col with logo and about -->
                 <v-col cols="12" sm="5" md="5" lg="5" class="purpleContainer">
                     <v-card
                         elevation="0"
-                        color="lavender"
+                        color="transparent"
                         class="purpleContent mx-auto"
                     >
-                        <!-- Logo -->
+                        <!-- site Logo -->
                         <router-link to="/">
                             <v-img
-                                src="../assets/cloudbookdLogo1.png"
+                                src="../assets/cloudbookdLogo.png"
+                                alt="Cloudbookd Logo"
                                 class="siteLogo"
                             ></v-img>
                         </router-link>
 
-                        <!-- about section -->
+                        <!-- brief about section -->
                         <ul class="aboutSection">
                             <li>Welcome to your solo reading journey.</li>
                             <li>
@@ -27,44 +28,34 @@
                             <li>Set a yearly reading challenge goal.</li>
                         </ul>
                         <v-img
-                            src="../assets/skeletonReading.png"
-                            class="skeletonImg"
+                            src="../assets/ghostMoon.png"
+                            alt="Ghost sitting on crescent moon, reading a book."
+                            class="ghostMoonImg"
                         ></v-img>
                     </v-card>
                 </v-col>
 
-                <!-- Right side with login/signup card -->
+                <!-- 2nd col with login/signup card -->
                 <v-col cols="12" sm="7" md="7" lg="7" class="loginContainer">
                     <v-card
                         elevation="24"
-                        :color="
-                            $vuetify.breakpoint.width >= 600
-                                ? 'lavender'
-                                : 'background'
-                        "
+                        color="deep_purple"
                         class="formsCard mx-auto"
+                        shaped
                     >
                         <!-- login / signup form toggle -->
                         <v-card-actions class="justify-end">
                             <v-btn
+                                :class="{active: isActiveLogin}"
                                 plain
-                                color="primary"
-                                :dark="
-                                    $vuetify.breakpoint.width >= 600
-                                        ? true
-                                        : false
-                                "
+                                dark
                                 @click="toggleForm(true)"
                                 >LOG IN</v-btn
                             >
                             <v-btn
+                                :class="{active: isActiveSignUp}"
                                 plain
-                                color="primary"
-                                :dark="
-                                    $vuetify.breakpoint.width >= 600
-                                        ? true
-                                        : false
-                                "
+                                dark
                                 @click="toggleForm(false)"
                                 >SIGN UP</v-btn
                             >
@@ -110,7 +101,7 @@
     }
 
     .purpleContainer {
-        background-color: #c9a2c7;
+        background-color: #13022c;
     }
 
     .purpleContent {
@@ -118,7 +109,7 @@
     }
 
     .aboutSection {
-        color: #6e4b6a;
+        color: #c0c0c0;
         font-size: 11pt;
         font-weight: bold;
         padding: 0;
@@ -126,13 +117,12 @@
         list-style-type: none;
     }
 
-    .skeletonImg {
-        width: 100%;
-        max-width: 100vw;
+    .ghostMoonImg {
+        max-width: 600px;
+        margin-top: 25px;
     }
 
     .loginContainer {
-        background: linear-gradient(to bottom, #c9a2c7, #f7edf0);
         max-height: 100vh;
     }
 
@@ -144,10 +134,6 @@
     @media (min-width: 500px) {
         .siteLogo {
             max-width: 250px;
-        }
-
-        .purpleContainer {
-            background-color: #c9a2c7;
         }
     }
 
