@@ -56,7 +56,7 @@
 
             <!-- if user hasn't read anything -->
             <div v-else>
-                <v-card color="transparent" elevation="0" class="pa-2">
+                <v-card class="pa-2" color="background" flat>
                     <v-row justify="center" dense>
                         <v-col align="center" cols="7" sm="12" md="12" lg="12">
                             <p class="defaultText">
@@ -173,8 +173,8 @@
         font-size: 14pt;
     }
     .recReadContainer {
-        background-color: #5e3b92;
         padding: 15px;
+        border: 1px solid whitesmoke;
         border-radius: 15px 0 15px 0;
     }
 

@@ -1,35 +1,49 @@
 <template>
-    <div>
+    <div class="starsContainer">
         <SignedInHeader />
 
         <div class="pageContentContainer">
-            <div class="pageContentRow1">
+            <div>
                 <v-row>
-                    <v-col class="equalHeight" cols="12" sm="4" md="4" lg="4">
+                    <v-col
+                        cols="12"
+                        class="d-flex flex-column justify-center align-center"
+                    >
+                        <!-- Welcome Message and Banner -->
+                        <v-img
+                            src="../assets/bookBanner.png"
+                            alt="Books in a row, with a moon and clouds in center"
+                            class="bookBanner"
+                        ></v-img>
+                        <h1 class="welcomeMsg">
+                            Welcome {{ username }} friend!
+                        </h1>
+                    </v-col>
+                </v-row>
+            </div>
+
+            <div>
+                <v-row justify="center">
+                    <v-col cols="12" lg="3">
                         <!-- Currently Reading Container -->
                         <CurrentlyReading />
                     </v-col>
 
-                    <v-col cols="12" sm="4" md="4" lg="4">
-                        <div class="arch-container">
-                            <v-img
-                                src="../assets/ghostieReading.png"
-                                class="arch-image"
-                            ></v-img>
-                            <ReadingChallenge />
-                        </div>
+                    <v-col cols="12" lg="3">
+                        <!-- Reading Challenge Container -->
+                        <ReadingChallenge />
                     </v-col>
 
-                    <v-col class="equalHeight" cols="12" sm="4" md="4" lg="4">
+                    <v-col cols="12" lg="3">
                         <!-- Recently Read Container -->
                         <RecentlyRead />
                     </v-col>
                 </v-row>
             </div>
 
-            <div class="pageContentRow2">
+            <div class="tbrContainer">
                 <v-row justify="center">
-                    <v-col class="equalHeight" sm="12" md="12" lg="7">
+                    <v-col cols="12" lg="9">
                         <!-- To Be Read Container -->
                         <ToBeReadPreview />
                     </v-col>
@@ -46,6 +60,8 @@
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
     import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
 
+    // import * as THREE from "three";
+
     export default {
         name: "HomePage",
         components: {
@@ -55,78 +71,47 @@
             ReadingChallenge,
             ToBeReadPreview,
         },
+        data() {
+            return {
+                // set up get username
+                username: "",
+            };
+        },
     };
 </script>
 
 <style scoped>
-    .equalHeight {
-        background-color: #5e3b92;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        border-radius: 0 15px 0 15px;
-    }
-    .pageContentRow1 {
+    .pageContentContainer {
         margin-top: 25px;
-        padding: 50px;
     }
-    .pageContentRow2 {
-        padding: 50px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+    .bookBanner {
+        width: 100%;
+        max-width: 300px;
     }
-    .arch-image {
-        width: 375px;
-        height: auto;
+    .welcomeMsg {
+        color: white;
+        font-size: 19pt;
     }
-    .arch-container,
-    .arch-image {
-        border-top-left-radius: 50% 30%;
-        border-top-right-radius: 50% 30%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    @media (min-width: 600px) {
-        /* Medium Sizing */
-        .pageContentRow1 {
-            margin-top: 50px;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        .pageContentRow2 {
-            padding: 0;
-            margin-top: 70px;
-        }
-        .arch-image {
-            width: 400px;
-            height: auto;
-        }
-        .arch-container,
-        .arch-image {
-            border-top-left-radius: 50% 30%;
-            border-top-right-radius: 50% 30%;
-        }
+    .tbrContainer {
+        margin-top: 25px;
     }
 
     @media (min-width: 1000px) {
         /* Desktop Sizing and Larger */
-        .pageContentContainer {
+
+        .bookBanner {
+            min-width: 1000px;
             max-width: 1100px;
+        }
+
+        .welcomeMsg {
+            font-size: 25pt;
+        }
+
+        .pageContentContainer {
+            max-width: 1500px;
             margin-left: auto;
             margin-right: auto;
-        }
-        .arch-image {
-            width: 450px;
-            height: auto; /* Maintain aspect ratio */
-        }
-        .arch-container {
-            max-width: 450px;
         }
     }
 </style>

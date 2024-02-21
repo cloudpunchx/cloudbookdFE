@@ -14,8 +14,8 @@
                     <!-- site Logo - routes to /home-->
                     <router-link to="/home">
                         <v-img
-                            src="../assets/cloudbookdLogo1.png"
-                            alt="alternate site logo - for when signed in"
+                            src="../assets/cloudbookdLogo.png"
+                            alt="site logo"
                             class="siteLogo"
                         >
                         </v-img>
@@ -24,7 +24,7 @@
 
                 <v-col cols="auto" v-show="!isMobile">
                     <!-- Another link to Home page - not shown when mobile -->
-                    <v-btn class="btnText" text color="primary">
+                    <v-btn class="btnText" text dark>
                         <router-link to="/home" class="navLink"
                             >Home</router-link
                         >
@@ -33,11 +33,7 @@
 
                 <v-col cols="auto" v-show="!isMobile">
                     <!-- Link to My Books page - not shown when mobile-->
-                    <v-btn
-                        class="btnText"
-                        text
-                        color="primary"
-                        @click="visitMyBooks"
+                    <v-btn class="btnText" text dark @click="visitMyBooks"
                         >My Books</v-btn
                     >
                 </v-col>
@@ -53,7 +49,7 @@
                         <template v-slot:activator="{on, attrs}">
                             <v-btn
                                 class="btnText"
-                                color="primary"
+                                dark
                                 text
                                 v-bind="attrs"
                                 v-on="on"
@@ -73,10 +69,7 @@
                         >
                             <v-list-item>
                                 <v-list-item-title>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="visitEditProfile"
+                                    <v-btn text dark @click="visitEditProfile"
                                         >Edit Profile</v-btn
                                     >
                                 </v-list-item-title>
@@ -148,8 +141,6 @@
         computed: {
             isMobile() {
                 const isMobile = this.$vuetify.breakpoint.smAndDown;
-                // visual check if 'isMobile'
-                console.log("isMobile:", isMobile);
                 return isMobile;
             },
         },
@@ -216,6 +207,7 @@
 
     .navLink {
         text-decoration: none;
+        color: white;
     }
 
     .avatar {

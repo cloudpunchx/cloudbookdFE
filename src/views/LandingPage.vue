@@ -49,7 +49,7 @@
                 >
                     <v-card
                         elevation="24"
-                        color="deep_purple"
+                        color="background"
                         class="formsCard"
                         shaped
                     >
@@ -158,6 +158,7 @@
                     stars.push(star); // Add the star to the array
                 }
 
+                // Animation loop for twinkling effect
                 const animate = () => {
                     requestAnimationFrame(animate);
 
@@ -240,7 +241,9 @@
         max-width: 200px;
         margin-top: 25px;
     }
-
+    .loginContainer {
+        background-color: #d0cadb;
+    }
     .formsCard {
         width: 50vw;
         min-width: 300px;

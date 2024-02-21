@@ -21,6 +21,7 @@
 <style scoped>
     @import "../src/assets/sass/style.scss";
     .v-application {
-        background-color: #d0cadb;
+        /* background-color: #d0cadb; */
+        background-color: #13022c;
     }
 </style>

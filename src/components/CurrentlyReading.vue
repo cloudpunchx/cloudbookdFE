@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="currReadContainer">
+        <div class="contentContainer">
             <h1 class="header">Currently Reading</h1>
 
             <!-- IF user has books in currently reading -->
@@ -9,8 +9,7 @@
                     v-for="book in books"
                     :key="book.bookId"
                     color="background"
-                    elevation="0"
-                    class="pa-2"
+                    class="readingCard pa-2"
                 >
                     <v-row align="center" dense>
                         <v-col cols="3" sm="2" md="3" lg="3">
@@ -64,21 +63,15 @@
 
             <!-- if user is not currently reading anything -->
             <div v-else>
-                <v-card class="noCurrReadingCard" color="transparent" flat>
+                <v-card class="readingCard" color="background" flat>
                     <v-row justify="center" dense>
-                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
+                        <v-col align="center">
                             <p>
                                 you aren't currently reading any books, let's
                                 change that!
                             </p>
                         </v-col>
-                        <v-col
-                            class="d-flex align-center justify-center"
-                            cols="5"
-                            sm="12"
-                            md="12"
-                            lg="11"
-                        >
+                        <v-col class="d-flex align-center justify-center">
                             <v-img
                                 src="../assets/ghostPages.png"
                                 alt="Open book with small ghosts and stars coming out of the middle."
@@ -174,9 +167,9 @@
 </script>
 
 <style scoped>
-    .currReadContainer {
-        background-color: #5e3b92;
+    .contentContainer {
         padding: 15px;
+        border: 1px solid whitesmoke;
         border-radius: 0 15px 0 15px;
     }
     .header {
@@ -184,6 +177,10 @@
         font-family: poppins;
         font-weight: 600;
         font-size: 14pt;
+    }
+    .readingCard {
+        font-family: open-sans-regular;
+        color: white;
     }
     .bookTitle {
         font-size: 12pt;
@@ -196,15 +193,6 @@
         width: 80px;
         cursor: pointer;
     }
-    .noCurrReadingCard {
-        font-family: open-sans-regular;
-        color: white;
-        margin-top: 10px;
-    }
-
-    @media (min-width: 600px) {
-        /* Medium Sizing */
-    }
 
     @media (min-width: 1000px) {
         /* Desktop Sizing and Larger */
@@ -212,7 +200,7 @@
             font-size: 18pt;
         }
         .bookCoverImg {
-            width: 100px;
+            width: px;
         }
         .bookTitle {
             font-size: 14pt;

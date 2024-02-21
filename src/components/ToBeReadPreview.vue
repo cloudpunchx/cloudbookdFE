@@ -42,19 +42,18 @@
 
             <!-- otherwise show default -->
             <div v-else>
-                <v-card class="noToBeReadCard" color="transparent" flat>
-                    <v-row justify="center" dense>
-                        <v-col align="center" cols="12" sm="8" md="8" lg="8">
+                <v-card color="background" flat>
+                    <v-row justify="start" dense>
+                        <v-col cols="12" sm="8" md="8">
                             <p class="defaultText">
                                 your tbr is lonely, add some books!
                             </p>
                         </v-col>
                         <v-col
-                            class="d-flex align-center justify-center"
+                            class="d-flex align-center justify-start"
                             cols="12"
                             sm="8"
                             md="8"
-                            lg="8"
                         >
                             <v-img
                                 src="../assets/GhostToBeRead.png"
@@ -156,10 +155,9 @@
     .defaultText {
         color: white;
         font-family: open-sans-regular;
-        margin: 0;
-        padding: 0;
     }
 
-    @media (min-width: 1000px) {
+    .defaultImg {
+        max-width: 400px;
     }
 </style>

@@ -9,7 +9,7 @@
             append-icon="mdi-magnify"
             @click:append="searchBooks"
             background-color="transparent"
-            color="primary"
+            dark
         >
         </v-text-field>
     </div>

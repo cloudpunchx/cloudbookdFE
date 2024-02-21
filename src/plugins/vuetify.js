@@ -7,8 +7,8 @@ const vuetify = new Vuetify({
     theme: {
         themes: {
             light: {
-                // background is lavender blush
-                background: "#F7EDF0",
+                // background is deep purple
+                background: "#13022c",
                 // primary is dark purple
                 primary: "#5e3b92",
                 // secondary is purple Pomp and Power
@@ -16,7 +16,7 @@ const vuetify = new Vuetify({
                 honeydew: "#E1EFE6",
                 tearose: "#F4CBC6",
                 lavender: "#C9A2C7",
-                deep_purple: "#13022c",
+                lavenderBlush: "#F7EDF0",
             },
         },
     },

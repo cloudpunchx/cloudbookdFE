@@ -1,18 +1,18 @@
 <template>
     <div>
         <!-- Reading Challenge Card -->
-        <v-card class="challCard my-8" color="primary" elevation="15">
+        <v-card class="challCard" color="background" flat>
             <v-row align="center">
                 <!-- First Col - Ghost Img -->
-                <v-col cols="3" lg="3">
+                <v-col cols="3">
                     <v-img
                         src="../assets/ghostHoldingBooks.png"
                         alt="Cartoon ghost holding books with starry background."
-                        class="ghostImg"
                     ></v-img>
                 </v-col>
 
-                <v-col cols="9" lg="9">
+                <!-- 2nd Col - set/edit goal -->
+                <v-col cols="9">
                     <v-card-subtitle class="overline"
                         >{{ currYear }} READING CHALLENGE</v-card-subtitle
                     >
@@ -68,13 +68,13 @@
                             <v-expansion-panel-header
                                 v-if="userReadingGoal !== null"
                                 class="subtitle-2"
-                                color="primary"
+                                color="background"
                             >
                                 EDIT GOAL
                             </v-expansion-panel-header>
 
                             <!-- Component - Edit Goal (PATCH) -->
-                            <v-expansion-panel-content color="primary">
+                            <v-expansion-panel-content color="background">
                                 <v-card-actions>
                                     <EditReadingChallGoal
                                         @goalAction="handleGoalAction"
@@ -94,13 +94,13 @@
                             <!-- Else show Set Goal(PUT) -->
                             <v-expansion-panel-header
                                 class="subtitle-2"
-                                color="primary"
+                                color="background"
                             >
                                 SET GOAL
                             </v-expansion-panel-header>
 
                             <!-- Component - Set Goal (PUT) -->
-                            <v-expansion-panel-content color="primary">
+                            <v-expansion-panel-content color="background">
                                 <v-card-actions>
                                     <SetReadingChallGoal
                                         @goalAction="handleGoalAction"
@@ -212,10 +212,6 @@
         color: white;
     }
 
-    .ghostImg {
-        width: 100px;
-    }
-
     .whiteText {
         color: white;
     }
@@ -231,13 +227,5 @@
 
     .non-interactive-progress-bar {
         pointer-events: none; /* This will make the progress bar non-clickable */
-    }
-
-    @media (min-width: 600px) {
-        /* Medium Sizing */
-    }
-
-    @media (min-width: 1000px) {
-        /* Desktop Sizing and Larger */
     }
 </style>
