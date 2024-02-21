@@ -41,17 +41,30 @@
             </v-row>
 
             <!-- otherwise show default -->
-            <v-row v-else justify="center">
-                <v-col cols="6" sm="6" md="6" lg="10">
-                    <v-img
-                        src="../assets/mrBook.png"
-                        class="defaultImg"
-                    ></v-img>
-                    <p class="defaultText">
-                        your tbr is lonely, add some books!
-                    </p>
-                </v-col>
-            </v-row>
+            <div v-else>
+                <v-card class="noToBeReadCard" color="transparent" flat>
+                    <v-row justify="center" dense>
+                        <v-col align="center" cols="12" sm="8" md="8" lg="8">
+                            <p class="defaultText">
+                                your tbr is lonely, add some books!
+                            </p>
+                        </v-col>
+                        <v-col
+                            class="d-flex align-center justify-center"
+                            cols="12"
+                            sm="8"
+                            md="8"
+                            lg="8"
+                        >
+                            <v-img
+                                src="../assets/GhostToBeRead.png"
+                                alt="Ghost looking at bookshelf labeled To Be Read"
+                                class="defaultImg"
+                            ></v-img>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </div>
         </v-container>
     </div>
 </template>
@@ -126,31 +139,27 @@
 
 <style scoped>
     .header {
-        color: #5e3b92;
+        color: white;
         font-family: poppins;
         font-weight: 600;
         font-size: 18pt;
+        margin-bottom: 15px;
     }
-
     .bookCoverImg {
         cursor: pointer;
+        border: 1px rgb(97, 97, 97) solid;
     }
-
     .errorMsg {
         font-size: 10pt;
         color: red;
     }
-
     .defaultText {
-        margin-top: 10px;
-        color: #2e294e;
+        color: white;
         font-family: open-sans-regular;
+        margin: 0;
+        padding: 0;
     }
 
     @media (min-width: 1000px) {
-        .defaultImg {
-            width: 200px;
-            margin-top: 10px;
-        }
     }
 </style>

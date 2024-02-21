@@ -1,10 +1,10 @@
 <template>
     <div>
         <!-- Reading Challenge Card -->
-        <v-card class="challCard mx-auto my-2" color="primary" elevation="8">
+        <v-card class="challCard my-8" color="primary" elevation="15">
             <v-row align="center">
                 <!-- First Col - Ghost Img -->
-                <v-col lg="3">
+                <v-col cols="3" lg="3">
                     <v-img
                         src="../assets/ghostHoldingBooks.png"
                         alt="Cartoon ghost holding books with starry background."
@@ -12,7 +12,7 @@
                     ></v-img>
                 </v-col>
 
-                <v-col lg="9">
+                <v-col cols="9" lg="9">
                     <v-card-subtitle class="overline"
                         >{{ currYear }} READING CHALLENGE</v-card-subtitle
                     >

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="recReadContainer elevation">
+        <div class="recReadContainer">
             <h1 class="header">Recently Read</h1>
 
             <!-- IF user has books in recently read -->
@@ -19,6 +19,7 @@
                                 contain
                                 class="bookCoverImg"
                                 :src="book.Cover_Img"
+                                alt="Book Cover"
                                 @click="
                                     navigateToBookPage(book.bookId, book.Title)
                                 "
@@ -57,6 +58,11 @@
             <div v-else>
                 <v-card color="transparent" elevation="0" class="pa-2">
                     <v-row justify="center" dense>
+                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
+                            <p class="defaultText">
+                                you haven't read any books yet!
+                            </p>
+                        </v-col>
                         <v-col
                             class="d-flex justify-center"
                             cols="6"
@@ -160,19 +166,16 @@
 </script>
 
 <style scoped>
-    .elevation {
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-    .recReadContainer {
-        background-color: #5e3b92;
-        padding: 15px;
-        border-radius: 15px 0 15px 0;
-    }
     .header {
         color: whitesmoke;
         font-family: poppins;
         font-weight: 600;
         font-size: 14pt;
+    }
+    .recReadContainer {
+        background-color: #5e3b92;
+        padding: 15px;
+        border-radius: 15px 0 15px 0;
     }
 
     .bookTitle {
@@ -186,8 +189,12 @@
         width: 80px;
         cursor: pointer;
     }
+    .defaultText {
+        font-family: open-sans-regular;
+        color: white;
+    }
 
-    @media (min-width: 500px) {
+    @media (min-width: 600px) {
         /* Medium Sizing */
     }
 

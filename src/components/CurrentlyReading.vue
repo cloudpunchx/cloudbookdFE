@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="currReadContainer elevation">
+        <div class="currReadContainer">
             <h1 class="header">Currently Reading</h1>
 
             <!-- IF user has books in currently reading -->
@@ -19,6 +19,7 @@
                                 contain
                                 class="bookCoverImg"
                                 :src="book.Cover_Img"
+                                alt="Book Cover"
                                 @click="
                                     navigateToBookPage(book.bookId, book.Title)
                                 "
@@ -65,26 +66,23 @@
             <div v-else>
                 <v-card class="noCurrReadingCard" color="transparent" flat>
                     <v-row justify="center" dense>
+                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
+                            <p>
+                                you aren't currently reading any books, let's
+                                change that!
+                            </p>
+                        </v-col>
                         <v-col
+                            class="d-flex align-center justify-center"
                             cols="5"
                             sm="12"
                             md="12"
                             lg="11"
-                            class="d-flex align-center justify-center"
                         >
                             <v-img
                                 src="../assets/ghostPages.png"
                                 alt="Open book with small ghosts and stars coming out of the middle."
                             ></v-img>
-                        </v-col>
-
-                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
-                            <v-card-text>
-                                <p class="defaultText">
-                                    you aren't currently reading any books,
-                                    let's change that!
-                                </p>
-                            </v-card-text>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -176,9 +174,6 @@
 </script>
 
 <style scoped>
-    .elevation {
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
     .currReadContainer {
         background-color: #5e3b92;
         padding: 15px;
@@ -202,12 +197,11 @@
         cursor: pointer;
     }
     .noCurrReadingCard {
-        margin-top: 10px;
-        color: white;
-    }
-    .defaultText {
         font-family: open-sans-regular;
+        color: white;
+        margin-top: 10px;
     }
+
     @media (min-width: 600px) {
         /* Medium Sizing */
     }
