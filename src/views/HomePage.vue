@@ -5,7 +5,7 @@
         <div class="pageContentContainer">
             <div class="pageContentRow1">
                 <v-row>
-                    <v-col cols="12" sm="4" md="4" lg="4">
+                    <v-col class="equalHeight" cols="12" sm="4" md="4" lg="4">
                         <!-- Currently Reading Container -->
                         <CurrentlyReading />
                     </v-col>
@@ -20,7 +20,7 @@
                         </div>
                     </v-col>
 
-                    <v-col cols="12" sm="4" md="4" lg="4">
+                    <v-col class="equalHeight" cols="12" sm="4" md="4" lg="4">
                         <!-- Recently Read Container -->
                         <RecentlyRead />
                     </v-col>
@@ -29,7 +29,7 @@
 
             <div class="pageContentRow2">
                 <v-row justify="center">
-                    <v-col sm="12" md="12" lg="12">
+                    <v-col class="equalHeight" sm="12" md="12" lg="7">
                         <!-- To Be Read Container -->
                         <ToBeReadPreview />
                     </v-col>
@@ -59,6 +59,11 @@
 </script>
 
 <style scoped>
+    .equalHeight {
+        background-color: #5e3b92;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 0 15px 0 15px;
+    }
     .pageContentRow1 {
         margin-top: 25px;
         padding: 50px;
@@ -74,7 +79,6 @@
         width: 375px;
         height: auto;
     }
-
     .arch-container,
     .arch-image {
         border-top-left-radius: 50% 30%;
@@ -84,7 +88,6 @@
         justify-content: center;
         align-items: center;
     }
-
     @media (min-width: 600px) {
         /* Medium Sizing */
         .pageContentRow1 {
@@ -98,12 +101,12 @@
         }
         .pageContentRow2 {
             padding: 0;
+            margin-top: 70px;
         }
         .arch-image {
             width: 400px;
             height: auto;
         }
-
         .arch-container,
         .arch-image {
             border-top-left-radius: 50% 30%;

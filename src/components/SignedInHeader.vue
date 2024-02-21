@@ -15,6 +15,7 @@
                     <router-link to="/home">
                         <v-img
                             src="../assets/cloudbookdLogo1.png"
+                            alt="alternate site logo - for when signed in"
                             class="siteLogo"
                         >
                         </v-img>
