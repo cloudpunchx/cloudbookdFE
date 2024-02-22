@@ -63,19 +63,10 @@
 
             <!-- if user is not currently reading anything -->
             <div v-else>
-                <v-card class="readingCard" color="background" flat>
+                <v-card class="readingCard" color="background">
                     <v-row justify="center" dense>
-                        <v-col align="center">
-                            <p>
-                                you aren't currently reading any books, let's
-                                change that!
-                            </p>
-                        </v-col>
-                        <v-col class="d-flex align-center justify-center">
-                            <v-img
-                                src="../assets/ghostPages.png"
-                                alt="Open book with small ghosts and stars coming out of the middle."
-                            ></v-img>
+                        <v-col align="center" cols="7" sm="12" md="12" lg="12">
+                            <p class="defaultText">what are you reading?</p>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -99,22 +90,18 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 books: [],
                 errorMsg: "",
             };
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
             getCurrentlyReading() {
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
                         method: "GET",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         params: {
                             readingStatus: "currently reading",
@@ -155,7 +142,6 @@
             },
         },
         created() {
-            this.getToken();
             this.getCurrentlyReading();
             // Listen for the 'bookFinished' event
             EventBus.$on("bookFinished", this.reloadList);
@@ -190,17 +176,17 @@
         cursor: pointer;
     }
     .bookCoverImg {
-        width: 80px;
         cursor: pointer;
+    }
+
+    .defaultText {
+        margin: 25px;
     }
 
     @media (min-width: 1000px) {
         /* Desktop Sizing and Larger */
         .header {
             font-size: 18pt;
-        }
-        .bookCoverImg {
-            width: px;
         }
         .bookTitle {
             font-size: 14pt;

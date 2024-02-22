@@ -15,10 +15,10 @@
                     lg="2"
                     class="d-flex justify-center fit-content"
                 >
-                    <v-list color="lavender" elevation="4" rounded dense dark>
+                    <v-list color="primary" rounded dense dark>
                         <!-- Title of the list, non-clickable -->
                         <v-subheader>Bookshelves</v-subheader>
-                        <v-list-item-group color="primary">
+                        <v-list-item-group>
                             <v-list-item
                                 v-for="category in bookshelfCategories"
                                 :key="category.title"
@@ -33,16 +33,16 @@
                         </v-list-item-group>
                     </v-list>
                 </v-col>
+
                 <!-- 2nd COL holds books -->
                 <v-col cols="12" sm="7" md="10" lg="10">
                     <div class="myBooksContainer">
-                        <!-- Headings for My Books -->
+                        <!-- Headings for Books -->
                         <v-row no-gutters>
                             <v-col md="12" lg="12">
                                 <v-card
                                     class="bookCard"
-                                    color="background"
-                                    tile
+                                    color="rgba(99, 72, 139, 0.534)"
                                 >
                                     <v-row>
                                         <v-col lg="1" class="columnTitle">
@@ -83,7 +83,12 @@
                                 md="12"
                                 lg="12"
                             >
-                                <v-card class="bookCard" outlined tile>
+                                <v-card
+                                    class="bookCard"
+                                    color="primary"
+                                    outlined
+                                    tile
+                                >
                                     <v-row>
                                         <v-col lg="1">
                                             <!-- clickable img - route to BookPage w/Book Name + ID -->
@@ -173,6 +178,10 @@
                                             </div>
                                         </v-col>
                                     </v-row>
+                                    <v-divider
+                                        class="mx-4 my-2"
+                                        dark
+                                    ></v-divider>
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -335,7 +344,6 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 bookshelfCategories: [
                     {title: "All", param: null},
                     {title: "Read", param: "read"},
@@ -360,9 +368,6 @@
             },
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
             getMyBooks(category = "") {
                 this.selectedCategory = category;
 
@@ -370,11 +375,11 @@
                     url: this.apiUrl + "/user-books",
                     method: "GET",
                     headers: {
-                        token: this.token,
+                        token: cookies.get(`sessionToken`),
                     },
                 };
 
-                // Add the readingStatus parameter only if category is not an empty string
+                // Add the readingStatus parameter only if category is not an empty string eg. user selects specific shelf
                 if (category) {
                     config.params = {readingStatus: category};
                 }
@@ -396,7 +401,6 @@
                         }, 60000); // 1 minute = 60,000 milliseconds
                     });
             },
-
             selectCategory(category) {
                 this.getMyBooks(category);
             },
@@ -428,7 +432,6 @@
         },
         created() {
             document.title = `${this.$route.params.username}'s books on CloudBookd`; //set page Title based on signed in user
-            this.getToken();
             this.getMyBooks();
         },
     };
@@ -447,24 +450,20 @@
         margin-top: 60px;
     }
     .columnTitle {
-        color: #6e4b6a;
+        color: white;
         font-weight: 600;
     }
     .header {
-        color: #6e4b6a;
+        color: whitesmoke;
         font-family: lemon;
         font-size: 17pt;
         font-weight: bold;
     }
-    .listContainer {
-        border-radius: 10px;
-        background-color: #f7edf0;
-    }
     .bookCard {
+        color: white;
         padding: 5px;
     }
     .bookCoverImg {
-        width: 80px;
         cursor: pointer;
     }
     .clickableLink:hover {
@@ -511,9 +510,6 @@
         .pageContent {
             max-width: 1400px;
             margin-top: 25px;
-        }
-        .bookCoverImg {
-            width: 100px;
         }
     }
 </style>

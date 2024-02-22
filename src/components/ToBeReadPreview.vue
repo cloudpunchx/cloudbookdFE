@@ -42,24 +42,12 @@
 
             <!-- otherwise show default -->
             <div v-else>
-                <v-card color="background" flat>
+                <v-card class="readingCard" color="background" flat>
                     <v-row justify="start" dense>
-                        <v-col cols="12" sm="8" md="8">
+                        <v-col>
                             <p class="defaultText">
                                 your tbr is lonely, add some books!
                             </p>
-                        </v-col>
-                        <v-col
-                            class="d-flex align-center justify-start"
-                            cols="12"
-                            sm="8"
-                            md="8"
-                        >
-                            <v-img
-                                src="../assets/GhostToBeRead.png"
-                                alt="Ghost looking at bookshelf labeled To Be Read"
-                                class="defaultImg"
-                            ></v-img>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -77,7 +65,6 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 books: [],
                 errorMsg: "",
             };
@@ -89,16 +76,13 @@
             },
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
             getToBeRead() {
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
                         method: "GET",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         params: {
                             readingStatus: "tbr",
@@ -130,13 +114,17 @@
             },
         },
         created() {
-            this.getToken();
             this.getToBeRead();
         },
     };
 </script>
 
 <style scoped>
+    .contentContainer {
+        border: 1px solid white;
+        border-radius: 0 15px 0 15px;
+        margin-bottom: 100px;
+    }
     .header {
         color: white;
         font-family: poppins;
@@ -155,9 +143,5 @@
     .defaultText {
         color: white;
         font-family: open-sans-regular;
-    }
-
-    .defaultImg {
-        max-width: 400px;
     }
 </style>

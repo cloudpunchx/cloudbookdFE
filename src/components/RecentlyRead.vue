@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="recReadContainer">
+        <div class="contentContainer">
             <h1 class="header">Recently Read</h1>
 
             <!-- IF user has books in recently read -->
@@ -8,9 +8,8 @@
                 <v-card
                     v-for="book in displayedBooks"
                     :key="book.bookId"
-                    color="transparent"
-                    elevation="0"
-                    class="pa-2"
+                    color="background"
+                    class="readingCard pa-2"
                 >
                     <v-row align="center" dense>
                         <v-col cols="3" sm="2" md="3" lg="3">
@@ -54,26 +53,14 @@
                 </v-card>
             </div>
 
-            <!-- if user hasn't read anything -->
+            <!-- IF user has no recently read -->
             <div v-else>
-                <v-card class="pa-2" color="background" flat>
+                <v-card class="readingCard" color="background">
                     <v-row justify="center" dense>
                         <v-col align="center" cols="7" sm="12" md="12" lg="12">
                             <p class="defaultText">
                                 you haven't read any books yet!
                             </p>
-                        </v-col>
-                        <v-col
-                            class="d-flex justify-center"
-                            cols="6"
-                            sm="6"
-                            md="6"
-                            lg="11"
-                        >
-                            <v-img
-                                src="../assets/bookStackSkull.png"
-                                alt="Stacked books, blue and purple, skull on top."
-                            ></v-img>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -166,16 +153,21 @@
 </script>
 
 <style scoped>
+    .contentContainer {
+        padding: 15px;
+        border: 1px solid whitesmoke;
+        border-radius: 15px 0 15px 0;
+    }
     .header {
         color: whitesmoke;
         font-family: poppins;
         font-weight: 600;
         font-size: 14pt;
     }
-    .recReadContainer {
-        padding: 15px;
-        border: 1px solid whitesmoke;
-        border-radius: 15px 0 15px 0;
+
+    .readingCard {
+        font-family: open-sans-regular;
+        color: white;
     }
 
     .bookTitle {
@@ -190,12 +182,7 @@
         cursor: pointer;
     }
     .defaultText {
-        font-family: open-sans-regular;
-        color: white;
-    }
-
-    @media (min-width: 600px) {
-        /* Medium Sizing */
+        margin: 25px;
     }
 
     @media (min-width: 1000px) {

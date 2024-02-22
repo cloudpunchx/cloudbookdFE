@@ -10,6 +10,7 @@
                 <v-row>
                     <v-col
                         cols="12"
+                        lg="12"
                         class="d-flex flex-column justify-center align-center"
                     >
                         <!-- Welcome Message and Banner -->
@@ -25,17 +26,23 @@
 
             <div>
                 <v-row justify="center">
-                    <v-col cols="12" lg="3">
+                    <v-col cols="10" lg="3">
                         <!-- Currently Reading Container -->
                         <CurrentlyReading />
                     </v-col>
 
-                    <v-col cols="12" lg="3">
+                    <v-col cols="10" lg="3">
                         <!-- Reading Challenge Container -->
                         <ReadingChallenge />
+                        <div class="centerImgContainer">
+                            <v-img
+                                src="../assets/bookStackSkull.png"
+                                alt="Stacked books, blue and purple, skull on top."
+                            ></v-img>
+                        </div>
                     </v-col>
 
-                    <v-col cols="12" lg="3">
+                    <v-col cols="10" lg="3">
                         <!-- Recently Read Container -->
                         <RecentlyRead />
                     </v-col>
@@ -44,7 +51,7 @@
 
             <div class="tbrContainer">
                 <v-row justify="center">
-                    <v-col cols="12" lg="9">
+                    <v-col cols="10" lg="9">
                         <!-- To Be Read Container -->
                         <ToBeReadPreview />
                     </v-col>
@@ -102,6 +109,10 @@
         color: white;
         font-size: 19pt;
     }
+    .centerImgContainer {
+        margin: 25px auto 0;
+        max-width: 300px;
+    }
     .tbrContainer {
         margin-top: 25px;
     }
@@ -120,8 +131,7 @@
 
         .pageContentContainer {
             max-width: 1500px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
     }
 </style>

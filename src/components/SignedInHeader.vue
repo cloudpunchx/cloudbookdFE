@@ -7,6 +7,7 @@
                     <v-app-bar-nav-icon
                         class="navIcon"
                         @click="toggleDrawer"
+                        color="white"
                     ></v-app-bar-nav-icon>
                 </v-col>
 
@@ -103,13 +104,14 @@
                     <v-list-item class="mobileListItem">
                         <BookSearch />
                     </v-list-item>
+
                     <v-list-item>
-                        <LogoutButton />
-                    </v-list-item>
-                    <v-list-item>
-                        <v-btn text color="primary" @click="visitEditProfile"
+                        <v-btn text dark @click="visitEditProfile"
                             >Edit Profile</v-btn
                         >
+                    </v-list-item>
+                    <v-list-item>
+                        <LogoutButton />
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
