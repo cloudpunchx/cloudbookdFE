@@ -1,7 +1,10 @@
 <template>
-    <div class="starsContainer">
-        <SignedInHeader />
-
+    <div>
+        <SignedInHeader
+            @username="handleUsername"
+            class="signedInHeaderClass"
+        />
+        <StarsComponent />
         <div class="pageContentContainer">
             <div>
                 <v-row>
@@ -15,9 +18,7 @@
                             alt="Books in a row, with a moon and clouds in center"
                             class="bookBanner"
                         ></v-img>
-                        <h1 class="welcomeMsg">
-                            Welcome {{ username }} friend!
-                        </h1>
+                        <h1 class="welcomeMsg">Welcome {{ username }}!</h1>
                     </v-col>
                 </v-row>
             </div>
@@ -59,8 +60,7 @@
     import RecentlyRead from "@/components/RecentlyRead.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
     import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
-
-    // import * as THREE from "three";
+    import StarsComponent from "@/components/StarsComponent.vue";
 
     export default {
         name: "HomePage",
@@ -70,17 +70,27 @@
             RecentlyRead,
             ReadingChallenge,
             ToBeReadPreview,
+            StarsComponent,
         },
         data() {
             return {
-                // set up get username
                 username: "",
             };
+        },
+        methods: {
+            // set username with var from SignedInHeader
+            handleUsername(username) {
+                this.username = username;
+            },
         },
     };
 </script>
 
 <style scoped>
+    .signedInHeaderClass {
+        position: relative;
+        z-index: 2;
+    }
     .pageContentContainer {
         margin-top: 25px;
     }

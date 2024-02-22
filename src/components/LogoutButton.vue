@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn text color="primary" @click="userLogout">Sign Out</v-btn>
+        <v-btn text dark @click="userLogout">Sign Out</v-btn>
     </div>
 </template>
 

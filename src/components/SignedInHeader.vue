@@ -55,14 +55,18 @@
                                 v-on="on"
                                 @mouseover="showDropdown = true"
                             >
+                                <!-- User Avatar & Username -->
                                 <v-avatar size="30" class="avatar"
                                     ><v-img :src="profileImg"></v-img
                                 ></v-avatar>
                                 {{ usernameUppercase }}
+
+                                <!-- Drop Down Icon -->
                                 <v-icon>mdi-menu-down</v-icon>
                             </v-btn>
                         </template>
                         <v-list
+                            class="dropDown"
                             v-show="showDropdown"
                             @mouseover="showDropdown = true"
                             @mouseout="showDropdown = false"
@@ -130,7 +134,6 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 username: "",
                 usernameUppercase: "",
                 profileImg: "",
@@ -145,9 +148,6 @@
             },
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
             getUserProfile() {
                 axios
                     .request({
@@ -161,6 +161,9 @@
                         this.username = response.data.username;
                         this.usernameUppercase = this.username.toUpperCase();
                         this.profileImg = response.data.profileImg;
+
+                        // Emit an event to the parent component with the fetched username
+                        this.$emit("username", this.username);
                     })
                     .catch((error) => {
                         this.errorMsg = error;
@@ -191,7 +194,6 @@
         },
         created() {
             this.getUserProfile();
-            this.getToken();
         },
     };
 </script>
@@ -212,6 +214,10 @@
 
     .avatar {
         margin: 10px;
+    }
+
+    .dropDown {
+        background-color: #5e3b92;
     }
 
     .mobileListItem {
