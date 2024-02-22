@@ -1,6 +1,7 @@
 <template>
     <div>
-        <SignedInHeader />
+        <SignedInHeader class="signedInHeaderClass" />
+        <StarsFullSizeComponent class="starsContainer" />
 
         <v-container class="pageContent">
             <v-row justify="center">
@@ -194,9 +195,10 @@
                                 <v-card
                                     v-for="book in paginatedBooks"
                                     :key="book.bookId"
-                                    color="background"
-                                    elevation="0"
+                                    color="primary"
                                     class="pa-2"
+                                    dark
+                                    tile
                                 >
                                     <v-row align="center" dense>
                                         <v-col cols="3" sm="2">
@@ -284,10 +286,6 @@
                                                         )
                                                     }}
                                                 </p>
-
-                                                <p v-if="book.Times_Read === 0">
-                                                    Never read.
-                                                </p>
                                                 <p v-if="book.Times_Read === 1">
                                                     Read
                                                     {{ book.Times_Read }} time.
@@ -300,6 +298,7 @@
 
                                             <v-divider
                                                 class="mx-4 my-1"
+                                                dark
                                             ></v-divider>
                                         </v-col>
                                     </v-row>
@@ -332,6 +331,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
 
     import axios from "axios";
     import cookies from "vue-cookies";
@@ -340,6 +340,7 @@
         name: "MyBooks",
         components: {
             SignedInHeader,
+            StarsFullSizeComponent,
         },
         data() {
             return {
@@ -438,6 +439,10 @@
 </script>
 
 <style scoped>
+    .signedInHeaderClass {
+        position: relative;
+        z-index: 2;
+    }
     .pageContent {
         margin-top: 80px;
     }

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <SignedInHeader />
+        <SignedInHeader class="signedInHeaderClass" />
+        <StarsFullSizeComponent class="starsContainer" />
 
         <v-container class="pageContent">
             <h1 class="header">Search Results</h1>
@@ -8,7 +9,7 @@
             <v-row no-gutters>
                 <v-col lg="8">
                     <!-- Search Books input w button (user can search with header search or this one)-->
-                    <v-card max-width="500" color="lavender">
+                    <v-card max-width="500" color="primary" shaped>
                         <v-row no-gutters align="center">
                             <v-col cols="12" sm="9">
                                 <v-text-field
@@ -22,14 +23,16 @@
                                     color="primary"
                                     outlined
                                     rounded
+                                    dark
                                 >
                                 </v-text-field>
                             </v-col>
                             <v-col>
                                 <v-btn
-                                    color="primary"
+                                    color="background"
                                     class="searchBtn"
                                     rounded
+                                    dark
                                     @click="search_books"
                                     >Search</v-btn
                                 >
@@ -69,9 +72,9 @@
                         v-for="book in books"
                         :key="book.id"
                         max-width="500"
-                        color="lavender"
-                        elevation="0"
+                        color="primary"
                         class="pa-2 mt-4"
+                        shaped
                     >
                         <v-row align="center" no-gutters>
                             <v-col cols="3" class="d-flex justify-center">
@@ -136,7 +139,7 @@
                                             ratings)
                                         </p>
                                     </div>
-                                    <v-divider></v-divider>
+                                    <v-divider dark></v-divider>
                                 </v-card-text>
 
                                 <!-- button to bring user to book page -->
@@ -159,12 +162,6 @@
                         </v-row>
                     </v-card>
                 </v-col>
-                <v-col>
-                    <!-- NEED TO HIDE THIS ON MOBILE -->
-                    <v-card max-width="200" color="background" elevation="0">
-                        <v-img src="../assets/readGhouls.png"></v-img>
-                    </v-card>
-                </v-col>
             </v-row>
         </v-container>
     </div>
@@ -172,18 +169,18 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
 
     import axios from "axios";
-    import cookies from "vue-cookies";
 
     export default {
         name: "BookSearchResultsPage",
         components: {
             SignedInHeader,
+            StarsFullSizeComponent,
         },
         data() {
             return {
-                token: "",
                 apiKey: process.env.VUE_APP_API_KEY,
                 searchType: "all",
                 query: "",
@@ -231,13 +228,9 @@
                         this.errorMsg = error;
                     });
             },
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
         },
         created() {
-            document.title = `Search results for ${this.$route.params.query} | CloudBookd`;
-            this.getToken();
+            document.title = `Search results for ${this.$route.params.query} | CloudBookd`; // Assign search query to title
             this.query = this.$route.params.query; // Assign the search query to the component's data
             this.searchType = this.$route.params.searchType || "all";
             this.search_books();
@@ -246,19 +239,23 @@
 </script>
 
 <style scoped>
+    .signedInHeaderClass {
+        position: relative;
+        z-index: 2;
+    }
     .pageContent {
         margin-top: 100px;
     }
     .header {
-        color: #6e4b6a;
+        color: white;
         font-family: open-sans-regular;
         font-weight: 600;
         font-size: 14pt;
+        margin-bottom: 15px;
     }
 
     .v-card {
-        border-radius: 10px;
-        color: #2e294e;
+        color: whitesmoke;
     }
 
     .searchBtn {
@@ -271,7 +268,6 @@
     }
 
     .bookCoverImg {
-        width: 80px;
         border: 1px rgb(97, 97, 97) solid;
         border-radius: 5px;
     }
@@ -305,10 +301,6 @@
     @media (min-width: 1000px) {
         .pageContent {
             max-width: 900px;
-        }
-
-        .bookCoverImg {
-            width: 100px;
         }
 
         .header {

@@ -1,12 +1,13 @@
 <template>
     <div>
-        <SignedInHeader />
+        <SignedInHeader class="signedInHeaderClass" />
+        <StarsFullSizeComponent />
 
         <v-container class="pageContent">
             <v-row>
                 <v-col sm="12" md="5" lg="4">
                     <v-card
-                        color="lavender"
+                        color="primary"
                         elevation="10"
                         class="profileContainer"
                     >
@@ -35,7 +36,7 @@
                 </v-col>
                 <v-col sm="12" md="7" lg="8">
                     <v-card
-                        color="lavender"
+                        color="primary"
                         elevation="10"
                         class="editProfileContainer"
                     >
@@ -153,6 +154,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
+    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
 
     import axios from "axios";
     import cookies from "vue-cookies";
@@ -161,6 +163,7 @@
         name: "EditUserProfile",
         components: {
             SignedInHeader,
+            StarsFullSizeComponent,
         },
         data() {
             return {
@@ -294,6 +297,10 @@
 </script>
 
 <style scoped>
+    .signedInHeaderClass {
+        position: relative;
+        z-index: 2;
+    }
     .pageContent {
         margin-top: 80px;
     }

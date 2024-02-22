@@ -47,7 +47,7 @@
                                 </v-row>
                             </v-card-text>
 
-                            <v-divider class="mx-4 my-1"></v-divider>
+                            <v-divider class="mx-4 my-1" dark></v-divider>
                         </v-col>
                     </v-row>
                 </v-card>

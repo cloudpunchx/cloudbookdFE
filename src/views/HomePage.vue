@@ -4,7 +4,8 @@
             @username="handleUsername"
             class="signedInHeaderClass"
         />
-        <StarsComponent />
+        <StarsFullSizeComponent />
+
         <div class="pageContentContainer">
             <div>
                 <v-row>
@@ -67,7 +68,7 @@
     import RecentlyRead from "@/components/RecentlyRead.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
     import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
-    import StarsComponent from "@/components/StarsComponent.vue";
+    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
 
     export default {
         name: "HomePage",
@@ -77,7 +78,7 @@
             RecentlyRead,
             ReadingChallenge,
             ToBeReadPreview,
-            StarsComponent,
+            StarsFullSizeComponent,
         },
         data() {
             return {
