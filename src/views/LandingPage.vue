@@ -4,6 +4,7 @@
             <v-row>
                 <!-- first col with logo and about -->
                 <v-col cols="12" sm="12" md="5" lg="5" class="purpleContainer">
+                    <stars-component></stars-component>
                     <div class="contentWrapper">
                         <v-card
                             elevation="0"
@@ -83,114 +84,23 @@
 <script>
     import LoginForm from "../components/LoginForm.vue";
     import SignupForm from "../components/SignupForm.vue";
-
-    import * as THREE from "three";
+    import StarsComponent from "@/components/StarsComponent.vue";
 
     export default {
         name: "LandingPage",
         components: {
             LoginForm,
             SignupForm,
+            StarsComponent,
         },
         data() {
             return {
                 login: true,
             };
         },
-        mounted() {
-            this.add3DStars();
-            window.addEventListener("resize", this.onWindowResize);
-        },
-        beforeDestroy() {
-            window.removeEventListener("resize", this.onWindowResize);
-        },
         methods: {
             toggleForm(isLogin) {
                 this.login = isLogin;
-            },
-            add3DStars() {
-                const container = this.$el.querySelector(".purpleContainer");
-
-                // Ensure the container has a defined position to contain the canvas
-                container.style.position = "relative";
-
-                // Scene
-                let scene = new THREE.Scene();
-
-                // Camera
-                this.camera = new THREE.PerspectiveCamera(
-                    75,
-                    container.offsetWidth / container.offsetHeight,
-                    0.1,
-                    1000
-                );
-                this.camera.position.z = 30;
-
-                // Renderer
-                this.renderer = new THREE.WebGLRenderer({alpha: true});
-                this.renderer.setSize(
-                    container.offsetWidth,
-                    container.offsetHeight
-                );
-
-                // Explicitly set z-index of the canvas to ensure it's behind the content
-                this.renderer.domElement.style.zIndex = 0;
-                this.renderer.domElement.style.position = "absolute";
-                this.renderer.domElement.style.top = "0";
-
-                container.appendChild(this.renderer.domElement);
-
-                // Stars
-                let stars = []; // Array to hold star meshes
-                let starGeometry = new THREE.SphereGeometry(0.1, 24, 24);
-                for (let i = 0; i < 200; i++) {
-                    let starMaterial = new THREE.MeshBasicMaterial({
-                        color: 0xffffff,
-                        transparent: true, // Enable transparency
-                        opacity: 1, // Start fully opaque
-                    });
-                    let star = new THREE.Mesh(starGeometry, starMaterial);
-                    let x = THREE.MathUtils.randFloatSpread(100);
-                    let y = THREE.MathUtils.randFloatSpread(100);
-                    let z = THREE.MathUtils.randFloatSpread(100);
-                    star.position.set(x, y, z);
-                    scene.add(star);
-                    stars.push(star); // Add the star to the array
-                }
-
-                // Animation loop for twinkling effect
-                const animate = () => {
-                    requestAnimationFrame(animate);
-
-                    // Slower twinkle effect
-                    stars.forEach((star) => {
-                        // Significantly reduce the rate of opacity change
-                        let change = 0.02 * Math.random();
-                        if (Math.random() < 0.5) {
-                            star.material.opacity = Math.max(
-                                0,
-                                star.material.opacity - change
-                            );
-                        } else {
-                            star.material.opacity = Math.min(
-                                1,
-                                star.material.opacity + change
-                            );
-                        }
-                    });
-
-                    this.renderer.render(scene, this.camera);
-                };
-
-                animate();
-            },
-            onWindowResize() {
-                const container = this.$el.querySelector(".purpleContainer");
-                const width = container.offsetWidth;
-                const height = container.offsetHeight;
-                this.camera.aspect = width / height;
-                this.camera.updateProjectionMatrix();
-                this.renderer.setSize(width, height);
             },
         },
     };
@@ -198,13 +108,13 @@
 
 <style scoped>
     .purpleContainer {
-        background-color: #13022c;
         position: relative;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        background-color: #13022c;
     }
 
     .contentWrapper {
