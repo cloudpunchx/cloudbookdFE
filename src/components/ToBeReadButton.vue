@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn @click="addToBeRead" color="lavender" dark elevation="0">
+        <v-btn @click="addToBeRead" color="transparent" dark elevation="0">
             Want To Read</v-btn
         >
         <div class="responseMsg" v-if="responseMsg">
@@ -28,15 +28,11 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 responseMsg: "",
                 errorMsg: "",
             };
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
             addToBeRead() {
                 let authorString;
                 // Check if 'author' is an array and join into a string if it is
@@ -51,7 +47,7 @@
                         url: this.apiUrl + "/user-books",
                         method: "POST",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         data: {
                             bookId: this.bookId,
@@ -81,9 +77,6 @@
                 this.responseMsg = "";
             },
         },
-        created() {
-            this.getToken();
-        },
     };
 </script>
 
@@ -93,6 +86,7 @@
     }
 
     .responseMsg {
+        color: #c9a2c7;
         margin-left: 20px;
     }
 

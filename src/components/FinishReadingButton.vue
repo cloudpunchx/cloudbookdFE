@@ -1,11 +1,15 @@
 <template>
     <div>
-        <v-btn @click="dialog = true" color="lavender" dark elevation="0">
+        <v-btn @click="dialog = true" color="transparent" dark elevation="0">
             Mark As Read
         </v-btn>
 
+        <div class="responseMsg" v-if="responseMsg">
+            {{ responseMsg }}
+        </div>
+
         <v-dialog v-model="dialog" persistent max-width="600">
-            <v-card class="dialog-content" color="lavender" rounded="lg">
+            <v-card class="dialog-content" color="background" rounded="lg">
                 <v-row>
                     <v-col
                         class="d-flex flex-column justify-center align-center"
@@ -23,6 +27,7 @@
                                 background-color="whitesmoke"
                                 hover
                                 dense
+                                dark
                                 half-increments
                             ></v-rating>
                         </div>
@@ -40,7 +45,7 @@
                                 <template v-slot:activator="{on, attrs}">
                                     <v-text-field
                                         v-model="dateFinished"
-                                        label="Date Finished (optional)"
+                                        label="Date Finished"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         dark
@@ -56,14 +61,14 @@
                                     <v-spacer></v-spacer>
                                     <v-btn
                                         text
-                                        color="primary"
+                                        color="lavender"
                                         @click="menu = false"
                                     >
                                         Cancel
                                     </v-btn>
                                     <v-btn
                                         text
-                                        color="primary"
+                                        color="lavender"
                                         @click="$refs.menu.save(dateFinished)"
                                     >
                                         OK
@@ -72,9 +77,6 @@
                             </v-menu>
                         </div>
 
-                        <div class="responseMsg" v-if="responseMsg">
-                            {{ responseMsg }}
-                        </div>
                         <div class="errorMsg" v-if="errorMsg">
                             {{ errorMsg }}
                         </div>
@@ -108,6 +110,8 @@
         props: {
             bookId: String,
             bookTitle: String,
+            author: String,
+            bookCover: String,
             isOnHomePage: {
                 type: Boolean,
                 default: false,
@@ -116,7 +120,6 @@
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 menu: false,
                 responseMsg: "",
                 errorMsg: "",
@@ -126,19 +129,88 @@
             };
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
+            checkBookExists() {
+                axios
+                    .request({
+                        url: this.apiUrl + "/user-books",
+                        method: "GET",
+                        headers: {
+                            token: cookies.get(`sessionToken`),
+                        },
+                        params: {
+                            bookId: this.bookId,
+                        },
+                    })
+                    .then((response) => {
+                        // check if bookExists
+                        let bookExists = response.bookId === 1;
+                        if (bookExists) {
+                            // Book exists - Update the book status to 'finished'
+                            this.updateBookStatus();
+                        } else {
+                            // Book does not exist - Add the book with status 'finished'
+                            this.markBookFinished();
+                        }
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error.response.data;
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
+                    });
             },
-            markBookFinished() {
+
+            updateBookStatus() {
+                // PATCH request to update the book status
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
                         method: "PATCH",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         data: {
                             bookId: this.bookId,
+                            readingStatus: "read",
+                        },
+                    })
+                    .then((response) => {
+                        this.responseMsg = response.data;
+                        // Set a timeout to clear the response after 1 minute
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
+                    })
+                    .catch((error) => {
+                        this.errorMsg = error.response.data;
+                        setTimeout(() => {
+                            this.clearResponse();
+                        }, 60000); // 1 minute = 60,000 milliseconds
+                    });
+            },
+
+            markBookFinished() {
+                let authorString;
+                // Check if 'author' is an array and join into a string if it is
+                if (Array.isArray(this.author)) {
+                    authorString = this.author.join(", ");
+                } else {
+                    // If 'author' is not an array, use it directly as a string
+                    authorString = this.author;
+                }
+                // POST request to add book to user books
+                axios
+                    .request({
+                        url: this.apiUrl + "/user-books",
+                        method: "POST",
+                        headers: {
+                            token: cookies.get(`sessionToken`),
+                        },
+                        data: {
+                            bookId: this.bookId,
+                            bookTitle: this.bookTitle,
+                            author: authorString,
+                            bookCover: this.bookCover,
                             readingStatus: "read",
                             dateFinished: this.dateFinished,
                             rating: this.userRating,
@@ -169,9 +241,6 @@
                 this.errorMsg = "";
             },
         },
-        created() {
-            this.getToken();
-        },
     };
 </script>
 
@@ -186,6 +255,7 @@
         overflow: hidden; /* hide the scroll bars */
     }
     .responseMsg {
+        color: #c9a2c7;
         margin-left: 20px;
     }
     .errorMsg {

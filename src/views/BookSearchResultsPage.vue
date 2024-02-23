@@ -50,17 +50,17 @@
                                     <v-radio
                                         label="All"
                                         value="all"
-                                        color="primary"
+                                        color="lavender"
                                     ></v-radio>
                                     <v-radio
                                         label="Title"
                                         value="title"
-                                        color="primary"
+                                        color="lavender"
                                     ></v-radio>
                                     <v-radio
                                         label="Author"
                                         value="author"
-                                        color="primary"
+                                        color="lavender"
                                     ></v-radio>
                                 </v-radio-group>
                             </v-col>
@@ -153,7 +153,7 @@
                                             },
                                         }"
                                     >
-                                        <v-btn color="primary" text
+                                        <v-btn color="lavender" text
                                             >View Details</v-btn
                                         >
                                     </router-link>

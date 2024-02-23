@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn @click="currentlyReading" color="lavender" dark elevation="0"
+        <v-btn @click="checkBookExists" color="transparent" dark elevation="0"
             >Currently Reading</v-btn
         >
         <div class="responseMsg" v-if="responseMsg">
@@ -21,29 +21,24 @@
         props: {
             bookId: String,
             bookTitle: String,
-            // might need to change author back to Array
             author: String,
             bookCover: String,
         },
         data() {
             return {
                 apiUrl: process.env.VUE_APP_API_URL,
-                token: "",
                 responseMsg: "",
                 errorMsg: "",
             };
         },
         methods: {
-            getToken() {
-                this.token = cookies.get(`sessionToken`);
-            },
-            currentlyReading() {
+            checkBookExists() {
                 axios
                     .request({
                         url: this.apiUrl + "/user-books",
                         method: "GET",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         params: {
                             bookId: this.bookId,
@@ -54,14 +49,10 @@
                         let bookExists = response.bookId === 1;
                         if (bookExists) {
                             // Book exists - Update the book status to 'currently reading'
-                            console.log("Book exists:", response.data.bookId);
-                            console.log(this.bookId);
-                            this.markCurrentlyReading();
-                        } else {
-                            console.log("Book does not exist:", response.data);
-                            console.log(this.bookId);
-                            // Book does not exist - Add the book with status 'currently reading'
                             this.updateBookStatus();
+                        } else {
+                            // Book does not exist - Add the book with status 'currently reading'
+                            this.markCurrentlyReading();
                         }
                     })
                     .catch((error) => {
@@ -79,7 +70,7 @@
                         url: this.apiUrl + "/user-books",
                         method: "PATCH",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         data: {
                             bookId: this.bookId,
@@ -116,7 +107,7 @@
                         url: this.apiUrl + "/user-books",
                         method: "POST",
                         headers: {
-                            token: this.token,
+                            token: cookies.get(`sessionToken`),
                         },
                         data: {
                             bookId: this.bookId,
@@ -145,9 +136,6 @@
                 this.responseMsg = "";
             },
         },
-        created() {
-            this.getToken();
-        },
     };
 </script>
 
@@ -156,6 +144,7 @@
         font-size: 9pt;
     }
     .responseMsg {
+        color: #c9a2c7;
         margin-left: 20px;
     }
 

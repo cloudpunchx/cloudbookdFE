@@ -1,11 +1,12 @@
 <template>
     <div>
-        <SignedInHeader />
+        <SignedInHeader class="signedInHeaderClass" />
+        <StarsFullSizeComponent class="starsContainer" />
+
         <v-card
             class="bookInfoContainer mx-auto my-10"
             max-width="800"
-            color="background"
-            elevation="0"
+            color="primary"
         >
             <v-row>
                 <v-col cols="12" lg="4" class="d-flex justify-center">
@@ -24,7 +25,7 @@
                         <v-btn
                             @click="dialog = true"
                             class="addToBooksBtn"
-                            color="lavender"
+                            color="background"
                             dark
                         >
                             Add To My Books
@@ -33,7 +34,7 @@
                         <v-dialog v-model="dialog" max-width="400px">
                             <v-card
                                 class="dialog-content"
-                                color="lavender"
+                                color="primary"
                                 rounded="lg"
                             >
                                 <v-row>
@@ -71,7 +72,7 @@
                                             class="d-flex justify-center"
                                         >
                                             <v-btn
-                                                color="primary"
+                                                color="lavender"
                                                 text
                                                 @click="dialog = false"
                                             >
@@ -86,57 +87,61 @@
                 </v-col>
 
                 <v-col cols="12" lg="8">
-                    <p
-                        v-if="book.volumeInfo && book.volumeInfo.title"
-                        class="bookTitle"
-                    >
-                        {{ book.volumeInfo.title }}
-                    </p>
+                    <div>
+                        <p
+                            v-if="book.volumeInfo && book.volumeInfo.title"
+                            class="bookTitle"
+                        >
+                            {{ book.volumeInfo.title }}
+                        </p>
 
-                    <p class="authorName" v-if="book.volumeInfo?.authors">
-                        {{ book.volumeInfo.authors.join(", ") }}
-                    </p>
+                        <p class="authorName" v-if="book.volumeInfo?.authors">
+                            {{ book.volumeInfo.authors.join(", ") }}
+                        </p>
 
-                    <!-- Only show rating IF book has ratings -->
-                    <div
-                        v-if="book.volumeInfo?.averageRating !== undefined"
-                        class="d-flex"
-                    >
-                        <v-rating
-                            :value="book.volumeInfo.averageRating"
-                            :size="getRatingSize()"
-                            color="amber"
-                            dense
-                            half-increments
-                            readonly
-                        ></v-rating>
+                        <!-- Only show rating IF book has ratings -->
+                        <div
+                            v-if="book.volumeInfo?.averageRating !== undefined"
+                            class="d-flex"
+                        >
+                            <v-rating
+                                :value="book.volumeInfo.averageRating"
+                                :size="getRatingSize()"
+                                color="amber"
+                                dense
+                                half-increments
+                                readonly
+                            ></v-rating>
 
-                        <p class="bookRating">
-                            {{ book.volumeInfo.averageRating }}
-                            avg. rating - ({{ book.volumeInfo.ratingsCount }}
-                            ratings)
+                            <p class="bookRating">
+                                {{ book.volumeInfo.averageRating }}
+                                avg. rating - ({{
+                                    book.volumeInfo.ratingsCount
+                                }}
+                                ratings)
+                            </p>
+                        </div>
+
+                        <!-- Needed to use v-html because the API call is returning some HTML in book description-->
+                        <p
+                            class="bookDescription"
+                            v-html="book.volumeInfo?.description"
+                        ></p>
+
+                        <p class="genres" v-if="book.volumeInfo?.categories">
+                            {{ book.volumeInfo.categories.join(", ") }}
+                        </p>
+
+                        <p class="publishDate text-overline">
+                            Published
+                            {{ book.volumeInfo?.publishedDate }} by
+                            {{ book.volumeInfo?.publisher }}
+                        </p>
+
+                        <p class="text-overline">
+                            {{ book.volumeInfo?.pageCount }} pages
                         </p>
                     </div>
-
-                    <!-- Needed to use v-html because the API call is returning some HTML in book description-->
-                    <p
-                        class="bookDescription"
-                        v-html="book.volumeInfo?.description"
-                    ></p>
-
-                    <p class="genres" v-if="book.volumeInfo?.categories">
-                        {{ book.volumeInfo.categories.join(", ") }}
-                    </p>
-
-                    <p class="publishDate text-overline">
-                        Published
-                        {{ book.volumeInfo?.publishedDate }} by
-                        {{ book.volumeInfo?.publisher }}
-                    </p>
-
-                    <p class="text-overline">
-                        {{ book.volumeInfo?.pageCount }} pages
-                    </p>
                 </v-col>
             </v-row>
         </v-card>
@@ -148,6 +153,7 @@
     import ToBeReadButton from "@/components/ToBeReadButton.vue";
     import CurrentlyReadingButton from "@/components/CurrentlyReadingButton.vue";
     import FinishReadingButton from "@/components/FinishReadingButton.vue";
+    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
 
     import axios from "axios";
 
@@ -158,6 +164,7 @@
             ToBeReadButton,
             CurrentlyReadingButton,
             FinishReadingButton,
+            StarsFullSizeComponent,
         },
         data() {
             return {
@@ -223,8 +230,14 @@
 </script>
 
 <style scoped>
+    .signedInHeaderClass {
+        position: relative;
+        z-index: 2;
+    }
+
     .bookInfoContainer {
         padding: 30px;
+        color: whitesmoke;
     }
 
     .bookCoverImg {
@@ -264,7 +277,7 @@
     }
 
     .genres {
-        color: #2e294e;
+        color: #c9a2c7;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
     }
