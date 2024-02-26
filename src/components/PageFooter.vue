@@ -8,7 +8,7 @@
                         <v-icon color="white"> mdi-email </v-icon>
                     </a>
                 </v-col>
-                <v-col class="text-center" lg="1">
+                <v-col class="text-center" lg="2">
                     <!-- Cloudpunch Media Logo -->
                     <a href="https://cloudpunch.ca/#/" target="_blank">
                         <img

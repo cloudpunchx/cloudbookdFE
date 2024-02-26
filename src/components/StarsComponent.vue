@@ -129,12 +129,11 @@
                     }, 10000); // Adjust as needed based on the speed and desired duration of the meteor
                 }
             },
-
             addMeteor(scene) {
-                // Create a meteor at random intervals
+                // Create a meteor at random intervals, first between 1 to 3 seconds
                 setInterval(() => {
                     this.createMeteor(scene);
-                }, Math.random() * 5000 + 10000); // Every 10 to 15 seconds
+                }, Math.random() * 2000 + 1000); // Now every 1 to 3 seconds
             },
         },
     };
