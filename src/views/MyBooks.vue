@@ -1,7 +1,7 @@
 <template>
     <div>
         <SignedInHeader class="signedInHeaderClass" />
-        <StarsFullSizeComponent class="starsContainer" />
+        <StarsBackground :fullSize="true" />
 
         <v-container class="pageContent">
             <v-row justify="center">
@@ -331,7 +331,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
-    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
+    import StarsBackground from "@/components/StarsBackground.vue";
 
     import axios from "axios";
     import cookies from "vue-cookies";
@@ -340,7 +340,7 @@
         name: "MyBooks",
         components: {
             SignedInHeader,
-            StarsFullSizeComponent,
+            StarsBackground,
         },
         data() {
             return {

@@ -4,7 +4,7 @@
             @username="handleUsername"
             class="signedInHeaderClass"
         />
-        <StarsFullSizeComponent />
+        <StarsBackground :fullSize="true" />
 
         <div class="pageContentContainer">
             <div>
@@ -68,7 +68,7 @@
     import RecentlyRead from "@/components/RecentlyRead.vue";
     import ReadingChallenge from "@/components/ReadingChallenge.vue";
     import ToBeReadPreview from "@/components/ToBeReadPreview.vue";
-    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
+    import StarsBackground from "@/components/StarsBackground.vue";
 
     export default {
         name: "HomePage",
@@ -78,7 +78,7 @@
             RecentlyRead,
             ReadingChallenge,
             ToBeReadPreview,
-            StarsFullSizeComponent,
+            StarsBackground,
         },
         data() {
             return {

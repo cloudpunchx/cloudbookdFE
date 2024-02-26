@@ -1,7 +1,7 @@
 <template>
     <div>
         <SignedInHeader class="signedInHeaderClass" />
-        <StarsFullSizeComponent />
+        <StarsBackground :fullSize="true" />
 
         <v-container class="pageContent">
             <v-row>
@@ -154,7 +154,7 @@
 
 <script>
     import SignedInHeader from "@/components/SignedInHeader.vue";
-    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
+    import StarsBackground from "@/components/StarsBackground.vue";
 
     import axios from "axios";
     import cookies from "vue-cookies";
@@ -163,7 +163,7 @@
         name: "EditUserProfile",
         components: {
             SignedInHeader,
-            StarsFullSizeComponent,
+            StarsBackground,
         },
         data() {
             return {
