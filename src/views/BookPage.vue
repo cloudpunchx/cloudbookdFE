@@ -1,7 +1,7 @@
 <template>
     <div>
         <SignedInHeader class="signedInHeaderClass" />
-        <StarsFullSizeComponent class="starsContainer" />
+        <StarsBackground :fullSize="true" />
 
         <v-card
             class="bookInfoContainer mx-auto my-10"
@@ -95,7 +95,11 @@
                             {{ book.volumeInfo.title }}
                         </p>
 
-                        <p class="authorName" v-if="book.volumeInfo?.authors">
+                        <p
+                            @click="searchAuthor(book.volumeInfo.authors[0])"
+                            class="authorName clickableLink"
+                            v-if="book.volumeInfo?.authors"
+                        >
                             {{ book.volumeInfo.authors.join(", ") }}
                         </p>
 
@@ -153,7 +157,7 @@
     import ToBeReadButton from "@/components/ToBeReadButton.vue";
     import CurrentlyReadingButton from "@/components/CurrentlyReadingButton.vue";
     import FinishReadingButton from "@/components/FinishReadingButton.vue";
-    import StarsFullSizeComponent from "@/components/StarsFullSizeComponent.vue";
+    import StarsBackground from "@/components/StarsBackground.vue";
 
     import axios from "axios";
 
@@ -164,7 +168,7 @@
             ToBeReadButton,
             CurrentlyReadingButton,
             FinishReadingButton,
-            StarsFullSizeComponent,
+            StarsBackground,
         },
         data() {
             return {
@@ -219,6 +223,12 @@
                 } else {
                     return "32px"; // Adjust the size for large screens
                 }
+            },
+            searchAuthor(author) {
+                this.$router.push({
+                    name: "BookSearchResultsPage",
+                    params: {query: author, searchType: "author"},
+                });
             },
         },
         created() {
@@ -292,6 +302,11 @@
 
     .dialog-content {
         overflow: hidden; /* hide the scroll bars */
+    }
+
+    .clickableLink:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
 
     @media (min-width: 500px) {

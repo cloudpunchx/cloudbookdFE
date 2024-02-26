@@ -4,7 +4,7 @@
             <v-row>
                 <!-- first col with logo and about -->
                 <v-col cols="12" sm="12" md="5" lg="5" class="purpleContainer">
-                    <stars-component></stars-component>
+                    <StarsBackground :fullSize="false" />
                     <div class="contentWrapper">
                         <v-card
                             elevation="0"
@@ -84,14 +84,14 @@
 <script>
     import LoginForm from "../components/LoginForm.vue";
     import SignupForm from "../components/SignupForm.vue";
-    import StarsComponent from "@/components/StarsComponent.vue";
+    import StarsBackground from "@/components/StarsBackground.vue";
 
     export default {
         name: "LandingPage",
         components: {
             LoginForm,
             SignupForm,
-            StarsComponent,
+            StarsBackground,
         },
         data() {
             return {
